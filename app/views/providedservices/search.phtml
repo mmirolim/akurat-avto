@@ -1,0 +1,66 @@
+<?php use Phalcon\Tag; ?>
+
+<?php echo $this->getContent(); ?>
+
+<table width="100%">
+    <tr>
+        <td align="left">
+            <?php echo $this->tag->linkTo(array("providedservices/index", "Go Back")); ?>
+        </td>
+        <td align="right">
+            <?php echo $this->tag->linkTo(array("providedservices/new", "Create ")); ?>
+        </td>
+    <tr>
+</table>
+
+<table class="browse" align="center">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Car</th>
+            <th>Work</th>
+            <th>Master</th>
+            <th>Cost</th>
+            <th>Startdate</th>
+            <th>Finishdate</th>
+            <th>Milage</th>
+            <th>Reminddate</th>
+            <th>Remindkm</th>
+            <th>Moreinfo</th>
+         </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($page->items as $providedservice) { ?>
+        <tr>
+            <td><?php echo $providedservice->id ?></td>
+            <td><?php echo $providedservice->car_id ?></td>
+            <td><?php echo $providedservice->work_id ?></td>
+            <td><?php echo $providedservice->master_id ?></td>
+            <td><?php echo $providedservice->cost ?></td>
+            <td><?php echo $providedservice->startdate ?></td>
+            <td><?php echo $providedservice->finishdate ?></td>
+            <td><?php echo $providedservice->milage ?></td>
+            <td><?php echo $providedservice->reminddate ?></td>
+            <td><?php echo $providedservice->remindkm ?></td>
+            <td><?php echo $providedservice->moreinfo ?></td>
+            <td><?php echo $this->tag->linkTo(array("providedservices/edit/" . $providedservice->id, "Edit")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("providedservices/delete/" . $providedservice->id, "Delete")); ?></td>
+        </tr>
+    <?php } ?>
+    </tbody>
+    <tbody>
+        <tr>
+            <td colspan="2" align="right">
+                <table align="center">
+                    <tr>
+                        <td><?php echo $this->tag->linkTo("providedservices/search", "First") ?></td>
+                        <td><?php echo $this->tag->linkTo("providedservices/search?page=" . $page->before, "Previous") ?></td>
+                        <td><?php echo $this->tag->linkTo("providedservices/search?page=" . $page->next, "Next") ?></td>
+                        <td><?php echo $this->tag->linkTo("providedservices/search?page=" . $page->last, "Last") ?></td>
+                        <td><?php echo $page->current, "/", $page->total_pages ?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    <tbody>
+</table>

@@ -1,0 +1,110 @@
+
+<?php echo $this->getContent() ?>
+
+<div align="right">
+    <?php echo $this->tag->linkTo(array("providedservices/new", "Create providedservices")) ?>
+</div>
+
+<?php echo $this->tag->form(array("providedservices/search", "autocomplete" => "off")) ?>
+
+<div align="center">
+    <h1>Search providedservices</h1>
+</div>
+
+<table>
+    <tr>
+        <td align="right">
+            <label for="id">Id</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("id", "type" => "number")) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="car_id">Car</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("car_id", "type" => "number")) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="work_id">Work</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("work_id", "type" => "number")) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="master_id">Master</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("master_id", "type" => "number")) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="cost">Cost</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("cost", "type" => "number")) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="startdate">Startdate</label>
+        </td>
+        <td align="left">
+                <?php echo $this->tag->textField(array("startdate", "type" => "date")) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="finishdate">Finishdate</label>
+        </td>
+        <td align="left">
+                <?php echo $this->tag->textField(array("finishdate", "type" => "date")) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="milage">Milage</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("milage", "type" => "number")) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="reminddate">Reminddate</label>
+        </td>
+        <td align="left">
+                <?php echo $this->tag->textField(array("reminddate", "type" => "date")) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="remindkm">Remindkm</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("remindkm", "type" => "number")) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="moreinfo">Moreinfo</label>
+        </td>
+        <td align="left">
+                <?php echo $this->tag->textField(array("moreinfo", "type" => "date")) ?>
+        </td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td><?php echo $this->tag->submitButton("Search") ?></td>
+    </tr>
+</table>
+
+</form>

@@ -1,0 +1,50 @@
+<?php use Phalcon\Tag; ?>
+
+<?php echo $this->getContent(); ?>
+
+<table width="100%">
+    <tr>
+        <td align="left">
+            <?php echo $this->tag->linkTo(array("carservices/index", "Go Back")); ?>
+        </td>
+        <td align="right">
+            <?php echo $this->tag->linkTo(array("carservices/new", "Create ")); ?>
+        </td>
+    <tr>
+</table>
+
+<table class="browse" align="center">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Carservice</th>
+            <th>Moreinfo</th>
+         </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($page->items as $carservice) { ?>
+        <tr>
+            <td><?php echo $carservice->id ?></td>
+            <td><?php echo $carservice->carservice ?></td>
+            <td><?php echo $carservice->moreinfo ?></td>
+            <td><?php echo $this->tag->linkTo(array("carservices/edit/" . $carservice->id, "Edit")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("carservices/delete/" . $carservice->id, "Delete")); ?></td>
+        </tr>
+    <?php } ?>
+    </tbody>
+    <tbody>
+        <tr>
+            <td colspan="2" align="right">
+                <table align="center">
+                    <tr>
+                        <td><?php echo $this->tag->linkTo("carservices/search", "First") ?></td>
+                        <td><?php echo $this->tag->linkTo("carservices/search?page=" . $page->before, "Previous") ?></td>
+                        <td><?php echo $this->tag->linkTo("carservices/search?page=" . $page->next, "Next") ?></td>
+                        <td><?php echo $this->tag->linkTo("carservices/search?page=" . $page->last, "Last") ?></td>
+                        <td><?php echo $page->current, "/", $page->total_pages ?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    <tbody>
+</table>
