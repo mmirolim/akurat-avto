@@ -83,9 +83,11 @@ class CarsController extends ControllerBase
 
             $this->tag->setDefault("id", $car->id);
             $this->tag->setDefault("regnum", $car->regnum);
-            $this->tag->setDefault("owner", $car->owner);
-            $this->tag->setDefault("contactemail", $car->contactemail);
-            $this->tag->setDefault("contactphones", $car->contactphones);
+            $this->tag->setDefault("owner_id", $car->owner_id);
+            $this->tag->setDefault("model", $car->model);
+            $this->tag->setDefault("bodynumber", $car->bodynumber);
+            $this->tag->setDefault("enginenumber", $car->enginenumber);
+            $this->tag->setDefault("regdate", $car->regdate);
             $this->tag->setDefault("year", $car->year);
             $this->tag->setDefault("milage", $car->milage);
             $this->tag->setDefault("dailymilage", $car->dailymilage);
@@ -111,9 +113,11 @@ class CarsController extends ControllerBase
 
         $car->id = $this->request->getPost("id");
         $car->regnum = $this->request->getPost("regnum");
-        $car->owner = $this->request->getPost("owner");
-        $car->contactemail = $this->request->getPost("contactemail");
-        $car->contactphones = $this->request->getPost("contactphones");
+        $car->owner_id = $this->request->getPost("owner_id");
+        $car->model = $this->request->getPost("model");
+        $car->bodynumber = $this->request->getPost("bodynumber");
+        $car->enginenumber = $this->request->getPost("enginenumber");
+        $car->regdate = $this->request->getPost("regdate");
         $car->year = $this->request->getPost("year");
         $car->milage = $this->request->getPost("milage");
         $car->dailymilage = $this->request->getPost("dailymilage");
@@ -165,9 +169,11 @@ class CarsController extends ControllerBase
 
         $car->id = $this->request->getPost("id");
         $car->regnum = $this->request->getPost("regnum");
-        $car->owner = $this->request->getPost("owner");
-        $car->contactemail = $this->request->getPost("contactemail");
-        $car->contactphones = $this->request->getPost("contactphones");
+        $car->owner_id = $this->request->getPost("owner_id");
+        $car->model = $this->request->getPost("model");
+        $car->bodynumber = $this->request->getPost("bodynumber");
+        $car->enginenumber = $this->request->getPost("enginenumber");
+        $car->regdate = $this->request->getPost("regdate");
         $car->year = $this->request->getPost("year");
         $car->milage = $this->request->getPost("milage");
         $car->dailymilage = $this->request->getPost("dailymilage");

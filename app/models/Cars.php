@@ -18,21 +18,33 @@ class Cars extends \Phalcon\Mvc\Model
      
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $owner;
+    public $owner_id;
      
     /**
      *
      * @var string
      */
-    public $contactemail;
+    public $model;
      
     /**
      *
      * @var string
      */
-    public $contactphones;
+    public $bodynumber;
+     
+    /**
+     *
+     * @var string
+     */
+    public $enginenumber;
+     
+    /**
+     *
+     * @var string
+     */
+    public $regdate;
      
     /**
      *

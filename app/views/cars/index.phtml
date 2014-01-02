@@ -30,26 +30,42 @@
     </tr>
     <tr>
         <td align="right">
-            <label for="owner">Owner</label>
+            <label for="owner_id">Owner</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("owner", "size" => 30)) ?>
+            <?php echo $this->tag->textField(array("owner_id", "type" => "number")) ?>
         </td>
     </tr>
     <tr>
         <td align="right">
-            <label for="contactemail">Contactemail</label>
+            <label for="model">Model</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("contactemail", "size" => 30)) ?>
+            <?php echo $this->tag->textField(array("model", "size" => 30)) ?>
         </td>
     </tr>
     <tr>
         <td align="right">
-            <label for="contactphones">Contactphones</label>
+            <label for="bodynumber">Bodynumber</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("contactphones", "size" => 30)) ?>
+            <?php echo $this->tag->textField(array("bodynumber", "size" => 30)) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="enginenumber">Enginenumber</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("enginenumber", "size" => 30)) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="regdate">Regdate</label>
+        </td>
+        <td align="left">
+                <?php echo $this->tag->textField(array("regdate", "type" => "date")) ?>
         </td>
     </tr>
     <tr>
