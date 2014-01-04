@@ -1,7 +1,7 @@
 <?php
 
 
-class Clients extends \Phalcon\Mvc\Model
+class Employees extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -24,6 +24,12 @@ class Clients extends \Phalcon\Mvc\Model
      
     /**
      *
+     * @var integer
+     */
+    public $role_id;
+     
+    /**
+     *
      * @var string
      */
     public $fullname;
@@ -32,25 +38,25 @@ class Clients extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $contactemail;
+    public $job;
      
     /**
      *
      * @var string
      */
-    public $contactphone;
-     
-    /**
-     *
-     * @var string
-     */
-    public $regdate;
+    public $contacts;
      
     /**
      *
      * @var string
      */
     public $moreinfo;
+     
+    /**
+     *
+     * @var string
+     */
+    public $date;
      
     /**
      * Independent Column Mapping.
@@ -60,11 +66,12 @@ class Clients extends \Phalcon\Mvc\Model
             'id' => 'id', 
             'username' => 'username', 
             'password' => 'password', 
+            'role_id' => 'role_id', 
             'fullname' => 'fullname', 
-            'contactemail' => 'contactemail', 
-            'contactphone' => 'contactphone', 
-            'regdate' => 'regdate', 
-            'moreinfo' => 'moreinfo'
+            'job' => 'job', 
+            'contacts' => 'contacts', 
+            'moreinfo' => 'moreinfo', 
+            'date' => 'date'
         );
     }
 

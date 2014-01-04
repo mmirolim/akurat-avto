@@ -1,0 +1,35 @@
+<?php use Phalcon\Tag; ?>
+
+<?php echo $this->getContent(); ?>
+<h1>Список Услуг</h1>
+<table class="browse" align="center">
+    <thead>
+    <tr>
+        <th>Услуги</th>
+        <th>Доп. информация</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($page->items as $carservice) { ?>
+        <tr>
+            <td><?php echo $carservice->carservice ?></td>
+            <td><?php echo $carservice->moreinfo ?></td>
+        </tr>
+    <?php } ?>
+    </tbody>
+    <tbody>
+    <tr>
+        <td colspan="2" align="right">
+            <table align="center">
+                <tr>
+                    <td><?php echo $this->tag->linkTo("carservices/search", "First") ?></td>
+                    <td><?php echo $this->tag->linkTo("carservices/search?page=" . $page->before, "Previous") ?></td>
+                    <td><?php echo $this->tag->linkTo("carservices/search?page=" . $page->next, "Next") ?></td>
+                    <td><?php echo $this->tag->linkTo("carservices/search?page=" . $page->last, "Last") ?></td>
+                    <td><?php echo $page->current, "/", $page->total_pages ?></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tbody>
+</table>

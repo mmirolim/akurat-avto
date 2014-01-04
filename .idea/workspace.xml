@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/app/controllers/CarservicesController.php" line="54" />
+    <bookmark url="file://$PROJECT_DIR$/app/controllers/CarservicesController.php" line="76" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="584acad6-a341-4901-8991-fe953caabda2" name="Default" comment="" />
@@ -26,55 +26,73 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="services.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/config/services.php">
+      <file leaf-file-name="index.phtml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/employees/index.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="33" selection-start="1796" selection-end="1796" vertical-scroll-proportion="0.44392523" vertical-offset="1580" max-vertical-offset="2436">
+            <state line="101" column="50" selection-start="2622" selection-end="2622" vertical-scroll-proportion="0.28037384" vertical-offset="2588" max-vertical-offset="3780">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/config/config.php">
+      <file leaf-file-name="ClientsController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/ClientsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="39" selection-start="232" selection-end="232" vertical-scroll-proportion="-8.0" vertical-offset="0" max-vertical-offset="728">
+            <state line="70" column="40" selection-start="1600" selection-end="1600" vertical-scroll-proportion="-70.0" vertical-offset="0" max-vertical-offset="6468">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CarsController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/CarsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="66" column="7" selection-start="1486" selection-end="1486" vertical-scroll-proportion="5.0" vertical-offset="1988" max-vertical-offset="6888">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Cars.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/Cars.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="5" selection-start="181" selection-end="181" vertical-scroll-proportion="31.428572" vertical-offset="1356" max-vertical-offset="2212">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Clients.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/Clients.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="2156">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Employees.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/Employees.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="5" selection-start="188" selection-end="188" vertical-scroll-proportion="-11.0" vertical-offset="168" max-vertical-offset="2352">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="new.phtml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/clients/new.phtml">
+        <entry file="file://$PROJECT_DIR$/app/views/employees/new.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="58" selection-start="1654" selection-end="1654" vertical-scroll-proportion="0.0" vertical-offset="1680" max-vertical-offset="1988">
+            <state line="13" column="24" selection-start="355" selection-end="355" vertical-scroll-proportion="-3.9411764" vertical-offset="29" max-vertical-offset="2436">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit.phtml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/carservices/edit.phtml">
+      <file leaf-file-name="EmployeesController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/EmployeesController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="58" selection-start="983" selection-end="983" vertical-scroll-proportion="0.0" vertical-offset="1008" max-vertical-offset="1316">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="edit.phtml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/providedservices/edit.phtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="58" selection-start="2890" selection-end="2890" vertical-scroll-proportion="0.0" vertical-offset="2800" max-vertical-offset="3108">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="edit.phtml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/clients/edit.phtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="58" selection-start="1690" selection-end="1690" vertical-scroll-proportion="0.0" vertical-offset="1680" max-vertical-offset="1988">
+            <state line="251" column="9" selection-start="7377" selection-end="7377" vertical-scroll-proportion="-14.571428" vertical-offset="6620" max-vertical-offset="7476">
               <folding />
             </state>
           </provider>
@@ -83,34 +101,16 @@
       <file leaf-file-name="index.phtml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/carservices/index.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="8" selection-start="225" selection-end="225" vertical-scroll-proportion="-7.0" vertical-offset="84" max-vertical-offset="2324">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.phtml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/cars/index.phtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="95" column="26" selection-start="2633" selection-end="2633" vertical-scroll-proportion="-8.75" vertical-offset="2415" max-vertical-offset="3248">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.phtml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/users/index.phtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="7" selection-start="137" selection-end="2230" vertical-scroll-proportion="-26.75" vertical-offset="1631" max-vertical-offset="2576">
+            <state line="18" column="8" selection-start="462" selection-end="462" vertical-scroll-proportion="-13.571428" vertical-offset="124" max-vertical-offset="2324">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="search.phtml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/carservices/search.phtml">
+        <entry file="file://$PROJECT_DIR$/app/views/employees/search.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="25" selection-start="118" selection-end="118" vertical-scroll-proportion="-6.0" vertical-offset="0" max-vertical-offset="1568">
+            <state line="58" column="11" selection-start="2134" selection-end="2134" vertical-scroll-proportion="-6.7647057" vertical-offset="1049" max-vertical-offset="1848">
               <folding />
             </state>
           </provider>
@@ -124,6 +124,7 @@
     </FindUsagesManager>
   </component>
   <component name="Git.Settings">
+    <option name="SYNC_SETTING" value="DONT" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitLogSettings">
@@ -141,17 +142,23 @@
         <option value="$PROJECT_DIR$/app/views/carservices/new.phtml" />
         <option value="$PROJECT_DIR$/app/views/clients/new.phtml" />
         <option value="$PROJECT_DIR$/app/views/providedservices/new.phtml" />
-        <option value="$PROJECT_DIR$/app/views/users/new.phtml" />
-        <option value="$PROJECT_DIR$/app/views/users/edit.phtml" />
         <option value="$PROJECT_DIR$/app/views/providedservices/edit.phtml" />
         <option value="$PROJECT_DIR$/app/views/clients/edit.phtml" />
         <option value="$PROJECT_DIR$/app/views/carservices/edit.phtml" />
         <option value="$PROJECT_DIR$/app/views/cars/edit.phtml" />
         <option value="$PROJECT_DIR$/app/views/carservices/search.phtml" />
-        <option value="$PROJECT_DIR$/app/controllers/CarservicesController.php" />
         <option value="$PROJECT_DIR$/app/views/carservices/index.phtml" />
         <option value="$PROJECT_DIR$/app/config/config.php" />
         <option value="$PROJECT_DIR$/app/config/services.php" />
+        <option value="$PROJECT_DIR$/app/views/carservices/list.phtml" />
+        <option value="$PROJECT_DIR$/app/controllers/CarservicesController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/UsersController.php" />
+        <option value="$PROJECT_DIR$/app/views/users/edit.phtml" />
+        <option value="$PROJECT_DIR$/app/views/users/index.phtml" />
+        <option value="$PROJECT_DIR$/app/views/users/new.phtml" />
+        <option value="$PROJECT_DIR$/app/views/users/search.phtml" />
+        <option value="$PROJECT_DIR$/app/controllers/EmployeesController.php" />
+        <option value="$PROJECT_DIR$/app/views/employees/index.phtml" />
       </list>
     </option>
   </component>
@@ -287,51 +294,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="users" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="akurat-avto" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="akurat-avto" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="providedservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="akurat-avto" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="akurat-avto" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clients" />
+              <option name="myItemId" value="employees" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -354,28 +317,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="carservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="akurat-avto" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="akurat-avto" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cars" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -455,7 +396,7 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.PHP" />
+    <property name="options.lastSelected" value="settings.github" />
     <property name="last_opened_file_path" value="M:/wkplace_aptana/.metadata/.plugins/com.aptana.portablegit.win32/libexec/git-core/git.exe" />
     <property name="FullScreen" value="false" />
     <property name="options.searchVisible" value="true" />
@@ -531,24 +472,24 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1050" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289183" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32785088" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781458" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.67198175" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13365282" sideWeight="0.67198175" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289183" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289183" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -593,32 +534,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/controllers/CarservicesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="35" selection-start="2530" selection-end="2530" vertical-scroll-proportion="0.0" vertical-offset="1683" max-vertical-offset="3774">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/loader.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="45" selection-start="197" selection-end="197" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="323" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/services.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="45" selection-start="1509" selection-end="1509" vertical-scroll-proportion="0.0" vertical-offset="1003" max-vertical-offset="1428">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/carservices/create.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="58" selection-start="947" selection-end="947" vertical-scroll-proportion="0.0" vertical-offset="612" max-vertical-offset="799">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/clients/new.phtml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="60" column="58" selection-start="1654" selection-end="1654" vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="1207">
@@ -745,19 +660,9 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="896" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/UsersController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4029" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/ProvidedservicesController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4182" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/ClientsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3927" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/index/index.volt">
@@ -770,24 +675,9 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1343" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Users.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1037" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Clients.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="855" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/Carservices.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="855" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Cars.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="7" selection-start="91" selection-end="91" vertical-scroll-proportion="0.18455972" vertical-offset="0" max-vertical-offset="1343" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/layouts/carservices.phtml">
@@ -798,11 +688,6 @@
     <entry file="file://$PROJECT_DIR$/app/views/layouts/cars.phtml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="878" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/CarsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="7" selection-start="1486" selection-end="1486" vertical-scroll-proportion="-43.153847" vertical-offset="0" max-vertical-offset="4182" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/ControllerBase.php">
@@ -823,16 +708,6 @@
     <entry file="file://$PROJECT_DIR$/app/views/providedservices/new.phtml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="100" column="58" selection-start="2854" selection-end="2854" vertical-scroll-proportion="-26.153847" vertical-offset="1020" max-vertical-offset="1887" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/users/new.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="58" selection-start="2060" selection-end="2060" vertical-scroll-proportion="-24.692308" vertical-offset="650" max-vertical-offset="1479" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/users/edit.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="58" selection-start="2096" selection-end="2096" vertical-scroll-proportion="-24.692308" vertical-offset="650" max-vertical-offset="1479" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/providedservices/edit.phtml">
@@ -932,30 +807,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/CarservicesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="35" selection-start="3326" selection-end="3326" vertical-scroll-proportion="-3.0" vertical-offset="3360" max-vertical-offset="6888">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/cars/index.phtml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="95" column="26" selection-start="2633" selection-end="2633" vertical-scroll-proportion="-8.75" vertical-offset="2415" max-vertical-offset="3248">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/users/index.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="7" selection-start="137" selection-end="2230" vertical-scroll-proportion="-26.75" vertical-offset="1631" max-vertical-offset="2576">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/carservices/index.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="8" selection-start="225" selection-end="225" vertical-scroll-proportion="-7.0" vertical-offset="84" max-vertical-offset="2324">
           <folding />
         </state>
       </provider>
@@ -969,7 +823,105 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/services.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="33" selection-start="1796" selection-end="1796" vertical-scroll-proportion="0.44392523" vertical-offset="1580" max-vertical-offset="2436">
+        <state line="8" column="52" selection-start="283" selection-end="283" vertical-scroll-proportion="-8.0" vertical-offset="0" max-vertical-offset="2436">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/carservices/list.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="34" selection-start="553" selection-end="553" vertical-scroll-proportion="-22.0" vertical-offset="0" max-vertical-offset="1120">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/CarservicesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="98" column="5" selection-start="2815" selection-end="2815" vertical-scroll-proportion="-20.0" vertical-offset="2184" max-vertical-offset="7504">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/RolesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="1" selection-start="113" selection-end="113" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="504">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/employees/edit.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="8" selection-start="116" selection-end="116" vertical-scroll-proportion="20.811764" vertical-offset="1937" max-vertical-offset="2436">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/employees/new.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="24" selection-start="355" selection-end="355" vertical-scroll-proportion="-3.9411764" vertical-offset="29" max-vertical-offset="2436">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/employees/search.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="11" selection-start="2134" selection-end="2134" vertical-scroll-proportion="-6.7647057" vertical-offset="1049" max-vertical-offset="1848">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Cars.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="5" selection-start="181" selection-end="181" vertical-scroll-proportion="31.428572" vertical-offset="1356" max-vertical-offset="2212">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Clients.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2156">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Employees.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="5" selection-start="188" selection-end="188" vertical-scroll-proportion="-11.0" vertical-offset="168" max-vertical-offset="2352">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/ClientsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="40" selection-start="1600" selection-end="1600" vertical-scroll-proportion="-70.0" vertical-offset="0" max-vertical-offset="6468">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/CarsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="7" selection-start="1486" selection-end="1486" vertical-scroll-proportion="5.0" vertical-offset="1988" max-vertical-offset="6888">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/EmployeesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="251" column="9" selection-start="7377" selection-end="7377" vertical-scroll-proportion="-14.571428" vertical-offset="6620" max-vertical-offset="7476">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/carservices/index.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="8" selection-start="462" selection-end="462" vertical-scroll-proportion="-13.571428" vertical-offset="124" max-vertical-offset="2324">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/employees/index.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="101" column="50" selection-start="2622" selection-end="2622" vertical-scroll-proportion="0.28037384" vertical-offset="2588" max-vertical-offset="3780">
           <folding />
         </state>
       </provider>

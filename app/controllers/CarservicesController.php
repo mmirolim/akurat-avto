@@ -22,11 +22,7 @@ class CarservicesController extends ControllerBase
 
         $carservices = Carservices::find($parameters);
         if (count($carservices) == 0) {
-            $this->flash->notice("There is no carservices");
-            return $this->dispatcher->forward(array(
-                "controller" => "carservices",
-                "action" => "index"
-            ));
+            $this->flash->notice("<h1>There is no carservices</h1>");
         }
 
         $paginator = new Paginator(array(
@@ -37,7 +33,33 @@ class CarservicesController extends ControllerBase
 
         $this->view->page = $paginator->getPaginate();
     }
+    /**
+     * List all carservices
+     */
+    public function listAction()
+    {
+        $numberPage = 1;
+        $numberPage = $this->request->getQuery("page", "int");
+        $this->persistent->parameters = null;
+        $parameters = $this->persistent->parameters;
+        if (!is_array($parameters)) {
+            $parameters = array();
+        }
+        $parameters["order"] = "carservice";
 
+        $carservices = Carservices::find($parameters);
+        if (count($carservices) == 0) {
+            $this->flash->notice("There is no carservices");
+        }
+
+        $paginator = new Paginator(array(
+            "data" => $carservices,
+            "limit"=> 100,
+            "page" => $numberPage
+        ));
+
+        $this->view->page = $paginator->getPaginate();
+    }
     /**
      * Searches for carservices
      */

@@ -5,10 +5,10 @@
 <table width="100%">
     <tr>
         <td align="left">
-            <?php echo $this->tag->linkTo(array("users/index", "Go Back")); ?>
+            <?php echo $this->tag->linkTo(array("employees/index", "Go Back")); ?>
         </td>
         <td align="right">
-            <?php echo $this->tag->linkTo(array("users/new", "Create ")); ?>
+            <?php echo $this->tag->linkTo(array("employees/new", "Create ")); ?>
         </td>
     <tr>
 </table>
@@ -37,8 +37,8 @@
             <td><?php echo $user->contacts ?></td>
             <td><?php echo $user->moreinfo ?></td>
             <td><?php echo $user->date ?></td>
-            <td><?php echo $this->tag->linkTo(array("users/edit/" . $user->id, "Edit")); ?></td>
-            <td><?php echo $this->tag->linkTo(array("users/delete/" . $user->id, "Delete")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("employees/edit/" . $user->id, "Edit")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("employees/delete/" . $user->id, "Delete")); ?></td>
         </tr>
     <?php } ?>
     </tbody>
@@ -47,10 +47,10 @@
             <td colspan="2" align="right">
                 <table align="center">
                     <tr>
-                        <td><?php echo $this->tag->linkTo("users/search", "First") ?></td>
-                        <td><?php echo $this->tag->linkTo("users/search?page=" . $page->before, "Previous") ?></td>
-                        <td><?php echo $this->tag->linkTo("users/search?page=" . $page->next, "Next") ?></td>
-                        <td><?php echo $this->tag->linkTo("users/search?page=" . $page->last, "Last") ?></td>
+                        <td><?php echo $this->tag->linkTo("employees/search", "First") ?></td>
+                        <td><?php echo $this->tag->linkTo("employees/search?page=" . $page->before, "Previous") ?></td>
+                        <td><?php echo $this->tag->linkTo("employees/search?page=" . $page->next, "Next") ?></td>
+                        <td><?php echo $this->tag->linkTo("employees/search?page=" . $page->last, "Last") ?></td>
                         <td><?php echo $page->current, "/", $page->total_pages ?></td>
                     </tr>
                 </table>
