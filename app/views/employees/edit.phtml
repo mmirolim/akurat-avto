@@ -14,7 +14,7 @@
     <h1>Edit employees</h1>
 </div>
 
-<table>
+<table align="center">
     <tr>
         <td align="right">
             <label for="username">Username</label>
@@ -25,18 +25,26 @@
     </tr>
     <tr>
         <td align="right">
-            <label for="fullname">Fullname</label>
+            <label for="password">Password</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("fullname", "size" => 30)) ?>
+            <?php echo $this->tag->passwordField(array("password", "size" => 30)) ?>
         </td>
     </tr>
     <tr>
         <td align="right">
-            <label for="role">Role</label>
+            <label for="role_id">Role ID</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("role", "size" => 30)) ?>
+            <?php echo $this->tag->textField(array("role_id", "size" => 30)) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="fullname">Fullname</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("fullname", "size" => 30)) ?>
         </td>
     </tr>
     <tr>
@@ -65,7 +73,7 @@
     </tr>
     <tr>
         <td align="right">
-            <label for="date">Date</label>
+            <label for="date">Employee since</label>
         </td>
         <td align="left">
                 <?php echo $this->tag->textField(array("date", "type" => "date")) ?>

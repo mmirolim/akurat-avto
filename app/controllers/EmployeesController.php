@@ -107,7 +107,6 @@ class EmployeesController extends ControllerBase
             }
 
             $this->view->id = $employee->id;
-
             $this->tag->setDefault("id", $employee->id);
             $this->tag->setDefault("username", $employee->username);
             $this->tag->setDefault("password", $employee->password);
@@ -139,6 +138,7 @@ class EmployeesController extends ControllerBase
         $employee->id = $this->request->getPost("id");
         $employee->username = $this->request->getPost("username");
         $employee->password = $this->request->getPost("password");
+
         $employee->role_id = $this->request->getPost("role_id");
         $employee->fullname = $this->request->getPost("fullname");
         $employee->job = $this->request->getPost("job");
@@ -192,7 +192,9 @@ class EmployeesController extends ControllerBase
 
         $employee->id = $this->request->getPost("id");
         $employee->username = $this->request->getPost("username");
-        $employee->password = $this->request->getPost("password");
+        if($employee->password != $this->request->getPost("password")) {
+            $employee->password = $this->security->hash($this->request->getPost("password"));
+        }
         $employee->role_id = $this->request->getPost("role_id");
         $employee->fullname = $this->request->getPost("fullname");
         $employee->job = $this->request->getPost("job");
@@ -200,8 +202,7 @@ class EmployeesController extends ControllerBase
         $employee->moreinfo = $this->request->getPost("moreinfo");
         $employee->date = $this->request->getPost("date");
 
-
-        if (!$employee->save()) {
+         if (!$employee->save()) {
 
             foreach ($employee->getMessages() as $message) {
                 $this->flash->error($message);

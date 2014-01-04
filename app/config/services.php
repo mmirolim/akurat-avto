@@ -79,3 +79,4 @@ $di->set('session', function() {
 	$session->start();
 	return $session;
 });
+
