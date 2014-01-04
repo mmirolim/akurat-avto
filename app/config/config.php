@@ -7,9 +7,6 @@ return new \Phalcon\Config(array(
 		'username'    => 'akurat_db_user',
 		'password'    => 'x4CNdrnGn4YdnULZ',
 		'dbname'      => 'akurat_avto',
-        "options"     => array(
-            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
-        )
 	),
 	'application' => array(
 		'controllersDir' => __DIR__ . '/../../app/controllers/',

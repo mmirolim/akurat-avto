@@ -11,7 +11,31 @@ class CarservicesController extends ControllerBase
      */
     public function indexAction()
     {
+        $numberPage = 1;
+        $numberPage = $this->request->getQuery("page", "int");
         $this->persistent->parameters = null;
+        $parameters = $this->persistent->parameters;
+        if (!is_array($parameters)) {
+            $parameters = array();
+        }
+        $parameters["order"] = "carservice";
+
+        $carservices = Carservices::find($parameters);
+        if (count($carservices) == 0) {
+            $this->flash->notice("There is no carservices");
+            return $this->dispatcher->forward(array(
+                "controller" => "carservices",
+                "action" => "index"
+            ));
+        }
+
+        $paginator = new Paginator(array(
+            "data" => $carservices,
+            "limit"=> 100,
+            "page" => $numberPage
+        ));
+
+        $this->view->page = $paginator->getPaginate();
     }
 
     /**
