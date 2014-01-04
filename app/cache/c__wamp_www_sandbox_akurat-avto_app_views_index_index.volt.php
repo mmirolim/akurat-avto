@@ -1,3 +1,3 @@
-<h1>Congratulations!</h1>
+<h1>Akura Avto app</h1>
 
-<p>You're now flying with Phalcon. Great things are about to happen!</p>
+<p>Simple web app to track maintenance of a car</p>

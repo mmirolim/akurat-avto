@@ -114,7 +114,7 @@ class CarservicesController extends ControllerBase
             }
             return $this->dispatcher->forward(array(
                 "controller" => "carservices",
-                "action" => "new"
+                "action" => "create"
             ));
         }
 
