@@ -26,13 +26,13 @@ class EmployeesController extends ControllerBase
         }
         $parameters["order"] = "id";
 
-        $users = Employees::find($parameters);
-        if (count($users) == 0) {
+        $employees = Employees::find($parameters);
+        $this->view->roles = Roles::find();
+        if (count($employees) == 0) {
             $this->flash->notice("There is no employees");
         }
-
         $paginator = new Paginator(array(
-            "data" => $users,
+            "data" => $employees,
             "limit"=> 100,
             "page" => $numberPage
         ));

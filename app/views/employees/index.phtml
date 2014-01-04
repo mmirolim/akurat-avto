@@ -26,10 +26,10 @@
     </tr>
     <tr>
         <td align="right">
-            <label for="role_id">Role Id</label>
+            <label for="role_id">Role</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("role_id", "size" => 30)) ?>
+            <?php echo $this->tag->select(array("role_id", $roles, "using" => array("id", "role"))); ?>
         </td>
     </tr>
     <tr>
@@ -86,28 +86,32 @@
     <tr>
         <th>Id</th>
         <th>Username</th>
-        <th>Fullname</th>
         <th>Role</th>
+        <th>Fullname</th>
         <th>Job</th>
         <th>Contacts</th>
         <th>Moreinfo</th>
-        <th>Date</th>
+        <th>Employee since</th>
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($page->items as $user) { ?>
+    <?php foreach ($page->items as $employee) { ?>
         <tr>
-            <td><?php echo $user->id ?></td>
-            <td><?php echo $user->username ?></td>
-            <td><?php echo $user->password ?></td>
-            <td><?php echo $user->role_id ?></td>
-            <td><?php echo $user->fullname ?></td>
-            <td><?php echo $user->job ?></td>
-            <td><?php echo $user->contacts ?></td>
-            <td><?php echo $user->moreinfo ?></td>
-            <td><?php echo $user->date ?></td>
-            <td><?php echo $this->tag->linkTo(array("employees/edit/" . $user->id, "Edit")); ?></td>
-            <td><?php echo $this->tag->linkTo(array("employees/delete/" . $user->id, "Delete")); ?></td>
+            <td><?php echo $employee->id ?></td>
+            <td><?php echo $employee->username ?></td>
+            <td><?php
+                foreach ($roles as $role) {
+                    if ($role->id == $employee->role_id ) {
+                        echo $role->role;
+                    }
+                }?></td>
+            <td><?php echo $employee->fullname ?></td>
+            <td><?php echo $employee->job ?></td>
+            <td><?php echo $employee->contacts ?></td>
+            <td><?php echo $employee->moreinfo ?></td>
+            <td><?php echo $employee->date ?></td>
+            <td><?php echo $this->tag->linkTo(array("employees/edit/" . $employee->id, "Edit")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("employees/delete/" . $employee->id, "Delete")); ?></td>
         </tr>
     <?php } ?>
     </tbody>
