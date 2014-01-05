@@ -89,19 +89,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.volt" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.volt" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/index/index.volt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="31" selection-start="879" selection-end="879" vertical-scroll-proportion="-22.0" vertical-offset="0" max-vertical-offset="812">
+            <state line="10" column="14" selection-start="391" selection-end="391" vertical-scroll-proportion="0.3271028" vertical-offset="0" max-vertical-offset="868">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="custom.css" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="custom.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/css/custom.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="884">
+            <state line="2" column="1" selection-start="137" selection-end="137" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="224">
               <folding />
             </state>
           </provider>
@@ -166,6 +166,7 @@
         <option value="$PROJECT_DIR$/app/views/providedservices/new.phtml" />
         <option value="$PROJECT_DIR$/app/config/config.php" />
         <option value="$PROJECT_DIR$/app/views/index.volt" />
+        <option value="$PROJECT_DIR$/public/css/custom.css" />
         <option value="$PROJECT_DIR$/app/views/index/index.volt" />
       </list>
     </option>
@@ -979,16 +980,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index/index.volt">
+    <entry file="file://$PROJECT_DIR$/public/css/custom.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="31" selection-start="879" selection-end="879" vertical-scroll-proportion="-22.0" vertical-offset="0" max-vertical-offset="812">
+        <state line="2" column="1" selection-start="137" selection-end="137" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="224">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/custom.css">
+    <entry file="file://$PROJECT_DIR$/app/views/index/index.volt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="884">
+        <state line="10" column="14" selection-start="391" selection-end="391" vertical-scroll-proportion="0.3271028" vertical-offset="0" max-vertical-offset="868">
           <folding />
         </state>
       </provider>

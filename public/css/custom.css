@@ -1,0 +1,16 @@
+body {
+    background: #F1F1F1;
+}
+#header, #footer {
+    color: white;
+    background: #222;
+}
+#header h1,#header h2, #header h3, #footer h1, #footer h2, #footer h3 {
+    color: white;
+}
+.row.slider, .row.special-service1, .row.special-service2, .row.other-services, .row.our-team, .row.our-contacts {
+    max-width: 100%;
+}
+.row.slider, .row.special-service2, .row.our-team {
+    background: white;
+}
