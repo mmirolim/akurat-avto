@@ -11,13 +11,13 @@
 <?php echo $this->getContent(); ?>
 
 <div align="center">
-    <h1>Create providedservices</h1>
+    <h1>Create Provided Services</h1>
 </div>
 
 <table>
     <tr>
         <td align="right">
-            <label for="car_id">Car</label>
+            <label for="car_id">Car ID</label>
         </td>
         <td align="left">
             <?php echo $this->tag->textField(array("car_id", "type" => "number")) ?>
@@ -25,23 +25,23 @@
     </tr>
     <tr>
         <td align="right">
-            <label for="work_id">Work</label>
+            <label for="work_id">Type of service</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("work_id", "type" => "number")) ?>
+            <?php echo $this->tag->select(array("work_id", $services, "using" => array("id", "carservice"))); ?>
         </td>
     </tr>
     <tr>
         <td align="right">
-            <label for="master_id">Master</label>
+            <label for="master_id">Master who done work</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("master_id", "type" => "number")) ?>
+            <?php echo $this->tag->select(array("master_id", $employees, "using" => array("id", "fullname"))); ?>
         </td>
     </tr>
     <tr>
         <td align="right">
-            <label for="cost">Cost</label>
+            <label for="cost">Total cost of service</label>
         </td>
         <td align="left">
             <?php echo $this->tag->textField(array("cost", "type" => "number")) ?>
@@ -49,7 +49,7 @@
     </tr>
     <tr>
         <td align="right">
-            <label for="startdate">Startdate</label>
+            <label for="startdate">Start date</label>
         </td>
         <td align="left">
                 <?php echo $this->tag->textField(array("startdate", "type" => "date")) ?>
@@ -57,7 +57,7 @@
     </tr>
     <tr>
         <td align="right">
-            <label for="finishdate">Finishdate</label>
+            <label for="finishdate">Finish date</label>
         </td>
         <td align="left">
                 <?php echo $this->tag->textField(array("finishdate", "type" => "date")) ?>
@@ -65,7 +65,7 @@
     </tr>
     <tr>
         <td align="right">
-            <label for="milage">Milage</label>
+            <label for="milage">Current Milage in km</label>
         </td>
         <td align="left">
             <?php echo $this->tag->textField(array("milage", "type" => "number")) ?>
@@ -73,7 +73,7 @@
     </tr>
     <tr>
         <td align="right">
-            <label for="reminddate">Reminddate</label>
+            <label for="reminddate">Remind after date</label>
         </td>
         <td align="left">
                 <?php echo $this->tag->textField(array("reminddate", "type" => "date")) ?>
@@ -81,7 +81,7 @@
     </tr>
     <tr>
         <td align="right">
-            <label for="remindkm">Remindkm</label>
+            <label for="remindkm">Remind after km</label>
         </td>
         <td align="left">
             <?php echo $this->tag->textField(array("remindkm", "type" => "number")) ?>

@@ -57,7 +57,8 @@ class ProvidedservicesController extends ControllerBase
      */
     public function newAction()
     {
-
+        $this->view->services = Carservices::find();
+        $this->view->employees = Employees::find();
     }
 
     /**
