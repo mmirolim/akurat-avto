@@ -5,12 +5,67 @@ body {
     color: white;
     background: #222;
 }
+#header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    width: 100%;
+    height: 3em;
+}
+.top-nav {
+    float: left;
+}
+.top-nav li {
+    display: inline-block;
+    padding: 0 1em;
+    line-height: 3em;
+}
+.backend-links {
+    float: right;
+}
+.backend-links li {
+    display: inline-block;
+    padding: 0 1em;
+    line-height: 3em;
+}
 #header h1,#header h2, #header h3, #footer h1, #footer h2, #footer h3 {
     color: white;
 }
+#main {
+    margin-top: 3em;
+}
 .row.slider, .row.special-service1, .row.special-service2, .row.other-services, .row.our-team, .row.our-contacts {
+    padding: 2em 0em;
     max-width: 100%;
 }
 .row.slider, .row.special-service2, .row.our-team {
     background: white;
+}
+.slider {
+    text-align: center;
+}
+h2 {
+    font-weight: bold;
+    color: rgb(95, 95, 95);
+}
+img.shadow {
+    box-shadow: 1px 4px 11px rgb(58, 57, 57);
+}
+.info-text {
+    line-height: 1.7em;
+    text-indent: 1em;
+}
+.contact-text {
+    padding: 2em 0em;
+}
+.contact-text li {
+    list-style: none;
+}
+.contact-text span {
+    font-weight: bold;
+    color: rgb(78, 76, 76);
+}
+#footer {
+    margin-top: 10em;
 }
