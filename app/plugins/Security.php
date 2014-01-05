@@ -16,7 +16,7 @@ class Security extends Plugin
     {
         // For performance store serialized acl object somewhere
         //Check whether acl data already exist
-       // if(!file_exists("app/security/acl.data")) {
+        if(!file_exists("app/security/acl.data")) {
             //Create the ACL
             $acl = new Phalcon\Acl\Adapter\Memory();
 
@@ -124,12 +124,12 @@ class Security extends Plugin
             }
 
              //Store serialized list into plain file
-           // file_put_contents("acl.data", serialize($acl));
-       // } else {
+            file_put_contents("acl.data", serialize($acl));
+        } else {
 
             //Restore acl object from serialized file
-           // $acl = unserialize(file_get_contents("acl.data"));
-        //}
+            $acl = unserialize(file_get_contents("acl.data"));
+        }
         return $acl;
     }
     public function beforeDispatch(Event $event, Dispatcher $dispatcher)
@@ -146,6 +146,10 @@ class Security extends Plugin
         $controller = $dispatcher->getControllerName();
         $action = $dispatcher->getActionName();
 
+        echo $role;
+        echo $controller;
+        echo $action;
+
         //Obtain the ACL list
         $acl = $this->_getAcl();
 
@@ -153,14 +157,13 @@ class Security extends Plugin
         $allowed = $acl->isAllowed($role, $controller, $action);
         if($allowed != Acl::ALLOW) {
             //If he doesn't have access forward him to the index controller
-            $this->flash->error("You don't have access to this page");
+           // $this->flash->error("You don't have access to this page");
             $dispatcher->forward(
                 array(
                     'contoller' => 'index',
                     'action' => 'index'
                 )
             );
-
             //Returning "false" we tell to the dispatcher to stop the current operation
             return false;
         }
