@@ -2,7 +2,7 @@
 <html>
 	<head>
         <meta charset='utf-8'>
-		<title>Akurat Avto car tracking app</title>
+		<title>Akurat Avto Service</title>
         {{ stylesheet_link('../css/foundation.min.css')}}
         {{ stylesheet_link('../css/custom.css')}}
 	</head>
