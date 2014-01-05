@@ -11,6 +11,7 @@
         <?php echo $this->tag->javascriptInclude('../js/jquery-2.0.3.min.js'); ?>
         <?php echo $this->tag->javascriptInclude('../js/foundation.min.js'); ?>
         <?php echo $this->tag->javascriptInclude('../js/modernizr.js'); ?>
+        <?php echo $this->tag->javascriptInclude('../libraries/flexslider/jquery.flexslider-min.js'); ?>
         <?php echo $this->tag->javascriptInclude('../js/custom.js'); ?>
 	</body>
 </html>

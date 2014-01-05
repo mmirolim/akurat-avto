@@ -1,0 +1,18 @@
+Flexslider example
+-- JS --
+$(window).load(function(){
+	$('.flexslider').flexslider({
+	animation: "slide"
+	})
+});
+-- HTML --
+<div class="flexslider">
+	<ul class="slides">
+		<li>
+			<img src="slide1.jpg" />
+		</li>
+		<li>
+			<img src="slide2.jpg" />
+		</li>
+	</ul>
+</div>
