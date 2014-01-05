@@ -75,9 +75,6 @@ $di->set('modelsMetadata', function() {
  * Start the session the first time some component request the session service
  */
 $di->set('session', function() {
-    /**
-     * TODO To check is session persistent or in memory
-     */
 	$session = new SessionAdapter();
 	$session->start();
 	return $session;

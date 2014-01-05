@@ -1,8 +1,10 @@
 <?php use Phalcon\Tag; ?>
-
+<div class="message-block">
+    <?php echo $this->getContent() ?>
+</div>
 <div id="wrapper-login-form" class="large-4 large-centered columns">
         <h2>Please Login</h2>
-    <?php echo Tag::form("login/register"); ?>
+    <?php echo $this->tag->form("/login/register"); ?>
         <p>
             <label for="username">Username</label>
             <?php echo Tag::textField("username") ?>
