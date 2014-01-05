@@ -109,7 +109,7 @@
                 <div class="contact-text">
                     <ul>
                         <li><span>Phone:</span> (99893) 125-12-12</li>
-                        <li><span>Address:</span> Tashkent city, Mirzo-Ulugbek district, str Somewher 56-8</li>
+                        <li><span>Address:</span> Tashkent city, Mirzo-Ulugbek district, str Somewhere 56-8</li>
                         <li><span>Email:</span> akurat@avto.uz</li>
                     </ul>
                 </div>

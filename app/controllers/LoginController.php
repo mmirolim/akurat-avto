@@ -11,9 +11,16 @@ class LoginController extends ControllerBase
 {
     private function _registerSession($user)
     {
+        if (isset($user->role_id)) {
+            $role = Roles::findFirst($user->role_id);
+            $role = $role->role;
+        } else {
+            $role = 'Client';
+        }
         $this->session->set('auth', array(
             'id' => $user->id,
-            'username' => $user->username
+            'username' => $user->username,
+            'role' => $role
         ));
     }
     public function indexAction()
@@ -21,7 +28,7 @@ class LoginController extends ControllerBase
         $this->persistent->parameters = null;
     }
 
-    public function registerAction()
+    public function startAction()
     {
         if($this->request->isPost()) {
               //Receiving the variables sent by POST
@@ -34,7 +41,13 @@ class LoginController extends ControllerBase
                     "username = :username:",
                     "bind" => array('username' => $username)
                 ));
-                if ($user !=false) {
+                if($user == false) {
+                    $user = Employees::findFirst(array(
+                        "username = :username:",
+                        "bind" => array('username' => $username)
+                    ));
+                }
+                if ($user != false) {
                     //Check password hash
                     if ($this->security->checkHash($password, $user->password)) {
                         //Register session for user
