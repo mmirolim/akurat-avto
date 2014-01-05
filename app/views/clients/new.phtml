@@ -17,6 +17,22 @@
 <table>
     <tr>
         <td align="right">
+            <label for="username">Username</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("username", "size" => 30)) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="password">Password</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("password", "size" => 30)) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
             <label for="fullname">Fullname</label>
         </td>
         <td align="left">

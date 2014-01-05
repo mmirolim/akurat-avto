@@ -33,7 +33,7 @@
             <label for="owner_id">Owner</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("owner_id", "type" => "number")) ?>
+            <?php echo $this->tag->select(array("owner_id", $clients, "using" => array("id", "fullname"))); ?>
         </td>
     </tr>
     <tr>

@@ -82,6 +82,8 @@ class ClientsController extends ControllerBase
             $this->view->id = $client->id;
 
             $this->tag->setDefault("id", $client->id);
+            $this->tag->setDefault("username", $client->username);
+            $this->tag->setDefault("password", $client->password);
             $this->tag->setDefault("fullname", $client->fullname);
             $this->tag->setDefault("contactemail", $client->contactemail);
             $this->tag->setDefault("contactphone", $client->contactphone);
@@ -107,6 +109,8 @@ class ClientsController extends ControllerBase
         $client = new Clients();
 
         $client->id = $this->request->getPost("id");
+        $client->username = $this->request->getPost("username");
+        $client->password = $this->security->hash($this->request->getPost("password"));
         $client->fullname = $this->request->getPost("fullname");
         $client->contactemail = $this->request->getPost("contactemail");
         $client->contactphone = $this->request->getPost("contactphone");
@@ -158,6 +162,10 @@ class ClientsController extends ControllerBase
         }
 
         $client->id = $this->request->getPost("id");
+        $client->username = $this->request->getPost("username");
+        if($client->password != $this->request->getPost("password")) {
+            $client->password = $this->security->hash($this->request->getPost("password"));
+        }
         $client->fullname = $this->request->getPost("fullname");
         $client->contactemail = $this->request->getPost("contactemail");
         $client->contactphone = $this->request->getPost("contactphone");

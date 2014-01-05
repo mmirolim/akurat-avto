@@ -12,6 +12,7 @@ class CarsController extends ControllerBase
     public function indexAction()
     {
         $this->persistent->parameters = null;
+        $this->view->clients = Clients::find();
     }
 
     /**
@@ -110,6 +111,7 @@ class CarsController extends ControllerBase
         }
 
         $car = new Cars();
+        $this->view->clients = Clients::find();
 
         $car->id = $this->request->getPost("id");
         $car->regnum = $this->request->getPost("regnum");

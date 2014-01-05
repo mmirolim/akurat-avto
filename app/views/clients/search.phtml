@@ -17,6 +17,7 @@
     <thead>
         <tr>
             <th>Id</th>
+            <th>Username</th>
             <th>Fullname</th>
             <th>Contactemail</th>
             <th>Contactphone</th>
@@ -28,6 +29,7 @@
     <?php foreach ($page->items as $client) { ?>
         <tr>
             <td><?php echo $client->id ?></td>
+            <td><?php echo $client->username ?></td>
             <td><?php echo $client->fullname ?></td>
             <td><?php echo $client->contactemail ?></td>
             <td><?php echo $client->contactphone ?></td>

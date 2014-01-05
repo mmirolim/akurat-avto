@@ -33,10 +33,10 @@
     </tr>
     <tr>
         <td align="right">
-            <label for="role_id">Role ID</label>
+            <label for="role_id">Role</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("role_id", "size" => 30)) ?>
+            <?php echo $this->tag->select(array("role_id", $roles, "using" => array("id", "role"))); ?>
         </td>
     </tr>
     <tr>

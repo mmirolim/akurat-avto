@@ -13,12 +13,6 @@ class EmployeesController extends ControllerBase
     {
         $this->persistent->parameters = null;
         $numberPage = 1;
-        if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, "Employees", $_POST);
-            $this->persistent->parameters = $query->getParams();
-        } else {
-            $numberPage = $this->request->getQuery("page", "int");
-        }
 
         $parameters = $this->persistent->parameters;
         if (!is_array($parameters)) {
@@ -94,7 +88,7 @@ class EmployeesController extends ControllerBase
      */
     public function editAction($id)
     {
-
+        $this->view->roles = Roles::find();
         if (!$this->request->isPost()) {
 
             $employee = Employees::findFirstByid($id);
@@ -137,8 +131,7 @@ class EmployeesController extends ControllerBase
 
         $employee->id = $this->request->getPost("id");
         $employee->username = $this->request->getPost("username");
-        $employee->password = $this->request->getPost("password");
-
+        $employee->password = $this->security->hash($this->request->getPost("password"));
         $employee->role_id = $this->request->getPost("role_id");
         $employee->fullname = $this->request->getPost("fullname");
         $employee->job = $this->request->getPost("job");
