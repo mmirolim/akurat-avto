@@ -107,3 +107,11 @@ $di->set('elements', function(){
     return new Elements();
 });
 
+/**
+ * Add routing
+ */
+$di->set('router', function(){
+    require __DIR__.'/routes.php';
+    return $router;
+});
+

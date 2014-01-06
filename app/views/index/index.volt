@@ -21,7 +21,10 @@
             <?php echo $this->elements->getUserTopBarMenu(); ?>
         </ul>
     </div>
-    <div id="main">
+     <div id="main">
+        <div class="message-block">
+            <?php echo $this->flashSession->output(); ?>
+        </div>
         <div class="row slider">
             <div class="large-12 large-centered columns">
                 <div class="flexslider">

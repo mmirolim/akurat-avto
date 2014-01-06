@@ -53,7 +53,8 @@ class Security extends Plugin
             //Public area resources (frontend)
             $publicResources = array(
                 'index' => array('index'),
-                'login' => array('index','register','start','end')
+                'login' => array('index'),
+                'logout' => array('index')
             );
             foreach ($publicResources as $resource=>$action) {
                 $acl->addResource(new Phalcon\Acl\Resource($resource), $action);
@@ -153,13 +154,10 @@ class Security extends Plugin
         $allowed = $acl->isAllowed($role, $controller, $action);
         if($allowed != Acl::ALLOW) {
             //If he doesn't have access forward him to the index controller
-            $this->flash->error("You don't have access to ".$controller." page");
+            $this->flashSession->error("You don't have access to ".$controller." page");
 
             // forward user to frontpage via $this->dispatcher using $dispatcher will create infinite loop
-            $this->dispatcher->forward(array(
-                'controller' => 'index',
-                'aciton' => 'index'
-            ));
+            $this->response->redirect('/');
             //Returning "false" we tell to the dispatcher to stop the current operation
             return false;
         }

@@ -20,7 +20,7 @@ class Elements extends Component
         } else {
             //Get role from auth session variable
             $role = $auth["role"];
-            $li = '<li><a href="/login/end">LOGOUT</a></li>';
+            $li = '<li><a href="/logout">LOGOUT '.$role.'</a></li>';
         }
         $html = $li;
         return $html;
