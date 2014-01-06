@@ -13,11 +13,11 @@ class AccountController extends ControllerBase
 {
     public function indexAction()
     {
-        echo 'INDEX ACTION';
+
     }
 
     public function viewAction()
     {
-        echo 'VIEW PAGE';
+
     }
 }

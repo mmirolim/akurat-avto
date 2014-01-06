@@ -84,7 +84,7 @@ class Security extends Plugin
             );
             //Define array of resources and action accessible by Client
             $clientResources = array(
-                'account' => array('index','view')
+                'account' => array('index','view','edit','save')
             );
 
             //Grant access to Admin
