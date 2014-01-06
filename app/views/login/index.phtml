@@ -1,21 +1,19 @@
 <?php use Phalcon\Tag; ?>
-<div class="message-block">
-    <?php echo $this->getContent() ?>
-    <?php echo $this->flashSession->output(); ?>
-</div>
-<div id="wrapper-login-form" class="large-4 large-centered columns">
-        <h2>Please Login</h2>
-    <?php echo $this->tag->form("/login"); ?>
+<div class="row">
+    <div id="wrapper-login-form" class="large-5 large-centered columns">
+            <h2>Please Login</h2>
+        <?php echo $this->tag->form("/login"); ?>
+            <p>
+                <label for="username">Username</label>
+                <?php echo Tag::textField("username") ?>
+            </p>
+            <p>
+                <label for="password">Password</label>
+        <?php echo Tag::passwordField("password") ?>
+            </p>
         <p>
-            <label for="username">Username</label>
-            <?php echo Tag::textField("username") ?>
+            <?php echo Tag::submitButton(array("Login", "class" => "button")) ?>
         </p>
-        <p>
-            <label for="password">Password</label>
-    <?php echo Tag::passwordField("password") ?>
-        </p>
-    <p>
-        <?php echo Tag::submitButton("Login") ?>
-    </p>
-    </form>
+        </form>
+    </div>
 </div>

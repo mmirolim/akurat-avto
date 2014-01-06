@@ -7,7 +7,18 @@
         {{ stylesheet_link('/../css/custom.css')}}
 	</head>
 	<body>
-		{{ content() }}
+         <div id="container">
+            <div id="header">
+                    <?php echo $this->elements->getTopBarMenu(); ?>
+            </div>
+            <div id="main">
+                <div class="message-block">
+                    <?php  echo $this->flashSession->output(); ?>
+                </div>
+		        {{ content() }}
+            </div>
+              <div id="footer"><h2>FOOTER</h2></div>
+         </div>
         {{ javascript_include("/../js/jquery-2.0.3.min.js") }}
         {{ javascript_include("/../js/foundation.min.js") }}
         {{ javascript_include("/../js/modernizr.js") }}

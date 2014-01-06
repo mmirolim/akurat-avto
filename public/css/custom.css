@@ -1,5 +1,12 @@
+html {
+    height: 100%;
+}
 body {
     background: #F1F1F1;
+    height: 100%;
+}
+#container {
+    height: 100%;
 }
 #header, #footer {
     color: white;
@@ -11,29 +18,32 @@ body {
     left: 0px;
     z-index: 100;
     width: 100%;
-    height: 3em;
+    height: 3.2em;
 }
-.top-nav {
+.top-nav-left {
     float: left;
 }
-.top-nav li {
+.top-nav-left li, .top-nav-right li {
     display: inline-block;
     padding: 0 1em;
     line-height: 3em;
 }
-.backend-links {
+.top-nav-left li:hover, .top-nav-right li:hover {
+    background: black;
+}
+.top-nav-right {
     float: right;
 }
-.backend-links li {
-    display: inline-block;
-    padding: 0 1em;
-    line-height: 3em;
+.login-link {
+    font-weight: bold;
 }
+
 #header h1,#header h2, #header h3, #footer h1, #footer h2, #footer h3 {
     color: white;
 }
 #main {
-    margin-top: 3em;
+    min-height: 60%;
+    margin-top: 3.2em;
 }
 .row.slider, .row.special-service1, .row.special-service2, .row.other-services, .row.our-team, .row.our-contacts {
     padding: 2em 0em;
@@ -64,6 +74,9 @@ h2 {
     font-weight: bold;
     color: rgb(95, 95, 95);
 }
+#wrapper-login-form {
+    margin-top: 7em;
+}
 img.shadow {
     box-shadow: 1px 4px 11px rgb(58, 57, 57);
 }
@@ -83,4 +96,6 @@ img.shadow {
 }
 #footer {
     margin-top: 10em;
+    min-height: 12em;
+
 }

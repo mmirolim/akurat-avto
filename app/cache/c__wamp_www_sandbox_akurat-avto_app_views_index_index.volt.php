@@ -1,33 +1,3 @@
-<div class="container">
-    <div id="header">
-        <ul class="top-nav">
-            <li>
-                <h3>AKURAT AVTO</h3>
-            </li>
-            <li>
-                Facebook
-            </li>
-            <li>
-                Twitter
-            </li>
-            <li>
-                Google+
-            </li>
-            <li>
-                Call Us (99893) 124-12-12
-            </li>
-        </ul>
-        <ul class="backend-links">
-            <?php echo $this->elements->getUserTopBarMenu(); ?>
-        </ul>
-    </div>
-     <div id="main">
-        <div class="message-block">
-            <?php
-                echo $this->getContent();
-                echo $this->flashSession->output();
-            ?>
-        </div>
         <div class="row slider">
             <div class="large-12 large-centered columns">
                 <div class="flexslider">
@@ -126,6 +96,3 @@
                 </div>
             </div>
         </div>
-     </div>
-    <div id="footer"><h2>FOOTER</h2></div>
-</div>
