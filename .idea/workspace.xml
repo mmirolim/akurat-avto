@@ -26,10 +26,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="services.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="services.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/config/services.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="23" selection-start="797" selection-end="827" vertical-scroll-proportion="-15.142858" vertical-offset="444" max-vertical-offset="3444">
+            <state line="137" column="25" selection-start="3410" selection-end="3410" vertical-scroll-proportion="0.7383177" vertical-offset="3204" max-vertical-offset="4060">
               <folding />
             </state>
           </provider>
@@ -80,10 +80,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Elements.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Elements.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/library/Elements.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="41" selection-start="953" selection-end="953" vertical-scroll-proportion="0.45794392" vertical-offset="420" max-vertical-offset="1288">
+            <state line="29" column="41" selection-start="953" selection-end="953" vertical-scroll-proportion="-14.0" vertical-offset="420" max-vertical-offset="1288">
               <folding>
                 <element signature="e#6#85#0" expanded="true" />
                 <marker date="1389047009431" expanded="true" signature="271:284" placeholder="..." />
@@ -182,7 +182,6 @@
         <option value="$PROJECT_DIR$/app/plugins/Security.php" />
         <option value="$PROJECT_DIR$/app/views/partials/top_bar_links" />
         <option value="$PROJECT_DIR$/app/config/loader.php" />
-        <option value="$PROJECT_DIR$/app/config/services.php" />
         <option value="$PROJECT_DIR$/app/config/config.php" />
         <option value="$PROJECT_DIR$/app/views/index/index.volt" />
         <option value="$PROJECT_DIR$/app/views/account/view.phtml" />
@@ -190,6 +189,7 @@
         <option value="$PROJECT_DIR$/app/views/index.volt" />
         <option value="$PROJECT_DIR$/app/views/login/index.phtml" />
         <option value="$PROJECT_DIR$/app/library/Elements.php" />
+        <option value="$PROJECT_DIR$/app/config/services.php" />
       </list>
     </option>
   </component>
@@ -963,13 +963,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/services.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="23" selection-start="797" selection-end="827" vertical-scroll-proportion="-15.142858" vertical-offset="444" max-vertical-offset="3444">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/config.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="0" selection-start="428" selection-end="428" vertical-scroll-proportion="-14.0" vertical-offset="0" max-vertical-offset="728">
@@ -1023,11 +1016,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/library/Elements.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="41" selection-start="953" selection-end="953" vertical-scroll-proportion="0.45794392" vertical-offset="420" max-vertical-offset="1288">
+        <state line="29" column="41" selection-start="953" selection-end="953" vertical-scroll-proportion="-14.0" vertical-offset="420" max-vertical-offset="1288">
           <folding>
             <element signature="e#6#85#0" expanded="true" />
             <marker date="1389047009431" expanded="true" signature="271:284" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/services.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="137" column="25" selection-start="3410" selection-end="3410" vertical-scroll-proportion="0.7383177" vertical-offset="3204" max-vertical-offset="4060">
+          <folding />
         </state>
       </provider>
     </entry>

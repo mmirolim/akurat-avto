@@ -115,3 +115,25 @@ $di->set('router', function(){
     return $router;
 });
 
+/**
+ * Register the flash service with custom css classes
+ */
+$di->set('flash', function(){
+    $flash = new \Phalcon\Flash\Direct(array(
+        'error' => 'alert-box alert',
+        'success' => 'alert-box success',
+        'notice' => 'alert-box secondary',
+    ));
+    return $flash;
+});
+/**
+ * Register the flashSession service with custom css classes
+ */
+$di->set('flashSession', function(){
+    $flashSession = new \Phalcon\Flash\Session(array(
+        'error' => 'alert-box alert',
+        'success' => 'alert-box success',
+        'notice' => 'alert-box secondary',
+    ));
+    return $flashSession;
+});

@@ -53,9 +53,13 @@ body {
     background: white;
 }
 .message-block {
-    background: #e7e7e7;
     text-align: center;
-    line-height: 5em;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+.message-block .alert-box {
+    font-size: 1.2em;
 }
 .successMessage {
     color: white;
