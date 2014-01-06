@@ -26,7 +26,6 @@
             <?php
                 echo $this->getContent();
                 echo $this->flashSession->output();
-                echo "SOMETHING";
             ?>
         </div>
         <div class="row slider">

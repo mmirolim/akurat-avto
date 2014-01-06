@@ -1,0 +1,18 @@
+<?php
+
+    foreach($client as $key => $data) {
+        echo $key."=>".$data."<br />";
+    }
+    foreach($cars as $key => $data) {
+        foreach($data as $key2 => $data2) {
+            echo $key2."=>".$data2."<br />";
+        }
+    }
+    foreach($providedservices as $key =>$data) {
+        foreach($data as $key2 => $data2) {
+            foreach($data2 as $key3 => $data3) {
+                echo $key3."=>".$data3."<br />";
+            }
+        }
+    }
+

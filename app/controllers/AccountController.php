@@ -26,6 +26,7 @@ class AccountController extends ControllerBase
             $this->flashSession->error("Wrong number of parameters in account");
             return $this->response->redirect("/");
         }
+
         //Get username
         $username = $param[0];
 
@@ -35,5 +36,74 @@ class AccountController extends ControllerBase
             $this->flashSession->error("Wrong Account");
             return $this->response->redirect("/");
         }
+
+        //Get role and use appropriate action
+        $role = $this->session->get("auth")["role"];
+        switch($role)
+        {
+            case 'Client':
+                $this->_getClientData($username);
+                break;
+            case 'Employee':
+                break;
+            case 'Master':
+                break;
+            case 'Boss':
+                break;
+            case 'Admin':
+                break;
+            default:
+                $this->flashSession->error("Wrong Role");
+                return $this->response->redirect("/");
+        }
     }
+
+    private function _getClientData($username)
+    {
+
+        //Get client data
+        $user = Clients::findFirst(array(
+            "username = :username:",
+            "bind" => array("username" => $username)
+        ));
+        $this->view->client = $user;
+
+            //Get client cars
+        $cars = Cars::find(array(
+            "owner_id = :owner:",
+            "bind" => array("owner" => $user->id)
+        ));
+        $this->view->cars = $cars;
+
+        //Get provided services for all cars
+        foreach($cars as $car) {
+            $providedServices[] = Providedservices::find(array(
+                "car_id = :car:",
+                "bind" => array("car" => $car->id)
+            ));
+        }
+        $this->view->providedservices = $providedServices;
+
+    }
+
+    private function _getEmployeeData($username)
+    {
+
+    }
+
+    private function _getMasterData($username)
+    {
+
+    }
+
+    private function _getBossData($username)
+    {
+
+    }
+
+    private function _getAdminData($username)
+    {
+
+    }
+
 }
