@@ -23,7 +23,10 @@
     </div>
      <div id="main">
         <div class="message-block">
-            <?php echo $this->flashSession->output(); ?>
+            <?php
+                echo $this->getContent();
+                echo $this->flashSession->output();
+            ?>
         </div>
         <div class="row slider">
             <div class="large-12 large-centered columns">
@@ -108,16 +111,21 @@
             <div class="large-8 large-centered columns">
                 <div class="large-12 columns"><h2>OUR CONTACTS</h2></div>
                 <div class="large-8 columns"><img class="shadow" src="http://akurat.auto/public/img/map.jpg" /></div>
-                <div class="large-4 columns"><div class="info-text">Donec vel lorem ligula. Suspendisse a turpis dui. Praesent auctor tortor vitae dolor blandit, et feugiat mi molestie. Nulla congue, enim vel tempus laoreet, neque sapien pretium magna, sed cursus nunc ante quis libero. Ut venenatis mi convallis rhoncus commodo. Fusce eu lectus libero. Aenean libero purus, ultrices pharetra odio rhoncus, tristique euismod lectus. Nulla pharetra nisl quis augue sagittis auctor. </div>
-                <div class="contact-text">
-                    <ul>
-                        <li><span>Phone:</span> (99893) 125-12-12</li>
-                        <li><span>Address:</span> Tashkent city, Mirzo-Ulugbek district, str Somewhere 56-8</li>
-                        <li><span>Email:</span> akurat@avto.uz</li>
-                    </ul>
+                <div class="large-4 columns">
+                    <div class="info-text">Donec vel lorem ligula. Suspendisse a turpis dui. Praesent auctor tortor vitae dolor blandit, et feugiat mi molestie. Nulla congue, enim vel tempus laoreet, neque sapien pretium magna, sed cursus nunc ante quis libero. Ut venenatis mi convallis
+                        rhoncus commodo. Fusce eu lectus libero. Aenean libero purus, ultrices pharetra odio rhoncus, tristique euismod
+                        lectus. Nulla pharetra nisl quis augue sagittis auctor.
+                    </div>
+                    <div class="contact-text">
+                        <ul>
+                            <li><span>Phone:</span> (99893) 125-12-12</li>
+                            <li><span>Address:</span> Tashkent city, Mirzo-Ulugbek district, str Somewhere 56-8</li>
+                            <li><span>Email:</span> akurat@avto.uz</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+     </div>
     <div id="footer"><h2>FOOTER</h2></div>
 </div>

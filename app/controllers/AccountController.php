@@ -18,6 +18,22 @@ class AccountController extends ControllerBase
 
     public function viewAction()
     {
+        $param = $this->router->getParams();
 
+        //Check if only one parameter
+        if(count($param) > 1) {
+            //TODO fix why not shown message
+            $this->flashSession->error("Wrong number of parameters in account");
+            return $this->response->redirect("/");
+        }
+        //Get username
+        $username = $param[0];
+
+        //Restrict viewing account to owner
+        $usernameInSession = $this->session->get("auth")["username"];
+        if ($username !== $usernameInSession) {
+            $this->flashSession->error("Wrong Account");
+            return $this->response->redirect("/");
+        }
     }
 }
