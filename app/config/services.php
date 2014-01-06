@@ -102,5 +102,8 @@ $di->set('dispatcher', function() use ($di) {
     return $dispatcher;
 });
 
-
+//Register user components
+$di->set('elements', function(){
+    return new Elements();
+});
 

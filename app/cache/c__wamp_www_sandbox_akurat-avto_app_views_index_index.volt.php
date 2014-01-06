@@ -18,7 +18,7 @@
             </li>
         </ul>
         <ul class="backend-links">
-            <li><a href="login">Login</a></li>
+            <?php echo $this->elements->getUserTopBarMenu(); ?>
         </ul>
     </div>
     <div id="main">

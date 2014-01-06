@@ -83,7 +83,7 @@ class Security extends Plugin
             );
             //Define array of resources and action accessible by Client
             $clientResources = array(
-                'account' => array('view')
+                'account' => array('index','view')
             );
 
             //Grant access to Admin
@@ -139,16 +139,12 @@ class Security extends Plugin
         if(!$auth) {
             $role = 'Guest';
         } else {
+            //Get role from auth session variable
             $role = $auth["role"];
         }
 
-        //Take the active controller/action from the dispatcher
         $controller = $dispatcher->getControllerName();
         $action = $dispatcher->getActionName();
-
-        echo $role;
-        echo $controller;
-        echo $action;
 
         //Obtain the ACL list
         $acl = $this->_getAcl();
@@ -157,13 +153,13 @@ class Security extends Plugin
         $allowed = $acl->isAllowed($role, $controller, $action);
         if($allowed != Acl::ALLOW) {
             //If he doesn't have access forward him to the index controller
-           // $this->flash->error("You don't have access to this page");
-            $dispatcher->forward(
-                array(
-                    'contoller' => 'index',
-                    'action' => 'index'
-                )
-            );
+            $this->flash->error("You don't have access to ".$controller." page");
+
+            // forward user to frontpage via $this->dispatcher using $dispatcher will create infinite loop
+            $this->dispatcher->forward(array(
+                'controller' => 'index',
+                'aciton' => 'index'
+            ));
             //Returning "false" we tell to the dispatcher to stop the current operation
             return false;
         }

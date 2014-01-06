@@ -69,4 +69,9 @@ class LoginController extends ControllerBase
             'action' => 'index'
         ));
     }
+    public function endAction()
+    {
+        $this->session->destroy();
+
+    }
 }
