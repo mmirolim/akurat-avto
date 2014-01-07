@@ -59,7 +59,13 @@
                     echo '<td>'.$row["master"].'</td>';
                     echo '<td>'.$row["moreinfo"].'</td>';
                     echo '<td>'.$row["remindkm"].'</td>';
-                    echo '<td>'.$row["reminddate"].'</td>';
+                    if (time() - strtotime($row["reminddate"]) > 0){
+                        $remindDateClass = "alert";
+                    } else {
+                        $remindDateClass = "success";
+                    }
+                    echo '<td class="date-'.$remindDateClass.'">';
+                    echo $row["reminddate"].'</td>';
                     echo '</tr>';
                 }
             ?>

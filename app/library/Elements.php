@@ -18,7 +18,7 @@ class Elements extends Component
         $navLeft .='<li class="facebook-link">Facebook</li>';
         $navLeft .='<li class="twitter-link">Twitter</li>';
         $navLeft .='<li class="google-link">Google+</li>';
-        $navLeft .='<li class="call-us-link">Call Us (99893) 124-12-12</li>';
+        $navLeft .='<li class="call-us-link button">Call Us (99893) 124-12-12</li>';
         $navLeft .='</ul>';
         //Create top nav right
         $navRight ='<ul class="top-nav-right">';

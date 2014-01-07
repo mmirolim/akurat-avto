@@ -26,10 +26,20 @@ body {
 .top-nav-left {
     float: left;
 }
+.top-nav-left li.google-link:hover {
+background: rgb(219, 6, 6);
+}
+.top-nav-left li.twitter-link:hover {
+background: rgb(10, 176, 218);
+}
+.top-nav-left li.facebook-link:hover {
+background: rgb(12, 41, 156);
+}
 .top-nav-left li, .top-nav-right li {
     display: inline-block;
     padding: 0 1em;
     line-height: 3em;
+    margin: -1px;
 }
 .top-nav-left li:hover, .top-nav-right li:hover {
     background: black;
@@ -105,11 +115,37 @@ img.shadow {
     color: rgb(78, 76, 76);
 }
 #footer {
+    padding: 2em;
     margin-top: 10em;
     min-height: 12em;
 
 }
+#footer ul {
+font-size: small;
+line-height: 2em;
+color: rgb(207, 207, 207);
+}
+#footer h4 {
+    color: white;
+}
+#footer h4.copyright {
+background: rgb(75, 75, 75);
+color: rgb(180, 180, 180);
+text-align: center;
+font-size: 1.2em;
+padding: 2em;
+margin-top: 2em;
+}
 /* Account view styling */
+.date-success {
+background-color: #43ac6a;
+color: #fff;
+}
+.date-alert {
+    background-color: #f04124;
+    color: #fff;
+}
+
 .analytics-board h5 {
 font-size: inherit;
 letter-spacing: 1px;
