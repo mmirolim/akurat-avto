@@ -31,7 +31,8 @@ class Elements extends Component
         } else {
             //Get role from auth session variable
             $role = $auth["role"];
-            $li = '<li><a href="/logout">Logout</a></li>';
+            $li  = '<li><a href="/account/'.$auth["username"].'/view">Account</a></li>';
+            $li .= '<li><a href="/logout">Logout</a></li>';
         }
         $navRight .= $li.'</ul>';
 
