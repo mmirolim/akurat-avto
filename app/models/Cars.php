@@ -69,5 +69,20 @@ class Cars extends \Phalcon\Mvc\Model
      * @var string
      */
     public $moreinfo;
-     
+
+    public function initialize()
+    {
+        //Set has-many cars relationship
+        $this->hasMany("id", "Providedservices", "car_id");
+
+    }
+    /**
+     * Return the related "services provided"
+     * @return \Providedservices[]
+     */
+    public function getProvidedservices($parameters = null)
+    {
+        return $this->getRelated("Providedservices", $parameters);
+    }
+
 }

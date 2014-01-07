@@ -7,6 +7,7 @@
  */
 
 use Phalcon\Mvc\Model\Criteria,
+    Phalcon\Mvc\Model\Resultset,
     Phalcon\Paginator\Adapter\Model as Paginator;
 
 class AccountController extends ControllerBase
@@ -39,6 +40,8 @@ class AccountController extends ControllerBase
 
         //Get role and use appropriate action
         $role = $this->session->get("auth")["role"];
+        $this->view->employees = Employees::find(array("columns" => "id, fullname, job, contacts"));
+        $this->view->carservices = Carservices::find();
         switch($role)
         {
             case 'Client':
@@ -58,11 +61,11 @@ class AccountController extends ControllerBase
         }
     }
 
-    private function _getClientData($username)
+    protected function _getClientData($username)
     {
 
         //Get client data
-        $user = Clients::findFirst(array(
+        /*$user = Clients::findFirst(array(
             "username = :username:",
             "bind" => array("username" => $username)
         ));
@@ -83,25 +86,34 @@ class AccountController extends ControllerBase
             ));
         }
         $this->view->providedservices = $providedServices;
+        */
+        $client = new stdClass();
+        $client->info = Clients::findFirst("username = '".$username."'");
+        $cars = $client->info->getCars()->setHydrateMode(Resultset::HYDRATE_RECORDS);
+        foreach($cars as $car) {
+            $car->providedServices = $car->getProvidedservices()->setHydrateMode(Resultset::HYDRATE_RECORDS);
+        }
+        $client->cars = $cars;
+        $this->view->client = $client;
 
     }
 
-    private function _getEmployeeData($username)
+    protected function _getEmployeeData($username)
     {
 
     }
 
-    private function _getMasterData($username)
+    protected function _getMasterData($username)
     {
 
     }
 
-    private function _getBossData($username)
+    protected function _getBossData($username)
     {
 
     }
 
-    private function _getAdminData($username)
+    protected function _getAdminData($username)
     {
 
     }

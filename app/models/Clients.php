@@ -68,4 +68,21 @@ class Clients extends \Phalcon\Mvc\Model
         );
     }
 
+    public function initialize()
+    {
+        //Set has-many cars relationship
+        $this->hasMany("id", "Cars", "owner_id");
+
+    }
+
+    /**
+     * Return the related "client's cars"
+     * @param null $parameters
+     * @return \Cars[]
+     */
+    public function getCars($parameters = null)
+    {
+        return $this->getRelated("Cars", $parameters);
+    }
+
 }

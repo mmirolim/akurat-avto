@@ -1,18 +1,74 @@
 <?php
-
-    foreach($client as $key => $data) {
-        echo $key."=>".$data."<br />";
-    }
-    foreach($cars as $key => $data) {
-        foreach($data as $key2 => $data2) {
-            echo $key2."=>".$data2."<br />";
-        }
-    }
-    foreach($providedservices as $key =>$data) {
-        foreach($data as $key2 => $data2) {
-            foreach($data2 as $key3 => $data3) {
-                echo $key3."=>".$data3."<br />";
+        //Create array from services row
+        $servicesRow = array();
+        foreach ($client->cars as $car) {
+            foreach ($car->providedServices as $providedService) {
+                $servicesRow[$providedService->id] = array();
+                foreach ($providedService  as $key => $data) {
+                    switch ($key)
+                    {
+                          case "car_id":
+                              $servicesRow[$providedService->id]["regnum"] = $car->regnum;
+                              break;
+                          case "work_id":
+                              foreach($carservices as $carservice) {
+                                  if($data == $carservice->id) {
+                                      $servicesRow[$providedService->id]["carservice"] = $carservice->carservice;
+                                  }
+                              }
+                              break;
+                          case "master_id":
+                              foreach($employees as $employee) {
+                                  if($data == $employee->id) {
+                                      $servicesRow[$providedService->id]["master"] = $employee->fullname;
+                                  }
+                              }
+                              break;
+                          default:
+                              $servicesRow[$providedService->id][$key] = $data;
+                              break;
+                    }
+                }
             }
         }
-    }
+?>
+<div class="large-8 columns services-block">
+    <table class="table-provided-services" align="center">
+        <thead>
+        <tr>
+            <th>Registration Number</th>
+            <th>Date of Service</th>
+            <th>Type of Service</th>
+            <th>Cost of Service</th>
+            <th>Millage on date of Service</th>
+            <th>Master</th>
+            <th>Information</th>
+            <th>Remind after KM</th>
+            <th>Remind after Date</th>
+        </tr>
+        </thead>
+        <tbody>
+            <?php
+                foreach($servicesRow as $row){
+                    echo '<tr>';
+                    echo '<td>'.$row["regnum"].'</td>';
+                    echo '<td>'.$row["startdate"].'</td>';
+                    echo '<td>'.$row["carservice"].'</td>';
+                    echo '<td>'.$row["cost"].'</td>';
+                    echo '<td>'.$row["milage"].'</td>';
+                    echo '<td>'.$row["master"].'</td>';
+                    echo '<td>'.$row["moreinfo"].'</td>';
+                    echo '<td>'.$row["remindkm"].'</td>';
+                    echo '<td>'.$row["reminddate"].'</td>';
+                    echo '</tr>';
+                }
+            ?>
+        </tbody>
+    </table>
+</div>
+<div class="large-4 columns analytics-block">
+    <div class="large-12 columns analytics-board">ANALYTIC BOARD</div>
+    <div class="large-12 columns client-data">CLIENT DATA</div>
+    <div class="large-12 columns car-data">CAR DATA</div>
+</div>
 
