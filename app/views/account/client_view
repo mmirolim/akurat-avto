@@ -36,15 +36,15 @@
     <table class="table-provided-services" align="center">
         <thead>
         <tr>
-            <th>Registration Number</th>
-            <th>Date of Service</th>
-            <th>Type of Service</th>
-            <th>Cost of Service</th>
-            <th>Millage on date of Service</th>
-            <th>Master</th>
-            <th>Information</th>
-            <th>Remind after KM</th>
-            <th>Remind after Date</th>
+            <th>Номер</th>
+            <th>Дата обслуживания</th>
+            <th>Тип обслуживания</th>
+            <th>Стоимость</th>
+            <th>Пробег</th>
+            <th>Мастер</th>
+            <th>Доп. Информация</th>
+            <th>КМ Напоминание</th>
+            <th>Дата Напоминание</th>
         </tr>
         </thead>
         <tbody>
@@ -67,8 +67,46 @@
     </table>
 </div>
 <div class="large-4 columns analytics-block">
-    <div class="large-12 columns analytics-board">ANALYTIC BOARD</div>
-    <div class="large-12 columns client-data">CLIENT DATA</div>
-    <div class="large-12 columns car-data">CAR DATA</div>
+    <div class="analytics-board">
+        <div id="total-expenses">
+            <?php
+            $totalExpenses = 0;
+            foreach($servicesRow as $row){
+                $totalExpenses += $row["cost"];
+            }
+            echo '<h5>Total Expenses</h5><span id="total-cost" class="label radius success">'.$totalExpenses.' cум</span>';
+            ?>
+        </div>
+        <div id="total-health"><h5>Total Health</h5><span id="car-health" class="label radius alert">65%</span></div>
+        <div id="show-issues"><h5>Issues</h5><span id="issue-status" class="label radius success">No</span></div>
+        <div id="days-in-maintenance"><h5>Days in Maintenance</h5><span id="days-in-maintenance" class="label radius secondary">10</span></div>
+    </div>
+    <div class="client-data">
+        <ul class="client-info">
+            <li><h5 class="label radius secondary"><?php echo $client->info->fullname;?></h5></li>
+            <li><?php echo '<span class="label-info">Phone:</span> '.$client->info->contactphone;?></li>
+            <li><?php echo '<span class="label-info">Email:</span> '.$client->info->contactemail;?></li>
+            <li><?php echo '<span class="label-info">Signup date:</span> '.$client->info->regdate;?></li>
+            <li><?php echo '<span class="label-info">Add info:</span> '.$client->info->moreinfo;?></li>
+            <li><?php echo '<span class="label-info">Username:</span> '.$client->info->username;?></li>
+        </ul>
+    </div>
+    <div class="car-data">
+        <?php
+        foreach ($client->cars as $car) {
+            echo ' <ul class="car-info">';
+            echo '<li><h5 class="label radius secondary">'.$car->model.'</h5></li>';
+            echo '<li><span class="label-info">Reg. number:</span> '.$car->regnum.'</li>';
+            echo '<li><span class="label-info">Year:</span> '.$car->year.'</li>';
+            echo '<li><span class="label-info">First service date:</span> '.$car->regdate.'</li>';
+            echo '<li><span class="label-info">Current millage:</span> '.$car->milage.' км</li>';
+            echo '<li><span class="label-info">Milage/day:</span> '.$car->dailymilage.' км</li>';
+            echo '<li><span class="label-info">Body number:</span> '.$car->bodynumber.'</li>';
+            echo '<li><span class="label-info">Engine number:</span> '.$car->enginenumber.'</li>';
+            echo '<li><span class="label-info">Add info:</span> '.$car->moreinfo.'</li>';
+            echo '</ul>';
+        }
+        ?>
+    </div>
 </div>
 
