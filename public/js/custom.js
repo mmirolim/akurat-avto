@@ -21,7 +21,8 @@ function updateCarData() {
                     var form = '<form class="form-inline-car-update" method="post" action="/cars/updateOwn">';
                     form +='<input name="id" id="id" value="'+ carId +'" type="hidden">';
                     form +='<input name="'+ param +'" id="'+ param +'" value="'+ data +'" type="text">';
-                    form +='<input class="button small inline-update-button" value="update" type="button" onclick="inlineFormSendData(event);">';
+                    form +='<input class="button inline-update-button" value="update" type="button" onclick="inlineFormSendData(event);">';
+                    form +='<input class="button secondary inline-close-button" value="close" type="button" onclick="inlineFormRemove(event);">';
                     form +='</form>';
                     //Create element to insert after event.target
                     var sibling = document.createElement("span");
@@ -34,6 +35,10 @@ function updateCarData() {
             });
         }
     }
+}
+function inlineFormRemove(event) {
+    event.target.parentNode.parentNode.previousSibling.style.display = 'initial';
+    event.target.parentNode.parentNode.remove();
 }
 function inlineFormSendData(event) {
 

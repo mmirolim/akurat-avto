@@ -204,7 +204,7 @@ text-align: center;
 /* Car data block styling */
 .form-inline-car-update {
 display: inline-block;
-width: 11em;
+width: 14em;
 height: 1.5em;
 margin: 0em;
 }
@@ -215,9 +215,10 @@ margin: 0em;
   display: inline-block;
   width: 6em;
 }
-input.button.inline-update-button {
+input.button.inline-update-button, .button.inline-close-button {
   padding: initial;
   width: 4em;
+  font-size: 0.8em;
 }
 .label-info {
   font-weight: bold;
