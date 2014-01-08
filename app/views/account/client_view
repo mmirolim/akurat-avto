@@ -1,32 +1,16 @@
 <?php
         //Create array from services row
-        $servicesRow = array();
         foreach ($client->cars as $car) {
             foreach ($car->providedServices as $providedService) {
-                $servicesRow[$providedService->id] = array();
-                foreach ($providedService  as $key => $data) {
-                    switch ($key)
-                    {
-                          case "car_id":
-                              $servicesRow[$providedService->id]["regnum"] = $car->regnum;
-                              break;
-                          case "work_id":
-                              foreach($carservices as $carservice) {
-                                  if($data == $carservice->id) {
-                                      $servicesRow[$providedService->id]["carservice"] = $carservice->carservice;
-                                  }
-                              }
-                              break;
-                          case "master_id":
-                              foreach($employees as $employee) {
-                                  if($data == $employee->id) {
-                                      $servicesRow[$providedService->id]["master"] = $employee->fullname;
-                                  }
-                              }
-                              break;
-                          default:
-                              $servicesRow[$providedService->id][$key] = $data;
-                              break;
+                $providedService->car_id = $car->regnum;
+                foreach($carservices as $carservice) {
+                    if($providedService->work_id == $carservice->id) {
+                        $providedService->work_id = $carservice->carservice;
+                    }
+                }
+                foreach($employees as $employee) {
+                    if($providedService->master_id == $employee->id) {
+                        $providedService->master_id  = $employee->fullname;
                     }
                 }
             }
@@ -50,46 +34,55 @@
         </thead>
         <tbody>
             <?php
-                foreach($servicesRow as $row){
+            foreach ($client->cars as $car) {
+                foreach ($car->providedServices as $providedService) {
                     echo '<tr>';
-                    echo '<td>'.$row["regnum"].'</td>';
-                    echo '<td>'.$row["startdate"].'</td>';
-                    echo '<td>'.$row["carservice"].'</td>';
-                    echo '<td>'.$row["cost"].'</td>';
-                    echo '<td>'.$row["milage"].'</td>';
-                    echo '<td>'.$row["master"].'</td>';
-                    echo '<td>'.$row["moreinfo"].'</td>';
+                    echo '<td>'.$providedService->car_id.'</td>';
+                    echo '<td>'.$providedService->startdate.'</td>';
+                    echo '<td>'.$providedService->work_id.'</td>';
+                    echo '<td>'.$providedService->cost.'</td>';
+                    echo '<td>'.$providedService->milage.'</td>';
+                    echo '<td>'.$providedService->master_id.'</td>';
+                    echo '<td>'.$providedService->moreinfo.'</td>';
                     echo '<td>';
-                    $milageRemind = $row["remindkm"] + $row["milage"];
+                    $milageRemind = $providedService->remindkm + $providedService->milage;
                     echo $milageRemind.'</td>';
-                    if (time() - strtotime($row["reminddate"]) > 0){
+                    if (time() - strtotime($providedService->reminddate) > 0){
                         $remindDateClass = "alert";
                     } else {
                         $remindDateClass = "success";
                     }
                     echo '<td class="date-'.$remindDateClass.'">';
-                    echo $row["reminddate"].'</td>';
-                    echo '<td class="remind-status">'.$row["remind"].'</td>';
+                    echo $providedService->reminddate.'</td>';
+                    echo '<td class="remind-status">'.$providedService->remind.'</td>';
                     echo '</tr>';
                 }
+            }
             ?>
         </tbody>
     </table>
 </div>
 <div class="large-4 columns analytics-block">
     <div class="analytics-board">
-        <div id="total-expenses">
-            <?php
-            $totalExpenses = 0;
-            foreach($servicesRow as $row){
-                $totalExpenses += $row["cost"];
+        <?php
+        foreach ($client->cars as $car) {
+            //Create div block per car
+            echo '<div class="analytic-data">';
+            $car->totalExpenses = 0;
+            foreach ($car->providedServices as $providedService) {
+                $car->totalExpenses += $providedService->cost;
             }
-            echo '<h5>Total Expenses</h5><span id="total-cost" class="label radius success">'.$totalExpenses.' cум</span>';
-            ?>
-        </div>
-        <div id="total-health"><h5>Total Health</h5><span id="car-health" class="label radius alert">65%</span></div>
-        <div id="show-issues"><h5>Issues</h5><span id="issue-status" class="label radius success">No</span></div>
-        <div id="days-in-maintenance"><h5>Days in Maintenance</h5><span id="days-in-maintenance" class="label radius secondary">10</span></div>
+            echo '<div class="total-expenses">';
+            echo '<h5>Total Expenses for '.$car->regnum.'</h5><span id="total-cost" class="label radius success">'.$car->totalExpenses.' cум</span>';
+        ?>
+            </div>
+        <div class="total-health"><h5>Total Health</h5><span id="car-health" class="label radius alert">65%</span></div>
+        <div class="show-issues"><h5>Issues</h5><span id="issue-status" class="label radius success">No</span></div>
+        <div class="days-in-maintenance"><h5>Days in Maintenance</h5><span id="days-in-maintenance" class="label radius secondary">10</span></div>
+        <?php
+            //Close tag for per car block
+            echo '</div>';
+        } ?>
     </div>
     <div class="client-data">
         <ul class="client-info">

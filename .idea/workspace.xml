@@ -26,28 +26,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.phtml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/account/index.phtml">
+      <file leaf-file-name="client_view" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/account/client_view">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="1" selection-end="35" vertical-scroll-proportion="0.0" vertical-offset="28" max-vertical-offset="252">
-              <folding />
+            <state line="68" column="38" selection-start="2826" selection-end="2826" vertical-scroll-proportion="0.3271028" vertical-offset="1624" max-vertical-offset="3388">
+              <folding>
+                <marker date="1389175346148" expanded="true" signature="1269:1464" placeholder="..." />
+                <marker date="1389175346148" expanded="true" signature="1937:1959" placeholder="..." />
+                <marker date="1389175346148" expanded="true" signature="1937:1978" placeholder="..." />
+                <marker date="1389175346148" expanded="true" signature="2696:3121" placeholder="..." />
+                <marker date="1389175346148" expanded="true" signature="2730:3121" placeholder="..." />
+                <marker date="1389175346148" expanded="true" signature="2732:3121" placeholder="..." />
+                <marker date="1389175346148" expanded="true" signature="3805:3965" placeholder="..." />
+                <marker date="1389175346148" expanded="true" signature="3838:3965" placeholder="..." />
+                <marker date="1389175346148" expanded="true" signature="4513:4587" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="client_view" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/views/account/client_view">
+      <file leaf-file-name="common.rnc" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/common.rnc">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="75" selection-start="485" selection-end="485" vertical-scroll-proportion="0.3271028" vertical-offset="0" max-vertical-offset="3584">
-              <folding>
-                <marker date="1389171166929" expanded="true" signature="2083:2208" placeholder="..." />
-                <marker date="1389171166929" expanded="true" signature="3306:3547" placeholder="..." />
-                <marker date="1389171166929" expanded="true" signature="3340:3547" placeholder="..." />
-                <marker date="1389171166929" expanded="true" signature="3374:3547" placeholder="..." />
-                <marker date="1389171166929" expanded="true" signature="4100:4260" placeholder="..." />
-                <marker date="1389171166929" expanded="true" signature="4133:4260" placeholder="..." />
-                <marker date="1389171166929" expanded="true" signature="4808:4882" placeholder="..." />
-              </folding>
+            <state line="124" column="22" selection-start="3242" selection-end="3281" vertical-scroll-proportion="0.0" vertical-offset="3178" max-vertical-offset="13552">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -661,11 +663,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/carservices/edit.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="8" selection-start="863" selection-end="863" vertical-scroll-proportion="-32.57143" vertical-offset="40" max-vertical-offset="1316" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/CarservicesController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="213" column="50" selection-start="5996" selection-end="5996" vertical-scroll-proportion="0.39252338" vertical-offset="5628" max-vertical-offset="7504">
@@ -935,17 +932,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/common.rnc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="124" column="22" selection-start="3242" selection-end="3281" vertical-scroll-proportion="0.0" vertical-offset="3178" max-vertical-offset="13552">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/account/client_view">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="75" selection-start="485" selection-end="485" vertical-scroll-proportion="0.3271028" vertical-offset="0" max-vertical-offset="3584">
+        <state line="68" column="38" selection-start="2826" selection-end="2826" vertical-scroll-proportion="0.3271028" vertical-offset="1624" max-vertical-offset="3388">
           <folding>
-            <marker date="1389171166929" expanded="true" signature="2083:2208" placeholder="..." />
-            <marker date="1389171166929" expanded="true" signature="3306:3547" placeholder="..." />
-            <marker date="1389171166929" expanded="true" signature="3340:3547" placeholder="..." />
-            <marker date="1389171166929" expanded="true" signature="3374:3547" placeholder="..." />
-            <marker date="1389171166929" expanded="true" signature="4100:4260" placeholder="..." />
-            <marker date="1389171166929" expanded="true" signature="4133:4260" placeholder="..." />
-            <marker date="1389171166929" expanded="true" signature="4808:4882" placeholder="..." />
+            <marker date="1389175346148" expanded="true" signature="1269:1464" placeholder="..." />
+            <marker date="1389175346148" expanded="true" signature="1937:1959" placeholder="..." />
+            <marker date="1389175346148" expanded="true" signature="1937:1978" placeholder="..." />
+            <marker date="1389175346148" expanded="true" signature="2696:3121" placeholder="..." />
+            <marker date="1389175346148" expanded="true" signature="2730:3121" placeholder="..." />
+            <marker date="1389175346148" expanded="true" signature="2732:3121" placeholder="..." />
+            <marker date="1389175346148" expanded="true" signature="3805:3965" placeholder="..." />
+            <marker date="1389175346148" expanded="true" signature="3838:3965" placeholder="..." />
+            <marker date="1389175346148" expanded="true" signature="4513:4587" placeholder="..." />
           </folding>
         </state>
       </provider>
