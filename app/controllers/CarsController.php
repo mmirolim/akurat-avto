@@ -268,8 +268,8 @@ class CarsController extends ControllerBase
         ));
         //Check if client is car owner
         $isOwnCar = false;
-        foreach($cars as $id){
-            if($id === $carId) {
+        foreach($cars as $car){
+            if($car->id == $carId) {
                 $isOwnCar = true;
             }
         }
@@ -285,9 +285,15 @@ class CarsController extends ControllerBase
             return $this->response->redirect("/account/".$clientUsername."/view");
         }
         $car->id = $carId;
-        $car->milage = $this->request->getPost("milage");
-        $car->dailymilage = $this->request->getPost("dailymilage");
-        $car->moreinfo = $this->request->getPost("moreinfo");
+        if($this->request->getPost("milage")) {
+            $car->milage = $this->request->getPost("milage");
+        }
+        if($this->request->getPost("dailymilage")) {
+            $car->dailymilage = $this->request->getPost("dailymilage");
+        }
+        if($this->request->getPost("moreinfo")) {
+            $car->moreinfo = $this->request->getPost("moreinfo");
+        }
 
 
         if (!$car->save()) {
