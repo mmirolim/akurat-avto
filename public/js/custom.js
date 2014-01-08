@@ -10,7 +10,7 @@ function updateOwnData() {
         for (var j = 0; j < els.length; j++) {
             //AddEventListeners to target elements
             els[j].addEventListener("click", function(event){
-                    //Remove all other inline forms
+                //Remove all other inline forms
                     var close = document.getElementsByClassName('inline-close-button');
                     for (var i = 0; i < close.length; i++) {
                         close[i].click();
