@@ -40,11 +40,12 @@
             <th>Дата обслуживания</th>
             <th>Тип обслуживания</th>
             <th>Стоимость</th>
-            <th>Пробег</th>
+            <th>Пробег КМ</th>
             <th>Мастер</th>
             <th>Доп. Информация</th>
             <th>КМ Напоминание</th>
             <th>Дата Напоминание</th>
+            <th class="remind-status-th">Статус напоминания</th>
         </tr>
         </thead>
         <tbody>
@@ -58,7 +59,9 @@
                     echo '<td>'.$row["milage"].'</td>';
                     echo '<td>'.$row["master"].'</td>';
                     echo '<td>'.$row["moreinfo"].'</td>';
-                    echo '<td>'.$row["remindkm"].'</td>';
+                    echo '<td>';
+                    $milageRemind = $row["remindkm"] + $row["milage"];
+                    echo $milageRemind.'</td>';
                     if (time() - strtotime($row["reminddate"]) > 0){
                         $remindDateClass = "alert";
                     } else {
@@ -66,6 +69,7 @@
                     }
                     echo '<td class="date-'.$remindDateClass.'">';
                     echo $row["reminddate"].'</td>';
+                    echo '<td class="remind-status">'.$row["remind"].'</td>';
                     echo '</tr>';
                 }
             ?>

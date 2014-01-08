@@ -1,0 +1,184 @@
+html {
+    height: 100%;
+}
+body {
+    background: #F1F1F1;
+    height: 100%;
+}
+.row {
+    max-width: initial;
+}
+#container {
+    height: 100%;
+}
+#header, #footer {
+    color: white;
+    background: #222;
+}
+#header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    width: 100%;
+    height: 3.2em;
+}
+.top-nav-left {
+    float: left;
+}
+.top-nav-left li.google-link:hover {
+background: rgb(219, 6, 6);
+}
+.top-nav-left li.twitter-link:hover {
+background: rgb(10, 176, 218);
+}
+.top-nav-left li.facebook-link:hover {
+background: rgb(12, 41, 156);
+}
+.top-nav-left li, .top-nav-right li {
+    display: inline-block;
+    padding: 0 1em;
+    line-height: 3em;
+    margin: -1px;
+}
+.top-nav-left li:hover, .top-nav-right li:hover {
+    background: black;
+}
+.top-nav-right {
+    float: right;
+}
+.login-link {
+    font-weight: bold;
+}
+
+#header h1,#header h2, #header h3, #footer h1, #footer h2, #footer h3 {
+    color: white;
+}
+#main {
+    min-height: 60%;
+    margin-top: 3.2em;
+}
+#content {
+    margin-top: 5em;
+}
+.row.slider, .row.special-service1, .row.special-service2, .row.other-services, .row.our-team, .row.our-contacts {
+    padding: 2em 0em;
+    max-width: 100%;
+}
+.row.slider, .row.special-service2, .row.our-team {
+    background: white;
+}
+.message-block {
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+.message-block .alert-box {
+    font-size: 1.2em;
+}
+.successMessage {
+    color: white;
+    background: rgb(22, 177, 90);
+    font-size: 1.5em;
+}
+.errorMessage {
+    color: white;
+    background: rgb(218, 3, 3);
+    font-size: 1.5em;
+}
+.slider {
+    text-align: center;
+}
+h2 {
+    font-weight: bold;
+    color: rgb(95, 95, 95);
+}
+#wrapper-login-form {
+    margin-top: 7em;
+}
+img.shadow {
+    box-shadow: 1px 4px 11px rgb(58, 57, 57);
+}
+.info-text {
+    line-height: 1.7em;
+    text-indent: 1em;
+}
+.contact-text {
+    padding: 2em 0em;
+}
+.contact-text li {
+    list-style: none;
+}
+.contact-text span {
+    font-weight: bold;
+    color: rgb(78, 76, 76);
+}
+#footer {
+    padding: 2em;
+    margin-top: 10em;
+    min-height: 12em;
+
+}
+#footer ul {
+font-size: small;
+line-height: 2em;
+color: rgb(207, 207, 207);
+}
+#footer h4 {
+    color: white;
+}
+#footer h4.copyright {
+background: rgb(75, 75, 75);
+color: rgb(180, 180, 180);
+text-align: center;
+font-size: 1.2em;
+padding: 2em;
+margin-top: 3em;
+}
+/* Account view styling */
+.date-success {
+background-color: #43ac6a;
+color: #fff;
+}
+.date-alert {
+    background-color: #f04124;
+    color: #fff;
+}
+
+.analytics-board h5 {
+font-size: inherit;
+letter-spacing: 1px;
+display: inline-block;
+color: rgb(99, 99, 99);
+margin-right: 1em;
+text-align: right;
+width: 12em;
+}
+.analytics-board span.label {
+    font-size: initial;
+}
+.client-info li, .car-info li {
+    list-style: none;
+}
+.label-info {
+    font-weight: bold;
+    font-size: smaller;
+    color: rgb(70, 70, 70);
+    width: 9em;
+    display: inline-block;
+    text-align: right;
+}
+.car-info, .client-info, .analytics-board {
+    background: #fff;
+    margin-bottom: 1.25rem;
+    border: solid 1px #ddd;
+    padding: 1em 2em;
+}
+ul.car-info, ul.client-info {
+    margin-left: 0em;
+}
+.car-info h5, .client-info h5 {
+    font-size: inherit;
+    color: rgb(71, 71, 71);
+}

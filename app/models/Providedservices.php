@@ -69,5 +69,11 @@ class Providedservices extends \Phalcon\Mvc\Model
      * @var string
      */
     public $moreinfo;
+
+    /**
+     *
+     * @var string
+     */
+    public $remind;
      
 }
