@@ -306,7 +306,8 @@ class CarsController extends ControllerBase
         }
 
         $this->flashSession->success("Car was updated successfully");
-        echo $car->milage;
+
+        echo json_encode($car);
         $this->view->disable();
         //return $this->response->redirect("/account/".$clientUsername."/view");
 
