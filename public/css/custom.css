@@ -201,7 +201,24 @@ text-align: center;
 .client-info li, .car-info li {
   list-style: none;
 }
-
+/* Car data block styling */
+.form-inline-car-update {
+display: inline-block;
+width: 11em;
+height: 1.5em;
+margin: 0em;
+}
+.form-inline-car-update input {
+  padding: 0em 1em;
+  height: 100%;
+  margin: 0em;
+  display: inline-block;
+  width: 6em;
+}
+input.button.inline-update-button {
+  padding: initial;
+  width: 4em;
+}
 .label-info {
   font-weight: bold;
   font-size: smaller;
