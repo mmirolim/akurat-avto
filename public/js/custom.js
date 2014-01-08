@@ -62,12 +62,14 @@ function inlineFormSendData(event) {
             var obj = JSON.parse(xmlhttp.response);
             var siblingParent = event.target.parentNode.parentNode.previousSibling;
             for (key in obj){
+                //Find which parameter changed in obj
                 if (key == siblingParent.getAttribute("class")){
-                    var updatedData = obj[key];
+                    //Show updated data in message block
+                    document.getElementsByClassName('message-block')[0].innerHTML = '<div class="alert-box success">'+key+' updated to '+obj[key]+'</div>';
+                    siblingParent.textContent = obj[key];
                 }
             }
-            document.getElementsByClassName('message-block')[0].innerHTML = updatedData;
-            siblingParent.textContent = updatedData;
+
             siblingParent.style.display = "initial";
             event.target.parentNode.parentNode.remove();
         }
