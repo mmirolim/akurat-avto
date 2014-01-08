@@ -245,7 +245,7 @@ class CarsController extends ControllerBase
      */
     public function updateOwnAction()
     {
-
+        $clientUsername = $this->session->get("auth")["username"];
         if (!$this->request->isPost()) {
             $this->flashSession->error("Should be post to update own car data");
             return $this->response->redirect("/account/".$clientUsername."/view");
@@ -275,7 +275,7 @@ class CarsController extends ControllerBase
         }
         if (!$isOwnCar) {
             //Dispatch if not own car
-            $this->flashSession->error("Only own car can be edited");
+            $this->flashSession->error("Only own car can be edited"."Carid".$carId);
             return $this->response->redirect("/account/".$clientUsername."/view");
         }
 
@@ -306,7 +306,9 @@ class CarsController extends ControllerBase
         }
 
         $this->flashSession->success("Car was updated successfully");
-        return $this->response->redirect("/account/".$clientUsername."/view");
+        echo $car->milage;
+        $this->view->disable();
+        //return $this->response->redirect("/account/".$clientUsername."/view");
 
     }
 }

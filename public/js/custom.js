@@ -9,23 +9,27 @@ function updateCarData() {
         for (var j = 0; j < els.length; j++) {
             //AddEventListeners to target elements
             els[j].addEventListener("click", function(event){
-                var el = event.target;
-                var param = el.getAttribute('class');
                 //Don't insert form twice if element activated
-                if (el.getAttribute("active") === 'yes') {return}
-                //Get car id
-                var carId = el.parentNode.parentNode.getAttribute('data-car-id');
-                //Get current property's value
-                var data = el.textContent;
-                //Prepare form
-                var form = '<form class="form-inline-car-update" method="post" action="/cars/updateOwn">';
-                form +='<input name="id" id="id" value="'+ carId +'" type="hidden">';
-                form +='<input name="'+ param +'" id="'+ param +'" value="'+ data +'" type="text">';
-                form +='<input class="button small inline-update-button" value="update" type="submit">';
-                form +='</form>';
-                //Insert form to inside of target element
-                el.innerHTML = form;
-                el.setAttribute('active','yes');
+                    var el = event.target;
+                    var param = el.getAttribute('class');
+                    //Get car id
+                    var carId = el.parentNode.parentNode.getAttribute('data-car-id');
+                    //Get current property's value
+                    var data = el.textContent;
+                    //Prepare form
+                    var form = '<form class="form-inline-car-update" method="post" action="/cars/updateOwn">';
+                    form +='<input name="id" id="id" value="'+ carId +'" type="hidden">';
+                    form +='<input name="'+ param +'" id="'+ param +'" value="'+ data +'" type="text">';
+                    form +='<input class="button small inline-update-button" value="update" type="submit">';
+                    form +='</form>';
+                    //Create element to insert after event.target
+                    var sibling = document.createElement("span");
+                    //Insert form to inside of sibling element
+                    sibling.innerHTML = form;
+                    //Append sibling
+                    el.parentNode.appendChild(sibling);
+                    //Hide target element
+                    el.style.display = "none";
             });
         }
     }
