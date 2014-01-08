@@ -85,14 +85,14 @@
         } ?>
     </div>
     <div class="client-data">
-        <ul class="client-info">
+        <ul class="client-info" data-id="<?php echo $client->info->id;?>" data-update-url="/clients/updateOwn">
             <li><h5 class="label radius secondary"><?php echo $client->info->fullname;?></h5></li>
             <li><?php
                 $labelInfoClass = 'label-info';
-                echo '<span class="'.$labelInfoClass.'">Phone:</span>'.$client->info->contactphone;?></li>
-            <li><?php echo '<span class="'.$labelInfoClass.'">Email:</span>'.$client->info->contactemail;?></li>
+                echo '<span class="'.$labelInfoClass.'">Phone:</span><span class="contactphone">'.$client->info->contactphone;?></li>
+            <li><?php echo '<span class="'.$labelInfoClass.'">Email:</span><span class="contactemail">'.$client->info->contactemail;?></li>
             <li><?php echo '<span class="'.$labelInfoClass.'">Signup date:</span>'.$client->info->regdate;?></li>
-            <li><?php echo '<span class="'.$labelInfoClass.'">Add info:</span>'.$client->info->moreinfo;?></li>
+            <li><?php echo '<span class="'.$labelInfoClass.'">Add info:</span><span class="moreinfo">'.$client->info->moreinfo;?></li>
             <li><?php echo '<span class="'.$labelInfoClass.'">Username:</span>'.$client->info->username;?></li>
         </ul>
     </div>
@@ -100,7 +100,7 @@
         <?php
         //Same header car info label class
         foreach ($client->cars as $car) {
-            echo ' <ul class="car-info" data-car-id="'.$car->id.'">';
+            echo ' <ul class="car-info" data-id="'.$car->id.'" data-update-url="/cars/updateOwn">';
             echo '<li><h5 class="label radius secondary">'.$car->model.'</h5></li>';
             echo '<li><span class="'.$labelInfoClass.'">Reg. number:</span>'.$car->regnum.'</li>';
             echo '<li><span class="'.$labelInfoClass.'">Year:</span>'.$car->year.'</li>';

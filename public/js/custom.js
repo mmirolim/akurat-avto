@@ -1,8 +1,8 @@
+//Update client's own data like personal info and car milage and daily milage
+function updateOwnData() {
 
-function updateCarData() {
-    //TODO clean code add checks and update via ajax
     //Prepare array with target elements
-    var targets = ['dailymilage','milage'];
+    var targets = ['dailymilage','milage','contactphone','contactemail','moreinfo'];
     for (var i = 0; i < targets.length; i++) {
         var els = document.getElementsByClassName(targets[i]);
         //Check if elements present
@@ -10,20 +10,25 @@ function updateCarData() {
         for (var j = 0; j < els.length; j++) {
             //AddEventListeners to target elements
             els[j].addEventListener("click", function(event){
-                //Don't insert form twice if element activated
+                    //Remove all other inline forms
+                    var close = document.getElementsByClassName('inline-close-button');
+                    for (var i = 0; i < close.length; i++) {
+                        close[i].click();
+                    }
                     var el = event.target;
                     var param = el.getAttribute('class');
-                    //Get car id
-                    var carId = el.parentNode.parentNode.getAttribute('data-car-id');
+                    //Get data id
+                    var dataId = el.parentNode.parentNode.getAttribute('data-id');
                     //Get current property's value
                     var data = el.textContent;
                     //Prepare form
-                    var form = '<form class="form-inline-car-update" method="post" action="/cars/updateOwn">';
-                    form +='<input name="id" id="id" value="'+ carId +'" type="hidden">';
+                    var form = '<div class="form-inline-update">';
+                    form +='<input name="id" id="id" value="'+ dataId +'" type="hidden">';
+                    //TODO change to textarea for moreinfo data
                     form +='<input name="'+ param +'" id="'+ param +'" value="'+ data +'" type="text">';
                     form +='<input class="button inline-update-button" value="update" type="button" onclick="inlineFormSendData(event);">';
                     form +='<input class="button secondary inline-close-button" value="close" type="button" onclick="inlineFormRemove(event);">';
-                    form +='</form>';
+                    form +='</idv>';
                     //Create element to insert after event.target
                     var sibling = document.createElement("span");
                     //Insert form to inside of sibling element
@@ -45,16 +50,18 @@ function inlineFormSendData(event) {
     //Get target
     var el = event.target;
     var parent = el.parentNode;
+    //Get update url
+    var url = parent.parentNode.parentNode.parentNode.getAttribute("data-update-url");
     var siblings = parent.childNodes;
     var data = '';
-    for (var i = 0; i < (siblings.length - 1); i++) {
+    for (var i = 0; i < (siblings.length - 2); i++) {
         var id = siblings[i].getAttribute("id");
         var value = siblings[i].value;
         data += id + "="+ value +'&';
     }
     //Create xmlhttp
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST","/cars/updateOwn",true);
+    xmlhttp.open("POST",url,true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send(data);
     xmlhttp.onreadystatechange = function(){
@@ -81,5 +88,5 @@ $(window).load(function(){
 	controlNav: false,
 	directionNav: false
 	})
-    updateCarData();
+    updateOwnData();
 });

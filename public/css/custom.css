@@ -202,18 +202,22 @@ text-align: center;
   list-style: none;
 }
 /* Car data block styling */
-.form-inline-car-update {
+.form-inline-update {
 display: inline-block;
 width: 14em;
 height: 1.5em;
 margin: 0em;
 }
-.form-inline-car-update input {
+
+.form-inline-update input {
   padding: 0em 1em;
   height: 100%;
   margin: 0em;
   display: inline-block;
   width: 6em;
+}
+.client-info .form-inline-update #moreinfo {
+width: 70%;
 }
 input.button.inline-update-button, .button.inline-close-button {
   padding: initial;
