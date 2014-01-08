@@ -114,7 +114,7 @@
       <file leaf-file-name="Security.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/plugins/Security.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="87" column="42" selection-start="3952" selection-end="3952" vertical-scroll-proportion="-20.571428" vertical-offset="1720" max-vertical-offset="4732">
+            <state line="88" column="44" selection-start="4001" selection-end="4001" vertical-scroll-proportion="5.428571" vertical-offset="2476" max-vertical-offset="4760">
               <folding />
             </state>
           </provider>
@@ -132,7 +132,7 @@
       <file leaf-file-name="ClientsController.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/ClientsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="295" column="31" selection-start="8956" selection-end="8956" vertical-scroll-proportion="2.1448598" vertical-offset="6424" max-vertical-offset="8540">
+            <state line="280" column="68" selection-start="8628" selection-end="8628" vertical-scroll-proportion="0.77102804" vertical-offset="7180" max-vertical-offset="8540">
               <folding />
             </state>
           </provider>
@@ -257,11 +257,11 @@
         <option value="$PROJECT_DIR$/app/views/cars/index.phtml" />
         <option value="$PROJECT_DIR$/app/views/cars/edit.phtml" />
         <option value="$PROJECT_DIR$/app/views/cars/search.phtml" />
-        <option value="$PROJECT_DIR$/app/plugins/Security.php" />
         <option value="$PROJECT_DIR$/app/views/account/client_view" />
         <option value="$PROJECT_DIR$/public/js/custom.js" />
-        <option value="$PROJECT_DIR$/app/controllers/ClientsController.php" />
         <option value="$PROJECT_DIR$/app/controllers/CarsController.php" />
+        <option value="$PROJECT_DIR$/app/plugins/Security.php" />
+        <option value="$PROJECT_DIR$/app/controllers/ClientsController.php" />
       </list>
     </option>
   </component>
@@ -1206,13 +1206,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/plugins/Security.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="42" selection-start="3952" selection-end="3952" vertical-scroll-proportion="-20.571428" vertical-offset="1720" max-vertical-offset="4732">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/AccountController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="45" column="55" selection-start="1263" selection-end="1272" vertical-scroll-proportion="-16.571428" vertical-offset="656" max-vertical-offset="3248">
@@ -1243,9 +1236,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/plugins/Security.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="88" column="44" selection-start="4001" selection-end="4001" vertical-scroll-proportion="5.428571" vertical-offset="2476" max-vertical-offset="4760">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/ClientsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="295" column="31" selection-start="8956" selection-end="8956" vertical-scroll-proportion="2.1448598" vertical-offset="6424" max-vertical-offset="8540">
+        <state line="280" column="68" selection-start="8628" selection-end="8628" vertical-scroll-proportion="0.77102804" vertical-offset="7180" max-vertical-offset="8540">
           <folding />
         </state>
       </provider>

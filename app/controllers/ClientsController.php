@@ -272,10 +272,10 @@ class ClientsController extends ControllerBase
         }
 
         if($this->request->getPost("contactphone")) {
-            $client->milage = $this->request->getPost("contactphone");
+            $client->contactphone = $this->request->getPost("contactphone");
         }
         if($this->request->getPost("contactemail")) {
-            $client->dailymilage = $this->request->getPost("contactemail");
+            $client->contactemail = $this->request->getPost("contactemail");
         }
         if($this->request->getPost("moreinfo")) {
             $client->moreinfo = $this->request->getPost("moreinfo");
