@@ -91,6 +91,7 @@ body {
   position: fixed;
   width: 100%;
   z-index: 100;
+  cursor: pointer;
 }
 
 .message-block .alert-box {
@@ -179,7 +180,10 @@ img.shadow {
   background-color: #f04124;
   color: #fff;
 }
-
+.label.secondary.car-regnum {
+width: 6em;
+text-align: center;
+}
 .analytics-board h5 {
   font-size: inherit;
   letter-spacing: 1px;
