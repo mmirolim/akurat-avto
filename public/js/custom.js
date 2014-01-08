@@ -1,5 +1,10 @@
+//Namespace js functions
+AK = {
+
+}
+
 //Update client's own data like personal info and car milage and daily milage
-function updateOwnData() {
+AK.updateOwnData = function() {
 
     //Prepare array with target elements
     var targets = ['dailymilage','milage','contactphone','contactemail','moreinfo'];
@@ -26,8 +31,8 @@ function updateOwnData() {
                     form +='<input name="id" id="id" value="'+ dataId +'" type="hidden">';
                     //TODO change to textarea for moreinfo data
                     form +='<input name="'+ param +'" id="'+ param +'" value="'+ data +'" type="text">';
-                    form +='<input class="button inline-update-button" value="update" type="button" onclick="inlineFormSendData(event);">';
-                    form +='<input class="button secondary inline-close-button" value="close" type="button" onclick="inlineFormRemove(event);">';
+                    form +='<input class="button inline-update-button" value="update" type="button" onclick="AK.inlineFormSendData(event);">';
+                    form +='<input class="button secondary inline-close-button" value="close" type="button" onclick="AK.inlineFormRemove(event);">';
                     form +='</idv>';
                     //Create element to insert after event.target
                     var sibling = document.createElement("span");
@@ -41,11 +46,11 @@ function updateOwnData() {
         }
     }
 }
-function inlineFormRemove(event) {
+AK.inlineFormRemove = function(event) {
     event.target.parentNode.parentNode.previousSibling.style.display = 'initial';
     event.target.parentNode.parentNode.remove();
 }
-function inlineFormSendData(event) {
+AK.inlineFormSendData = function(event) {
 
     //Get target
     var el = event.target;
@@ -82,11 +87,21 @@ function inlineFormSendData(event) {
         }
     }
 }
+//Turn off color code for service if remind status 'N'
+AK.checkRemindStatus = function() {
+    var el = document.getElementsByClassName('remind-status');
+    for (var i=0; i < el.length; i++){
+        if (el[i].textContent == 'N') {
+            el[i].previousSibling.setAttribute('class','date-secondary');
+            el[i].previousSibling.previousSibling.setAttribute('class','km-secondary');
+        }}
+}
 $(window).load(function(){
 	$('.flexslider').flexslider({
 	animation: "slide",
 	controlNav: false,
 	directionNav: false
 	})
-    updateOwnData();
+    AK.updateOwnData();
+    AK.checkRemindStatus();
 });
