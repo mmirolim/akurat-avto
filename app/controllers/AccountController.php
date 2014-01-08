@@ -40,12 +40,13 @@ class AccountController extends ControllerBase
 
         //Get role and use appropriate action
         $role = $this->session->get("auth")["role"];
-
+        $this->view->currentUserRole = $role;
         //TODO cache employees and services resultsets
         //Get all employees
         $this->view->employees = Employees::find(array("columns" => "id, fullname, job, contacts"));
         //Get all services
         $this->view->carservices = Carservices::find();
+
 
         //Get appropriate data according to users role
         switch($role)

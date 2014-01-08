@@ -5,7 +5,7 @@
 <table width="100%">
     <tr>
         <td align="left">
-            <?php echo $this->tag->linkTo(array("employees/index", "Go Back")); ?>
+            <?php echo $this->tag->linkTo(array("/employees/index", "Go Back")); ?>
         </td>
         <td align="right">
             <?php echo $this->tag->linkTo(array("employees/new", "Create ")); ?>
@@ -32,7 +32,7 @@
             <td><?php echo $user->id ?></td>
             <td><?php echo $user->username ?></td>
             <td><?php echo $user->fullname ?></td>
-            <td><?php echo $user->role ?></td>
+            <td><?php echo $user->role_id ?></td>
             <td><?php echo $user->job ?></td>
             <td><?php echo $user->contacts ?></td>
             <td><?php echo $user->moreinfo ?></td>

@@ -209,6 +209,7 @@ text-align: center;
   width: 9em;
   display: inline-block;
   text-align: right;
+  margin-right: 1em;
 }
 
 .car-info, .client-info, .analytics-board {

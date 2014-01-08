@@ -42,7 +42,7 @@ class Security extends Plugin
                 'providedservices' => array('index','search','create','new','edit','save','delete'),
                 'employees' => array('index','search','create','new','edit','save','delete'),
                 'clients' => array('index','search','create','new','edit','save','delete'),
-                'cars' => array('index','search','create','new','edit','save','delete'),
+                'cars' => array('index','search','create','new','edit','save','delete','updateOwn'),
                 'carservices' => array('index','search','create','new','edit','save','delete'),
                 'account' => array('index','view','search','create','new','edit','save','delete')
             );
@@ -84,7 +84,8 @@ class Security extends Plugin
             );
             //Define array of resources and action accessible by Client
             $clientResources = array(
-                'account' => array('index','view','edit','save')
+                'account' => array('index','view','edit','save'),
+                'cars' => array('updateOwn')
             );
 
             //Grant access to Admin

@@ -5,10 +5,10 @@
 <table width="100%">
     <tr>
         <td align="left">
-            <?php echo $this->tag->linkTo(array("cars/index", "Go Back")); ?>
+            <?php echo $this->tag->linkTo(array("/cars/index", "Go Back")); ?>
         </td>
         <td align="right">
-            <?php echo $this->tag->linkTo(array("cars/new", "Create ")); ?>
+            <?php echo $this->tag->linkTo(array("/cars/new", "Create ")); ?>
         </td>
     <tr>
 </table>
@@ -43,8 +43,8 @@
             <td><?php echo $car->milage ?></td>
             <td><?php echo $car->dailymilage ?></td>
             <td><?php echo $car->moreinfo ?></td>
-            <td><?php echo $this->tag->linkTo(array("cars/edit/" . $car->id, "Edit")); ?></td>
-            <td><?php echo $this->tag->linkTo(array("cars/delete/" . $car->id, "Delete")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("/cars/edit/" . $car->id, "Edit")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("/cars/delete/" . $car->id, "Delete")); ?></td>
         </tr>
     <?php } ?>
     </tbody>

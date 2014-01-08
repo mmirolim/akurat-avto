@@ -239,4 +239,68 @@ class CarsController extends ControllerBase
         ));
     }
 
+    /**
+     * Saves a client car edited by client
+     * TODO refactor function to be DRY
+     */
+    public function updateOwnAction()
+    {
+
+        if (!$this->request->isPost()) {
+            $this->flashSession->error("Should be post to update own car data");
+            return $this->response->redirect("/account/".$clientUsername."/view");
+        }
+        //Check that user is a client
+        if($this->session->get("auth")["role"] == 'Client') {
+            $clientId = $this->session->get("auth")["id"];
+            $clientUsername = $this->session->get("auth")["username"];
+        } else {
+            return $this->response->redirect("/account/".$clientUsername."/view");
+        }
+        //Get car id for update
+        $carId = $this->request->getPost("id");
+
+        //Get all client cars ids
+        $cars = Cars::find(array(
+            'owner_id = :client_id:',
+            'bind' => array("client_id" => $clientId),
+            'columns' => "id"
+        ));
+        //Check if client is car owner
+        $isOwnCar = false;
+        foreach($cars as $id){
+            if($id === $carId) {
+                $isOwnCar = true;
+            }
+        }
+        if (!$isOwnCar) {
+            //Dispatch if not own car
+            $this->flashSession->error("Only own car can be edited");
+            return $this->response->redirect("/account/".$clientUsername."/view");
+        }
+
+        $car = Cars::findFirstByid($carId);
+        if (!$car) {
+            $this->flash->error("Car does not exist " . $carId);
+            return $this->response->redirect("/account/".$clientUsername."/view");
+        }
+        $car->id = $carId;
+        $car->milage = $this->request->getPost("milage");
+        $car->dailymilage = $this->request->getPost("dailymilage");
+        $car->moreinfo = $this->request->getPost("moreinfo");
+
+
+        if (!$car->save()) {
+
+            foreach ($car->getMessages() as $message) {
+                $this->flashSession->error($message);
+            }
+
+            return $this->response->redirect("/account/".$clientUsername."/view");
+        }
+
+        $this->flashSession->success("Car was updated successfully");
+        return $this->response->redirect("/account/".$clientUsername."/view");
+
+    }
 }

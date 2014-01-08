@@ -1,7 +1,25 @@
 <div id="content" class="account-view-content row">
 <?php
-    //Get html for client view
-    include('client_view');
+//Get appropriate data according to users role
+switch($currentUserRole)
+{
+    case 'Client':
+        //Get html for client view
+        include('client_view');
+        break;
+    case 'Employee':
+        break;
+    case 'Master':
+        break;
+    case 'Boss':
+        break;
+    case 'Admin':
+        break;
+    default:
+        $this->flashSession->error("Wrong Role");
+        return $this->response->redirect("/");
+}
+
 ?>
 </div>
 
