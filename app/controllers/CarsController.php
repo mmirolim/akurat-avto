@@ -255,6 +255,7 @@ class CarsController extends ControllerBase
             $clientId = $this->session->get("auth")["id"];
             $clientUsername = $this->session->get("auth")["username"];
         } else {
+            $this->flashSession->error("Your should be Client to edit that data");
             return $this->response->redirect("/account/".$clientUsername."/view");
         }
         //Get car id for update
@@ -275,16 +276,16 @@ class CarsController extends ControllerBase
         }
         if (!$isOwnCar) {
             //Dispatch if not own car
-            $this->flashSession->error("Only own car can be edited"."Carid".$carId);
+            $this->flashSession->error("Only own car can be edited");
             return $this->response->redirect("/account/".$clientUsername."/view");
         }
 
         $car = Cars::findFirstByid($carId);
         if (!$car) {
-            $this->flash->error("Car does not exist " . $carId);
+            $this->flash->error("Car does not exist");
             return $this->response->redirect("/account/".$clientUsername."/view");
         }
-        $car->id = $carId;
+
         if($this->request->getPost("milage")) {
             $car->milage = $this->request->getPost("milage");
         }
@@ -305,11 +306,9 @@ class CarsController extends ControllerBase
             return $this->response->redirect("/account/".$clientUsername."/view");
         }
 
-        $this->flashSession->success("Car was updated successfully");
 
         echo json_encode($car);
         $this->view->disable();
-        //return $this->response->redirect("/account/".$clientUsername."/view");
 
     }
 }

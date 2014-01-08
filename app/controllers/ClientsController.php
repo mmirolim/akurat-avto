@@ -230,4 +230,70 @@ class ClientsController extends ControllerBase
         ));
     }
 
+    /**
+     * Saves a client info edited by client
+     * TODO refactor function to be DRY
+     */
+    public function updateOwnAction()
+    {
+        $clientUsername = $this->session->get("auth")["username"];
+        if (!$this->request->isPost()) {
+            $this->flashSession->error("Should be post to update own data");
+            return $this->response->redirect("/account/".$clientUsername."/view");
+        }
+        //Check that user is a client
+        if($this->session->get("auth")["role"] == 'Client') {
+            $clientId = $this->session->get("auth")["id"];
+            $clientUsername = $this->session->get("auth")["username"];
+        } else {
+            $this->flashSession->error("Your should be Client to edit that data");
+            return $this->response->redirect("/account/".$clientUsername."/view");
+        }
+        //Get car id for update
+        $id = $this->request->getPost("id");
+
+        //Check if client is car owner
+        $isOwnInfo = false;
+        if($clientId == $id) {
+            $isOwnInfo = true;
+        }
+        if (!$isOwnInfo) {
+            //Dispatch if not own car
+            $this->flashSession->error("Only own info can be edited");
+            return $this->response->redirect("/account/".$clientUsername."/view");
+        }
+
+        //Get client info
+        $client = Clients::findFirstById($id);
+
+        if (!$client) {
+            $this->flash->error("Client does not exist");
+            return $this->response->redirect("/account/".$clientUsername."/view");
+        }
+
+        if($this->request->getPost("contactphone")) {
+            $client->milage = $this->request->getPost("contactphone");
+        }
+        if($this->request->getPost("contactemail")) {
+            $client->dailymilage = $this->request->getPost("contactemail");
+        }
+        if($this->request->getPost("moreinfo")) {
+            $client->moreinfo = $this->request->getPost("moreinfo");
+        }
+
+
+        if (!$client->save()) {
+
+            foreach ($client->getMessages() as $message) {
+                $this->flashSession->error($message);
+            }
+
+            return $this->response->redirect("/account/".$clientUsername."/view");
+        }
+
+
+        echo json_encode($client);
+        $this->view->disable();
+
+    }
 }
