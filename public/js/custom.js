@@ -13,6 +13,9 @@ AK.updateOwnData = function() {
         //Check if elements present
         if(els.length === 0) {return}
         for (var j = 0; j < els.length; j++) {
+            //Add class to inline updatable elements
+            els[j].setAttribute("data-updatable","yes");
+            els[j].setAttribute("title","Обновить данные")
             //AddEventListeners to target elements
             els[j].addEventListener("click", function(event){
                 //Remove all other inline forms

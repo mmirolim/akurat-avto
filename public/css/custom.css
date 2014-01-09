@@ -212,6 +212,10 @@ text-align: center;
   list-style: none;
 }
 /* Car data block styling */
+[data-updatable="yes"] {
+  color: #076BB9;
+  cursor: pointer;
+}
 .form-inline-update {
 display: inline-block;
 width: 14em;
@@ -226,7 +230,13 @@ margin: 0em;
   display: inline-block;
   width: 6em;
 }
-.client-info .form-inline-update #moreinfo {
+.client-info .label-info {
+width: 6em;
+}
+.client-info .form-inline-update {
+width: 75%;
+}
+.client-info .form-inline-update input[type="text"] {
 width: 70%;
 }
 input.button.inline-update-button, .button.inline-close-button {
