@@ -237,7 +237,7 @@ width: 6em;
 width: 75%;
 }
 .client-info .form-inline-update input[type="text"] {
-width: 70%;
+width: 60%;
 }
 input.button.inline-update-button, .button.inline-close-button {
   padding: initial;

@@ -81,6 +81,8 @@ AK.inlineFormSendData = function(event) {
                 if (key == siblingParent.getAttribute("class")){
                     //Show updated data in message block
                     document.getElementsByClassName('message-block')[0].innerHTML = '<div class="alert-box success">'+key+' updated to '+obj[key]+'</div>';
+                    //Set display to initial if it was toggled
+                    document.getElementsByClassName('message-block')[0].style.display = 'initial';
                     siblingParent.textContent = obj[key];
                 }
             }
@@ -90,11 +92,11 @@ AK.inlineFormSendData = function(event) {
         }
     }
 }
-//Turn off color code for service if remind status 'N'
+//Turn off color code for service if remind status 0
 AK.checkRemindStatus = function() {
     var el = document.getElementsByClassName('remind-status');
     for (var i=0; i < el.length; i++){
-        if (el[i].textContent == 'N') {
+        if (el[i].textContent == '0') {
             el[i].previousSibling.setAttribute('class','date-secondary');
             el[i].previousSibling.previousSibling.setAttribute('class','km-secondary');
         }}
