@@ -16,7 +16,7 @@ class Security extends Plugin
     {
         // For performance store serialized acl object somewhere
         //Check whether acl data already exist
-        if(!file_exists("app/security/acl.data")) {
+        if(!file_exists(__DIR__ . '/../../app/cache/acl.data')) {
             //Create the ACL
             $acl = new Phalcon\Acl\Adapter\Memory();
 
@@ -127,11 +127,11 @@ class Security extends Plugin
             }
 
              //Store serialized list into plain file
-            file_put_contents("../cache/acl.data", serialize($acl));
+            file_put_contents(__DIR__ . '/../../app/cache/acl.data', serialize($acl));
         } else {
 
             //Restore acl object from serialized file
-            $acl = unserialize(file_get_contents("acl.data"));
+            $acl = unserialize(file_get_contents(__DIR__ . '/../../app/cache/acl.data'));
         }
         return $acl;
     }
