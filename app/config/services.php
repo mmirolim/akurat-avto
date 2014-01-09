@@ -137,3 +137,24 @@ $di->set('flashSession', function(){
     ));
     return $flashSession;
 });
+
+/**
+ * Set the models cache service
+ */
+$di->set('modelCache', function(){
+    //Cache data for 5 min by default
+    //TODO set according to production needs
+    $frontCache = new \Phalcon\Cache\Frontend\Data(array(
+        "lifetime" => 300
+    ));
+
+    //Create the component that will cache "Data" to a "File" backend
+    //Set the cache file directory - important to keep the "/" at the end of
+    //the value for the folder
+    //TODO use Memcache or APC in production env
+    $cache = new Phalcon\Cache\Backend\File($frontCache, array(
+        "cacheDir" =>$config-> application->cacheDir
+    ));
+
+    return $cache;
+});

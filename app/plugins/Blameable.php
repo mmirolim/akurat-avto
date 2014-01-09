@@ -14,7 +14,7 @@ class Blameable extends Behavior implements BehaviorInterface
         $userName = $this->session->get("auth")["username"];
 
         //Store in a log the username, event type and primary key
-        file_put_contents('logs/blameable-log.txt',$userName .' '. $eventType .' '. $model->id);
+        file_put_contents(__DIR__ . '/../../app/logs/blameable-log.txt',$userName .' '. $eventType .' '. $model->id);
 
     }
 }
