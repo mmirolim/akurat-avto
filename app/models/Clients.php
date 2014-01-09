@@ -73,6 +73,9 @@ class Clients extends \Phalcon\Mvc\Model
         //Set has-many cars relationship
         $this->hasMany("id", "Cars", "owner_id");
 
+        //Use dynamic update to improve performance
+        $this->useDynamicUpdate(true);
+
         //Log model events
         $this->addBehavior(new Blamable());
     }

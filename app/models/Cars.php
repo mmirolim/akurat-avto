@@ -71,19 +71,26 @@ class Cars extends \Phalcon\Mvc\Model
     public $moreinfo;
 
     /**
-     * TODO ADD milage update date to estimate current milage
+     * When last milage updated
+     * @var date
      */
+    public $mlgdate;
+
 
     public function initialize()
     {
         //Set has-many cars relationship
         $this->hasMany("id", "Providedservices", "car_id");
 
+        //Use dynamic update to improve performance
+        $this->useDynamicUpdate(true);
+
         //Log model events
         $this->addBehavior(new Blamable());
 
 
     }
+
 
     /**
      * Return the related "services provided"

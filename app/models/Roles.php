@@ -35,6 +35,9 @@ class Roles extends \Phalcon\Mvc\Model
 
     public function initialize()
     {
+        //Use dynamic update to improve performance
+        $this->useDynamicUpdate(true);
+
         //Log model events
         $this->addBehavior(new Blamable());
     }
