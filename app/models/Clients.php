@@ -70,9 +70,11 @@ class Clients extends \Phalcon\Mvc\Model
 
     public function initialize()
     {
-        //Set has-many cars relationship
+            //Set has-many cars relationship
         $this->hasMany("id", "Cars", "owner_id");
 
+        //Log model events
+        $this->addBehavior(new Blameable());
     }
 
     /**

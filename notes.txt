@@ -21,3 +21,4 @@
 19.	Make Client own update inline updating //Done
 20. Ajaxify Client own updates //Done
 21.	Add messages after Client own data updated via ajax //Done
+

@@ -127,7 +127,7 @@ class Security extends Plugin
             }
 
              //Store serialized list into plain file
-            file_put_contents("acl.data", serialize($acl));
+            file_put_contents("../cache/acl.data", serialize($acl));
         } else {
 
             //Restore acl object from serialized file
