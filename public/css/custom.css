@@ -171,6 +171,16 @@ img.shadow {
 }
 
 /* Account view styling */
+
+.table-provided-services tr:hover {
+  background: rgb(231, 233, 232) !important;
+}
+.table-provided-services tr:hover td:first-child {
+font-weight: bold;
+}
+.date-secondary {
+background-color: #e7e7e7;
+}
 .date-success {
   background-color: #43ac6a;
   color: #fff;

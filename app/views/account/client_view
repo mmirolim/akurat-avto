@@ -1,20 +1,3 @@
-<?php
-        //Create array from services row
-        foreach ($client->cars as $car) {
-            foreach ($car->providedServices as $providedService) {
-                foreach($carservices as $carservice) {
-                    if($providedService->work_id == $carservice->id) {
-                        $providedService->work_id = $carservice->carservice;
-                    }
-                }
-                foreach($employees as $employee) {
-                    if($providedService->master_id == $employee->id) {
-                        $providedService->master_id  = $employee->fullname;
-                    }
-                }
-            }
-        }
-?>
 <div class="large-8 columns services-block">
     <table class="table-provided-services" align="center">
         <thead>
@@ -38,10 +21,18 @@
                     echo '<tr>';
                     echo '<td>'.$car->regnum.'</td>';
                     echo '<td>'.$providedService->startdate.'</td>';
-                    echo '<td>'.$providedService->work_id.'</td>';
+                    foreach($carservices as $carservice) {
+                        if($providedService->work_id == $carservice->id) {
+                            echo '<td>'.$carservice->carservice.'</td>';
+                        }
+                    }
                     echo '<td>'.$providedService->cost.'</td>';
                     echo '<td>'.$providedService->milage.'</td>';
-                    echo '<td>'.$providedService->master_id.'</td>';
+                    foreach($employees as $employee) {
+                        if($providedService->master_id == $employee->id) {
+                            echo '<td>'.$employee->fullname.'</td>';
+                        }
+                    }
                     echo '<td>'.$providedService->moreinfo.'</td>';
                     echo '<td>';
                     $milageRemind = $providedService->remindkm + $providedService->milage;

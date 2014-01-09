@@ -70,14 +70,20 @@ class Cars extends \Phalcon\Mvc\Model
      */
     public $moreinfo;
 
+    /**
+     * TODO ADD milage update date to estimate current milage
+     */
+
     public function initialize()
     {
         //Set has-many cars relationship
         $this->hasMany("id", "Providedservices", "car_id");
 
     }
+
     /**
      * Return the related "services provided"
+     * @param null $parameters
      * @return \Providedservices[]
      */
     public function getProvidedservices($parameters = null)
