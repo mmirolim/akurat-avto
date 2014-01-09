@@ -58,6 +58,10 @@
         {{ javascript_include("/../js/jquery-2.0.3.min.js") }}
         {{ javascript_include("/../js/foundation.min.js") }}
         {{ javascript_include("/../js/modernizr.js") }}
+         <!-- activate foundation -->
+         <script>
+             $(document).foundation();
+         </script>
         {{ javascript_include("/../libraries/flexslider/jquery.flexslider-min.js") }}
         {{ javascript_include("/../js/custom.js") }}
 	</body>

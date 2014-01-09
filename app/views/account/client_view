@@ -2,16 +2,16 @@
     <table class="table-provided-services" align="center">
         <thead>
         <tr>
-            <th width="85" title="Номер">#</th>
-            <th width="100" "Когда было проведено тех. обслуживание">Когда</th>
-            <th >Tex. услуга</th>
-            <th title="Стоимость">$</th>
-            <th title="Пробег в км">Пробег</th>
-            <th >Мастер</th>
-            <th >Заметка</th>
-            <th title="Напомнить взависимости от КМ">КМ</th>
-            <th width="100" title="Напомнить взависимости от Даты">Дата</th>
-            <th class="remind-status-th">Статус напоминания</th>
+            <th width="85" data-tooltip class="has-tip prs-th" title="Номер Машины">#</th>
+            <th width="100" data-tooltip class="has-tip prs-th" title="Дата проведения тех. обслуживания">Когда</th>
+            <th data-tooltip class="has-tip prs-th" title="Тип технического облуживания">Tex. услуга</th>
+            <th data-tooltip class="has-tip prs-th" title="Стоимость тех. облуживания">$</th>
+            <th data-tooltip class="has-tip prs-th" title="Пробег машины в километрах на момент тех. обслуживания">Пробег</th>
+            <th data-tooltip class="has-tip prs-th" title="Мастер выполнявший тех. обслуживани">Мастер</th>
+            <th data-tooltip class="has-tip prs-th" title="Дополнительная информация">Заметка</th>
+            <th data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после КМ">КМ</th>
+            <th width="100" data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после Даты">Дата</th>
+            <th class="remind-status-th prs-th">Статус напоминания</th>
         </tr>
         </thead>
         <tbody>
@@ -34,9 +34,24 @@
                         }
                     }
                     echo '<td>'.$providedService->moreinfo.'</td>';
-                    echo '<td>';
+
+                    //If remindKm set estimate status of alert according to milage, milage date update and daily milage
+                    //TODO test what will be if remindkm or/and reminddate missing
                     $milageRemind = $providedService->remindkm + $providedService->milage;
-                    echo $milageRemind.'</td>';
+                    if(isset($car->mlgdate) && isset($car->dailymilage)) {
+                        if ($car->mlgdate > 0 && $car->dailymilage > 0) {
+                            //Get number of days between now and last milage updated
+                            $days = round((time() - strtotime($car->mlgdate))/86400);
+                            //Get estimated km after last milage data update
+                            $kmSince = $days*$car->dailymilage;
+                            if ($providedService->remindkm > 0 && ($milageRemind  - ($car->milage + $kmSince)) < 0) {
+                                $kmRemindStatus = "alert";
+                            } else {
+                                $kmRemindStatus = "success";
+                            }
+                        }
+                    }
+                    echo '<td class="km-'.$kmRemindStatus.'">'.$milageRemind.'</td>';
                     if (time() - strtotime($providedService->reminddate) > 0){
                         $remindDateClass = "alert";
                     } else {

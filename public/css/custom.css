@@ -10,7 +10,10 @@ body {
 .row {
   max-width: initial;
 }
+/* Foundation classes */
 
+
+/* Main containers */
 #container {
   height: 100%;
 }
@@ -21,7 +24,6 @@ body {
 }
 
 #header {
-  position: fixed;
   top: 0px;
   left: 0px;
   z-index: 100;
@@ -171,6 +173,11 @@ img.shadow {
 }
 
 /* Account view styling */
+.has-tip.prs-th {
+text-align: center;
+border-bottom: none;
+text-decoration: underline;
+}
 
 .table-provided-services tr:hover {
   background: rgb(231, 233, 232) !important;
@@ -187,14 +194,14 @@ border-left: 0.5em solid #43ac6a;
 td[status-of-prs="0"] {
 color: rgb(156, 156, 156);
 }
-.date-secondary {
+.date-secondary, .km-secondary {
 background-color: #e7e7e7;
 }
-.date-success {
+.date-success, .km-success {
   background-color: #43ac6a;
   color: #fff;
 }
-.date-alert {
+.date-alert, .km-alert {
   background-color: #f04124;
   color: #fff;
 }
