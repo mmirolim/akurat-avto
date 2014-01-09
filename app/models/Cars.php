@@ -1,5 +1,6 @@
 <?php
 
+use Phalcon\Mvc\Model\Behavior\Timestampable;
 
 class Cars extends \Phalcon\Mvc\Model
 {
@@ -82,12 +83,17 @@ class Cars extends \Phalcon\Mvc\Model
         //Set has-many cars relationship
         $this->hasMany("id", "Providedservices", "car_id");
 
+        //Insert date on creation for milage date
+        //TODO test Behavior
+        $this->addBehavior(new Timestampable(array(
+            'beforeCreate' => array('field' => 'mlgdate','format' => 'Y-m-d')
+        )));
+
         //Use dynamic update to improve performance
         $this->useDynamicUpdate(true);
 
         //Log model events
         $this->addBehavior(new Blamable());
-
 
     }
 

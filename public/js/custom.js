@@ -53,17 +53,21 @@ AK.inlineFormRemove = function(event) {
     event.target.parentNode.parentNode.previousSibling.style.display = 'initial';
     event.target.parentNode.parentNode.remove();
 }
-AK.inlineFormSendData = function(event) {
 
+AK.inlineFormSendData = function(event) {
+    //TODO add more comments
     //Get target
     var el = event.target;
     var parent = el.parentNode;
-    //Get update url
+    //Get update url for model
     var url = parent.parentNode.parentNode.parentNode.getAttribute("data-update-url");
     var siblings = parent.childNodes;
     var data = '';
+    //Prepare data to send
     for (var i = 0; i < (siblings.length - 2); i++) {
+        //Get  model property name to update and id property
         var id = siblings[i].getAttribute("id");
+        //Get new value for model property and model id
         var value = siblings[i].value;
         data += id + "="+ value +'&';
     }
@@ -73,19 +77,26 @@ AK.inlineFormSendData = function(event) {
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send(data);
     xmlhttp.onreadystatechange = function(){
+        //If status OK
         if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
             var obj = JSON.parse(xmlhttp.response);
+            //Get original element of inline update, previous sibling of current target's parent
             var siblingParent = event.target.parentNode.parentNode.previousSibling;
             for (key in obj){
                 //Find which parameter changed in obj
                 if (key == siblingParent.getAttribute("class")){
                     //Show updated data in message block
                     document.getElementsByClassName('message-block')[0].innerHTML = '<div class="alert-box success">'+key+' updated to '+obj[key]+'</div>';
-                    //Set display to initial if it was toggled
+                    //Set message block display to initial if it was toggled
                     document.getElementsByClassName('message-block')[0].style.display = 'initial';
+                    //Update text in original element of inline update
                     siblingParent.textContent = obj[key];
+                    //If milage updated, update data-mlgdate of original element of editing
+                    if (key == 'milage') {
+                        siblingParent.setAttribute("data-mlgdate",obj["mlgdate"]);
+                        }
+                    }
                 }
-            }
 
             siblingParent.style.display = "initial";
             event.target.parentNode.parentNode.remove();

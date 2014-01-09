@@ -288,6 +288,7 @@ class CarsController extends ControllerBase
 
         if($this->request->getPost("milage")) {
             $car->milage = $this->request->getPost("milage");
+            $car->mlgdate = date('Y-m-d');
         }
         if($this->request->getPost("dailymilage")) {
             $car->dailymilage = $this->request->getPost("dailymilage");

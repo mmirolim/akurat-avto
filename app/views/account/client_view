@@ -96,7 +96,7 @@
             echo '<li><span class="'.$labelInfoClass.'">Reg. number:</span>'.$car->regnum.'</li>';
             echo '<li><span class="'.$labelInfoClass.'">Year:</span>'.$car->year.'</li>';
             echo '<li><span class="'.$labelInfoClass.'">First service date:</span>'.$car->regdate.'</li>';
-            echo '<li><span class="'.$labelInfoClass.'">Current KM:</span><span class="milage">'.$car->milage.'</span></li>';
+            echo '<li><span class="'.$labelInfoClass.'">Current KM:</span><span class="milage" data-mlgdate="'.$car->mlgdate.'">'.$car->milage.'</span></li>';
             echo '<li><span class="'.$labelInfoClass.'">Milage KM/day:</span><span class="dailymilage">'.$car->dailymilage.'</span></li>';
             echo '<li><span class="'.$labelInfoClass.'">Body number:</span>'.$car->bodynumber.'</li>';
             echo '<li><span class="'.$labelInfoClass.'">Engine number:</span>'.$car->enginenumber.'</li>';
