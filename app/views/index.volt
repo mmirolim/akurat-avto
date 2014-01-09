@@ -3,7 +3,7 @@
 	<head>
         <meta charset='utf-8'>
 		<title>Akurat Avto Service</title>
-        {{ stylesheet_link('/../css/foundation.min.css')}}
+        {{ stylesheet_link('/../css/foundation.css')}}
         {{ stylesheet_link('/../css/custom.css')}}
 	</head>
 	<body>
@@ -52,7 +52,7 @@
                       </ul>
                   </div>
                 </div>
-               <div class="row"><h4 class="row copyright">AKURAT AVTO all rights registered @ 2014</h4></div>
+               <div class="row"><h4 class="large-12 columns copyright">AKURAT AVTO all rights registered @ 2014</h4></div>
              </div>
          </div>
         {{ javascript_include("/../js/jquery-2.0.3.min.js") }}

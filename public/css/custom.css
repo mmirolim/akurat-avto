@@ -175,8 +175,11 @@ img.shadow {
 .table-provided-services tr:hover {
   background: rgb(231, 233, 232) !important;
 }
+.table-provided-services tr td:first-child {
+  border-left: 0.5em solid transparent;
+}
 .table-provided-services tr:hover td:first-child {
-font-weight: bold;
+border-left: 0.5em solid #43ac6a;
 }
 .date-secondary {
 background-color: #e7e7e7;
@@ -185,10 +188,15 @@ background-color: #e7e7e7;
   background-color: #43ac6a;
   color: #fff;
 }
-
 .date-alert {
   background-color: #f04124;
   color: #fff;
+}
+.remind-status {
+  display: none;
+}
+.remind-status-th {
+display: none;
 }
 .label.secondary.car-regnum {
 width: 6em;
