@@ -38,26 +38,34 @@
                     //If remindKm set estimate status of alert according to milage, milage date update and daily milage
                     //TODO test what will be if remindkm or/and reminddate missing
                     $milageRemind = $providedService->remindkm + $providedService->milage;
-                    if(isset($car->mlgdate) && isset($car->dailymilage)) {
-                        if ($car->mlgdate > 0 && $car->dailymilage > 0) {
-                            //Get number of days between now and last milage updated
-                            $days = round((time() - strtotime($car->mlgdate))/86400);
-                            //Get estimated km after last milage data update
-                            $kmSince = $days*$car->dailymilage;
-                            if ($providedService->remindkm > 0 && ($milageRemind  - ($car->milage + $kmSince)) < 0) {
-                                $kmRemindStatus = "alert";
-                            } else {
-                                $kmRemindStatus = "success";
+                    if($providedService->remind > 0) {
+                        if(isset($car->mlgdate) && isset($car->dailymilage)) {
+                            if ($car->mlgdate > 0 && $car->dailymilage > 0) {
+                                //Get number of days between now and last milage updated
+                                $days = round((time() - strtotime($car->mlgdate))/86400);
+                                //Get estimated km after last milage data update
+                                $kmSince = $days*$car->dailymilage;
+                                if ($providedService->remindkm > 0 && ($milageRemind  - ($car->milage + $kmSince)) < 0) {
+                                    $kmRemindStatus = "alert";
+                                } else {
+                                    $kmRemindStatus = "success";
+                                }
                             }
                         }
+                    } else {
+                        $kmRemindStatus = 'secondary';
                     }
                     echo '<td class="km-'.$kmRemindStatus.'">'.$milageRemind.'</td>';
-                    if (time() - strtotime($providedService->reminddate) > 0){
-                        $remindDateClass = "alert";
+                    if($providedService->remind > 0) {
+                        if (time() - strtotime($providedService->reminddate) > 0){
+                            $remindDateStatus = "alert";
+                        } else {
+                            $remindDateStatus = "success";
+                        }
                     } else {
-                        $remindDateClass = "success";
+                        $remindDateStatus = 'secondary';
                     }
-                    echo '<td class="date-'.$remindDateClass.'">';
+                    echo '<td class="date-'.$remindDateStatus.'">';
                     echo $providedService->reminddate.'</td>';
                     echo '<td class="remind-status">'.$providedService->remind.'</td>';
                     echo '</tr>';
