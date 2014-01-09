@@ -1,18 +1,23 @@
-Flexslider example
--- JS --
-$(window).load(function(){
-	$('.flexslider').flexslider({
-	animation: "slide"
-	})
-});
--- HTML --
-<div class="flexslider">
-	<ul class="slides">
-		<li>
-			<img src="slide1.jpg" />
-		</li>
-		<li>
-			<img src="slide2.jpg" />
-		</li>
-	</ul>
-</div>
+//Roadmap for Akurat Avto
+
+1.	Create raw structure //Done
+2.	Use responsive design with Foundation //Done
+3.	Add Model column to Cars table //Done
+4.	Add UTF8 encoding to db connection //Done
+5.	Change Users to Clients business logic //Done
+6.	Add Roles to use in ACL //Done
+7.	Protect password with Hash //Done
+8.	Create prototype of frontpage //Done
+9.	Add Flexslider js library //Done
+10.	Add Login page and controller //Done
+11.	Create ACL list //Done
+12.	Add correct redirects if ACL fail //Done
+13.	Add session messages for users //Done
+14.	Add Client account page	//Done
+15.	Use foundation message classes for system messages //Done
+16.	Add Client and Cars model relation //Done
+17.	Let Client update own info //Done
+18.	Let Client update own cars milage //Done
+19.	Make Client own update inline updating //Done
+20. Ajaxify Client own updates //Done
+21.	Add messages after Client own data updated via ajax //Done
