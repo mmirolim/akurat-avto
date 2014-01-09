@@ -33,4 +33,10 @@ class Roles extends \Phalcon\Mvc\Model
         );
     }
 
+    public function initialize()
+    {
+        //Log model events
+        $this->addBehavior(new Blamable());
+    }
+
 }

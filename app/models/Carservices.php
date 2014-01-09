@@ -21,5 +21,11 @@ class Carservices extends \Phalcon\Mvc\Model
      * @var string
      */
     public $moreinfo;
+
+    public function initialize()
+    {
+        //Log model events
+        $this->addBehavior(new Blamable());
+    }
      
 }

@@ -7,15 +7,28 @@ class Blamable extends Behavior implements BehaviorInterface
 {
     public function notify($eventType, $model)
     {
-        //Log all events
-        //TODO log only required events
 
-        //Get username from session
-       // $userName = $this->session->get("auth")["username"];
-        $userName = $_SESSION["auth"]["username"];
+        switch ($eventType) {
 
-        //Store in a log the username, event type and primary key
-        file_put_contents(__DIR__ . '/../../app/logs/blamable-log.txt',$userName .' '. $eventType .' '. serialize($model));
+            //Event type to log
+            case 'afterCreate':
+            case 'afterDelete':
+            case 'afterUpdate':
 
+                //Get username from session
+                $userName = $_SESSION["auth"]["username"];
+                //Remove sensitive data from logged information
+                if ($model->password) {
+                    $model->password = '';
+                }
+                //Write to new log every week
+                //TODO rotate logs the right way
+                $week = round(time()/604800);
+                //Store in a log the username, event type serialized model
+                file_put_contents(__DIR__ . '/../../app/logs/blamable-log-'.$week.'.txt', "\n" . 'userName='.$userName .' '. 'event='.$eventType .' '. serialize($model),FILE_APPEND);
+                break;
+            default:
+                //Ignore the rest of events
+        }
     }
 }

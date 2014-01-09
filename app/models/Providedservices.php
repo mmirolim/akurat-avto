@@ -75,5 +75,11 @@ class Providedservices extends \Phalcon\Mvc\Model
      * @var string
      */
     public $remind;
+
+    public function initialize()
+    {
+        //Log model events
+        $this->addBehavior(new Blamable());
+    }
      
 }
