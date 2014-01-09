@@ -22,5 +22,12 @@
 20. Ajaxify Client own updates //Done
 21.	Add messages after Client own data updated via ajax //Done
 22. Add cache to Employees, Carservices and Provided services resultsets //Done
+23. Add logging to control and get insight of app usage add Behavior Blamable //Done
+24. Keep track when milage udpated add new field to Cars //Done
+25. Do not expose sensitive data //Done
+26. Make table of provided services more responsive //Done
+27. Show days in maintenance per car to Client //Done
+28. Style provided services table to improve perception //Done
+29. Use dynamic model update to improve performance //Done
 
 
