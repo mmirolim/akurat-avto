@@ -221,3 +221,4 @@ pip-log.txt
 .mr.developer.cfg
 .idea/
 app/cache/
+app/logs/

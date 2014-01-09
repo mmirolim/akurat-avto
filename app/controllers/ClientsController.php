@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Model\Criteria,
+    Phalcon\Mvc\Model\Resultset,
     Phalcon\Paginator\Adapter\Model as Paginator;
 
 class ClientsController extends ControllerBase
@@ -291,6 +292,10 @@ class ClientsController extends ControllerBase
             return $this->response->redirect("/account/".$clientUsername."/view");
         }
 
+        //Remove sensitive data before sending client info back
+        $client->password = '';
+        $client->id = '';
+        $client->username = '';
 
         echo json_encode($client);
         $this->view->disable();

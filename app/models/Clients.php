@@ -74,7 +74,7 @@ class Clients extends \Phalcon\Mvc\Model
         $this->hasMany("id", "Cars", "owner_id");
 
         //Log model events
-        $this->addBehavior(new Blameable());
+        $this->addBehavior(new Blamable());
     }
 
     /**

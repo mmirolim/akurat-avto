@@ -79,6 +79,8 @@ class Cars extends \Phalcon\Mvc\Model
         //Set has-many cars relationship
         $this->hasMany("id", "Providedservices", "car_id");
 
+
+
     }
 
     /**
