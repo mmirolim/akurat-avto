@@ -59,8 +59,17 @@
             //Create div block per car
             echo '<div class="analytic-data">';
             $car->totalExpenses = 0;
+            $car->daysInMaintenance = 0;
+            //Calculate total expenses per car
             foreach ($car->providedServices as $providedService) {
                 $car->totalExpenses += $providedService->cost;
+                //Calculate days in maintenance per car
+                if(isset($providedService->finishdate)) {
+                    //Check if finishdate not same date of startdate
+                    if(strtotime($providedService->finishdate) - strtotime($providedService->startdate) > 0){
+                        $car->daysInMaintenance = strtotime($providedService->finishdate) - strtotime($providedService->startdate);
+                    }
+                }
             }
             echo '<h5 class="label radius secondary car-regnum">'.$car->regnum.'</h5>';
             echo '<div class="total-expenses">';
@@ -69,7 +78,7 @@
             </div>
         <div class="total-health"><h5>Total Health</h5><span id="car-health" class="label radius">75%</span></div>
         <div class="show-issues"><h5>Issues</h5><span id="issue-status" class="label radius alert">2</span></div>
-        <div class="days-in-maintenance"><h5>Days in Maintenance</h5><span id="days-in-maintenance" class="label radius secondary">10</span></div>
+        <div class="days-in-maintenance"><h5>Days in Maintenance</h5><span id="days-in-maintenance" class="label radius secondary"><?php echo ($car->daysInMaintenance/86400);?></span></div>
         <?php
             //Close tag for per car block
             echo '</div>';
