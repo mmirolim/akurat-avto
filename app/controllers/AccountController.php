@@ -42,11 +42,16 @@ class AccountController extends ControllerBase
         $role = $this->session->get("auth")["role"];
         $this->view->currentUserRole = $role;
         //TODO cache employees and services resultsets
-        //Get all employees
-        $this->view->employees = Employees::find(array("columns" => "id, fullname, job, contacts"));
-        //Get all services
-        $this->view->carservices = Carservices::find();
+        //Get all employees and cache it
+        $this->view->employees = Employees::find(array(
+            "columns" => "id, fullname, job, contacts",
+            "cache" => array("key" => "employees-list", "lifetime" => 300)
+        ));
 
+        //Get all services and cache it
+        $this->view->carservices = Carservices::find( array(
+            "cache" => array("key" => "carservices-list", "lifetime" => 300)
+        ));
 
         //Get appropriate data according to users role
         switch($role)
@@ -85,7 +90,10 @@ class AccountController extends ControllerBase
         foreach($cars as $car) {
             //HYDRATE provided services as stDClass objects just to read data not to edit
             //TODO order by startdate by default
-            $car->providedServices = $car->getProvidedservices()->setHydrateMode(Resultset::HYDRATE_OBJECTS);
+            //cache by username
+            $car->providedServices = $car->getProvidedservices(array(
+                "cache" => array("key" => "providedServices-list-".$username, "lifetime" => 300)
+            ))->setHydrateMode(Resultset::HYDRATE_OBJECTS);
         }
         $client->cars = $cars;
         //Make available in views

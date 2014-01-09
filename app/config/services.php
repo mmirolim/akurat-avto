@@ -141,7 +141,7 @@ $di->set('flashSession', function(){
 /**
  * Set the models cache service
  */
-$di->set('modelCache', function(){
+$di->set('modelsCache', function() use ($config) {
     //Cache data for 5 min by default
     //TODO set according to production needs
     $frontCache = new \Phalcon\Cache\Frontend\Data(array(
