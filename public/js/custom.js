@@ -99,6 +99,10 @@ AK.checkRemindStatus = function() {
         if (el[i].textContent == '0') {
             el[i].previousSibling.setAttribute('class','date-secondary');
             el[i].previousSibling.previousSibling.setAttribute('class','km-secondary');
+            var siblings = el[i].parentNode.childNodes;
+            for(var j = 0; j < siblings.length; j++) {
+                siblings[j].setAttribute("status-of-prs","0");
+            }
         }}
 }
 $(window).load(function(){
