@@ -18,7 +18,7 @@ class Blamable extends Behavior implements BehaviorInterface
                 //Get username from session
                 $userName = $_SESSION["auth"]["username"];
                 //Remove sensitive data from logged information
-                if ($model->password) {
+                if (isset($model->password)) {
                     $model->password = '';
                 }
                 //Write to new log every week
