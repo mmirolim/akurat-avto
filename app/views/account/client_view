@@ -1,5 +1,5 @@
 <div class="large-8 columns services-block">
-    <table class="table-provided-services" align="center">
+    <table id="table-provided-services" align="center">
         <thead>
         <tr>
             <th width="85" data-tooltip class="has-tip prs-th" title="Номер Машины">#</th>

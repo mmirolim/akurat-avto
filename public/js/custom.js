@@ -117,9 +117,7 @@ AK.checkRemindStatus = function() {
 }
 $(window).load(function(){
 	$('.flexslider').flexslider({
-	animation: "slide",
-	controlNav: false,
-	directionNav: false
+	animation: "slide"
 	})
     AK.updateOwnData();
     AK.checkRemindStatus();
