@@ -64,13 +64,14 @@ class Clients extends \Phalcon\Mvc\Model
     public function columnMap() {
         return array(
             'id' => 'id', 
-            'username' => 'username', 
+            'username' => 'username',
             'password' => 'password', 
-            'fullname' => 'fullname', 
-            'contactemail' => 'contactemail', 
-            'contactphone' => 'contactphone', 
-            'regdate' => 'regdate', 
-            'moreinfo' => 'moreinfo'
+            'fullname' => 'fullname',
+            'contactemail' => 'contactemail',
+            'contactphone' => 'contactphone',
+            'regdate' => 'regdate',
+            'moreinfo' => 'moreinfo',
+            'remind' => 'remind'
         );
     }
 
