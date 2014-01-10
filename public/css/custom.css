@@ -183,7 +183,6 @@ img.shadow {
 .has-tip.prs-th {
 text-align: center;
 border-bottom: none;
-text-decoration: underline;
 }
 
 #table-provided-services tr:hover {
@@ -205,7 +204,7 @@ color: rgb(156, 156, 156);
 background-color: #e7e7e7;
 }
 .date-success, .km-success {
-  background-color: #43ac6a;
+  background-color: #71AF5A;
   color: #fff;
 }
 .date-alert, .km-alert {

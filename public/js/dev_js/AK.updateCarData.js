@@ -1,40 +1,41 @@
-AK.updateCarData = function () {
-	
-	//var currentMillageEls = $('.millage');
-	//if (currentMillageEls.length === 0) {return}
-	var el = $(this).attr('class');
-	var form = '<form method="post" action="/cars/updateOwn">';
-	form +='<input name="'+ el +'" id="'+ el +'" value="" type="text">';
-	form +='<input class="button small inline-update-button" value="update" type="submit">';
-	form +='</form>';
-
+AK.getProvidedServiceAttr = function(el) {
+    var obj = {
+        statusOfPrs : el.getAttribute('status-of-prs'),
+        id : el.childNodes[0].textContent,
+        remindKmStatus : el.childNodes[8].getAttribute("class"),
+        remindDateStatus : el.childNodes[9].getAttribute("class")
+    }
+    return obj
+}
+AK.setProvidedServiceAttr = function(el,obj){
+        if (obj.statusOfPrs) {
+            el.setAttribute('status-of-prs', obj.statusOfPrs);
+        }
+        el.childNodes[8].setAttribute("class",obj.remindKmStatus);
+        el.childNodes[9].setAttribute("class",obj.remindDateStatus);
 }
 
-function updateCarData() {
-
-	//TODO clean code add checks and update via ajax
-    var targets = ['dailymilage','milage'];
-    for (var i = 0; i < targets.length; i++) {
-        var els = document.getElementsByClassName(targets[i]);
-        if(els.length === 0) {return}
-        for (var j = 0; j < els.length; j++) {
-            els[j].addEventListener("click", function(event){
-                var el = event.target;
-                console.log(el);
-                var param = el.getAttribute('class');
-                if (el.getAttribute("active") === 'yes') {return}
-                var carId = el.parentNode.parentNode.getAttribute('data-car-id');
-                var data = el.textContent;
-                var form = '<form class="form-inline-car-update" method="post" action="/cars/updateOwn">';
-                form +='<input name="id" id="id" value="'+ carId +'" type="hidden">';
-                form +='<input name="'+ param +'" id="'+ param +'" value="'+ data +'" type="text">';
-                form +='<input class="button small inline-update-button" value="update" type="submit">';
-                form +='</form>';
-                console.log(form);
-                el.innerHTML = form;
-                el.setAttribute('active','yes');
-            });
-        }
+//TODO store data in jQuery Data
+AK.providedServices = [];
+AK.backUpServiceAttr = function () {
+    var table = document.getElementById('table-provided-services');
+    var rows = table.children;
+    rows = rows[1].children;
+    var rowsLength = rows.length;
+    for(var i = 0; i < rowsLength; i++) {
+        var providedService = AK.getProvidedServiceAttr(rows[i]);
+        console.log(rows[i].childNodes[0].textContent);
+        AK.providedServices[rows[i].childNodes[0].textContent] = providedService;
     }
-
+}
+AK.restoreServicesAttr = function(){
+    var table = document.getElementById('table-provided-services');
+    var rows = table.children;
+    rows = rows[1].children;
+    var rowsLength = rows.length;
+    for(var i = 0; i < rowsLength; i++) {
+        var el = rows[i];
+        var obj = AK.providedServices[el.childNodes[0].textContent] ;
+        AK.setProvidedServiceAttr(el,obj);
+    }
 }

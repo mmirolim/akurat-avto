@@ -2,6 +2,7 @@
     <table id="table-provided-services" align="center">
         <thead>
         <tr>
+            <th>ID</th>
             <th width="85" data-tooltip class="has-tip prs-th" title="Номер Машины">#</th>
             <th width="100" data-tooltip class="has-tip prs-th" title="Дата проведения тех. обслуживания">Когда</th>
             <th data-tooltip class="has-tip prs-th" title="Тип технического облуживания">Tex. услуга</th>
@@ -27,6 +28,7 @@
                 $cars[$car->regnum]->remindDateOK = 0;
                 foreach ($car->providedServices as $providedService) {
                     echo '<tr>';
+                    echo '<td>'.$providedService->id.'</td>';
                     echo '<td>'.$car->regnum.'</td>';
                     echo '<td>'.$providedService->startdate.'</td>';
                     foreach($carservices as $carservice) {

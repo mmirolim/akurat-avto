@@ -103,6 +103,7 @@ AK.inlineFormSendData = function(event) {
         }
     }
 }
+
 //Turn off color code for service if remind status 0
 AK.checkRemindStatus = function() {
     //TODO modify to use it after user updates Provided services status to 0 or 1
@@ -115,10 +116,88 @@ AK.checkRemindStatus = function() {
             }
         }}
 }
+
+//Create an obj properties from required attributes in provided service row
+//TODO make it work with any table and attributes
+AK.getProvidedServiceAttr = function(el) {
+    //Prepare obj from attributes of child elements in provided service row
+    var obj = {
+        statusOfPrs : el.getAttribute('status-of-prs'),
+        id : el.childNodes[0].textContent,
+        remindKmStatus : el.childNodes[8].getAttribute("class"),
+        remindDateStatus : el.childNodes[9].getAttribute("class")
+    }
+    //Return obj to store
+    return obj
+}
+//Restore provided attributes to provided services row from obj
+//TODO make it work with any table and attributes
+AK.setProvidedServiceAttr = function(el,obj){
+    if (obj.statusOfPrs) {
+        el.setAttribute('status-of-prs', obj.statusOfPrs);
+    }
+    el.childNodes[8].setAttribute("class",obj.remindKmStatus);
+    el.childNodes[9].setAttribute("class",obj.remindDateStatus);
+}
+
+//Store all provided services as obj in array
+//TODO store data in jQuery Data
+AK.providedServices = [];
+
+//Backup provided services row attributes before dynatable runs
+//TODO make it work with any table
+AK.backUpServiceAttr = function () {
+    var table = document.getElementById('table-provided-services');
+    var rows = table.children;
+    rows = rows[1].children;
+    var rowsLength = rows.length;
+    for(var i = 0; i < rowsLength; i++) {
+        //Get obj from row children attributes
+        var providedService = AK.getProvidedServiceAttr(rows[i]);
+        AK.providedServices[rows[i].childNodes[0].textContent] = providedService;
+    }
+}
+//Callback function to restore attributes in provided services row
+//TODO make it work with any table
+AK.restoreServicesAttr = function(){
+    var table = document.getElementById('table-provided-services');
+    var rows = table.children;
+    rows = rows[1].children;
+    var rowsLength = rows.length;
+    for(var i = 0; i < rowsLength; i++) {
+        var el = rows[i];
+        //Get appropriate stored service attributes as obj according to key
+        var obj = AK.providedServices[el.childNodes[0].textContent];
+        //Restore service attributes
+        AK.setProvidedServiceAttr(el,obj);
+    }
+}
+//TODO make any table sortable and attributees restorable
+AK.makeTableSortable = function(tableId) {
+    if(!document.getElementById(tableId)) {
+        console.log("No such tableID");
+        return
+    }
+    //Backup service attributes from provided services table
+    AK.backUpServiceAttr();
+    //Make provided services table sortable with dynatable js
+    //TODO make work with multiple tables on one page
+    var table = $('#'+tableId).dynatable();
+    //Automatically restore attributes after each dynatable update
+    table.bind("dynatable:afterUpdate",AK.restoreServicesAttr);
+    //Restore after initial normalization of dynatable
+    AK.restoreServicesAttr();
+}
 $(window).load(function(){
-	$('.flexslider').flexslider({
-	animation: "slide"
-	})
+
+    //TODO add appropriate marks to body tag class to identify what functions to initialize
+
+    //Init flexslider
+	$('.flexslider').flexslider({ animation: "slide"})
+
     AK.updateOwnData();
     AK.checkRemindStatus();
+
+    AK.makeTableSortable("table-provided-services");
+
 });
