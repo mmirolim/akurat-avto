@@ -51,7 +51,13 @@ class Clients extends \Phalcon\Mvc\Model
      * @var string
      */
     public $moreinfo;
-     
+
+    /**
+     *
+     * @var integer
+     */
+    public $remind;
+
     /**
      * Independent Column Mapping.
      */

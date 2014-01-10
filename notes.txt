@@ -29,5 +29,8 @@
 27. Show days in maintenance per car to Client //Done
 28. Style provided services table to improve perception //Done
 29. Use dynamic model update to improve performance //Done
+30. Enable searchable and sortable tables //Done
+31. Show simple statistics/analytic data for Clients //Done
+
 
 

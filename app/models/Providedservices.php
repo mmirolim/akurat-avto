@@ -72,7 +72,7 @@ class Providedservices extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
+     * @var integer
      */
     public $remind;
 
