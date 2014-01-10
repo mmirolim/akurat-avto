@@ -195,10 +195,10 @@ text-decoration: underline;
 #table-provided-services tr:hover td:first-child {
 border-left: 0.5em solid #43ac6a;
 }
-#table-provided-services tr:hover td[status-of-prs="0"]{
+tr[status-of-prs="0"]:hover td{
   color: #222;
 }
-td[status-of-prs="0"] {
+tr[status-of-prs="0"] td {
 color: rgb(156, 156, 156);
 }
 .date-secondary, .km-secondary {
