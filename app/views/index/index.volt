@@ -70,10 +70,17 @@
         </div>
         <div class="row our-team">
             <div class="large-8 large-centered columns">
-                <div class="large-12 columns"><h2>OUR TEAM</h2></div>
-                <div class="large-8 columns"><img class="shadow" src="http://akurat.auto/public/img/Akurat-team.jpg" /></div>
-                <div class="large-4 columns"><div class="info-text">Sed cursus, ligula vitae iaculis volutpat, orci orci adipiscing ipsum, a convallis nisi libero at dolor. Nunc sed tristique ipsum, vitae scelerisque sem. Donec vel lorem ligula. Suspendisse a turpis dui. Praesent auctor tortor vitae dolor blandit, et feugiat mi molestie. Nulla congue.</div>
-
+                <div class="row">
+                    <div class="large-12 columns"><h2>OUR TEAM</h2></div>
+                    <div class="large-8 columns"><img class="shadow" src="http://akurat.auto/public/img/Akurat-team.jpg" /></div>
+                    <div class="large-4 columns">
+                        <div class="info-text">
+                            Sed cursus, ligula vitae iaculis volutpat, orci orci
+                            adipiscing ipsum, a convallis nisi libero at dolor. Nunc sed tristique ipsum, vitae scelerisque sem.
+                            Donec vel lorem ligula. Suspendisse a turpis dui. Praesent auctor tortor vitae dolor blandit, et feugiat mi
+                            molestie. Nulla congue.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
