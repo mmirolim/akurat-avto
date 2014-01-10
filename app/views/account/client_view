@@ -150,11 +150,12 @@
             <li><h5 class="label radius secondary"><?php echo $client->info->fullname;?></h5></li>
             <li><?php
                 $labelInfoClass = 'label-info';
-                echo '<span class="'.$labelInfoClass.'">Phone:</span><span class="contactphone">'.$client->info->contactphone;?></li>
-            <li><?php echo '<span class="'.$labelInfoClass.'">Email:</span><span class="contactemail">'.$client->info->contactemail;?></li>
+                echo '<span class="'.$labelInfoClass.'">Phone:</span><span class="contactphone">'.$client->info->contactphone;?></span></li>
+            <li><?php echo '<span class="'.$labelInfoClass.'">Email:</span><span class="contactemail">'.$client->info->contactemail;?></span></li>
             <li><?php echo '<span class="'.$labelInfoClass.'">Signup date:</span>'.$client->info->regdate;?></li>
-            <li><?php echo '<span class="'.$labelInfoClass.'">Add info:</span><span class="moreinfo">'.$client->info->moreinfo;?></li>
+            <li><?php echo '<span class="'.$labelInfoClass.'">Add info:</span><span class="moreinfo">'.$client->info->moreinfo;?></span></li>
             <li><?php echo '<span class="'.$labelInfoClass.'">Username:</span>'.$client->info->username;?></li>
+            <li><span class="password" data-updatable="yes">Change password</span></li>
         </ul>
     </div>
     <div class="car-data">

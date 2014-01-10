@@ -281,6 +281,17 @@ class ClientsController extends ControllerBase
         if($this->request->getPost("moreinfo")) {
             $client->moreinfo = $this->request->getPost("moreinfo");
         }
+        $passwordChangeText = 'Secret';
+        if($this->request->getPost("newpass") && $this->request->getPost("currentpass")) {
+                if ($this->security->checkHash($this->request->getPost("currentpass"), $client->password)) {
+                    $client->password = $this->security->hash($this->request->getPost("newpass"));
+                    $passwordChangeText = "Success";
+                } else {
+                    $passwordChangeText = "Current password wrong";
+                }
+        } else {
+            $passwordChangeText = "Current and New password should not be empty";
+        }
 
 
         if (!$client->save()) {
@@ -293,7 +304,7 @@ class ClientsController extends ControllerBase
         }
 
         //Remove sensitive data before sending client info back
-        $client->password = '';
+        $client->password = $passwordChangeText;
         $client->id = '';
         $client->username = '';
 

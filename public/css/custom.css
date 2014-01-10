@@ -74,7 +74,7 @@ body {
 
 #main {
   min-height: 60%;
-  margin-top: 3.2em;
+  /* margin-top: 3.2em; */
 }
 
 #content {
@@ -99,6 +99,7 @@ body {
   width: 100%;
   z-index: 100;
   cursor: pointer;
+  top: 4em;
 }
 
 .message-block .alert-box {
@@ -187,6 +188,9 @@ img.shadow {
 text-align: center;
 border-bottom: none;
 }
+table {
+  width: 100%;
+}
 
 #table-provided-services tr:hover {
   background: rgb(231, 233, 232) !important;
@@ -252,6 +256,12 @@ text-align: center;
 .client-info li, .car-info li {
   list-style: none;
 }
+.change-password.button {
+font-size: 0.8em;
+padding: 0.5em 0.7em;
+margin-top: 1em;
+}
+
 /* Car data block styling */
 [data-updatable="yes"] {
   color: #076BB9;
@@ -271,6 +281,32 @@ margin: 0em;
   display: inline-block;
   width: 6em;
 }
+/* For password input styling */
+.password {
+background-color: #008cba;
+border-color: #0079a1;
+padding: 0.5em 0.7em;
+color: white;
+font-size: small;
+margin-left: 30%;
+}
+
+label[for="currentpass"] {
+  font-weight: bold;
+  font-size: small;
+  margin: 0em;
+}
+#currentpass {
+width: 50%;
+}
+#newpass {
+width: 50%;
+display: block;
+margin-top: 0.5em;
+
+margin-bottom: 0.5em;
+}
+
 .client-info .label-info {
 width: 6em;
 }
@@ -280,6 +316,7 @@ width: 75%;
 .client-info .form-inline-update input[type="text"] {
 width: 60%;
 }
+
 input.button.inline-update-button, .button.inline-close-button {
   padding: initial;
   width: 4em;

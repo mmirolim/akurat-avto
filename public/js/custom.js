@@ -7,7 +7,7 @@ AK = {
 AK.updateOwnData = function() {
 
     //Prepare array with target elements
-    var targets = ['dailymilage','milage','contactphone','contactemail','moreinfo'];
+    var targets = ['dailymilage','milage','contactphone','contactemail','moreinfo','password'];
     for (var i = 0; i < targets.length; i++) {
         var els = document.getElementsByClassName(targets[i]);
         //Check if elements present
@@ -33,7 +33,13 @@ AK.updateOwnData = function() {
                     var form = '<div class="form-inline-update">';
                     form +='<input name="id" id="id" value="'+ dataId +'" type="hidden">';
                     //TODO change to textarea for moreinfo data
-                    form +='<input name="'+ param +'" id="'+ param +'" value="'+ data +'" type="text">';
+                    if(param === 'password') {
+                        form +='<label for="currentpass">Your current password</label>';
+                        form +='<input name="currentpass" id="currentpass" type="password">';
+                        form +='<input name="newpass" id="newpass" type="text" autocomplete="off" placeholder="type your new password">';
+                    } else {
+                        form +='<input name="'+ param +'" id="'+ param +'" value="'+ data +'" type="text">';
+                    }
                     form +='<input class="button inline-update-button" value="update" type="button" onclick="AK.inlineFormSendData(event);">';
                     form +='<input class="button secondary inline-close-button" value="close" type="button" onclick="AK.inlineFormRemove(event);">';
                     form +='</idv>';
@@ -85,8 +91,18 @@ AK.inlineFormSendData = function(event) {
             for (key in obj){
                 //Find which parameter changed in obj
                 if (key == siblingParent.getAttribute("class")){
+                    var statusMessage = '<div class="alert-box success">'+key+' updated to '+obj[key]+'</div>';
+                    if (key == 'password') {
+                        //Show message for password update status
+                        if (obj[key] == 'Success') {
+                            statusMessage = '<div class="alert-box success">'+key+' updated Successfully </div>';
+                        } else {
+                            statusMessage = '<div class="alert-box alert">'+key+' update problem '+obj[key]+'</div>';
+                        }
+                    }
+
                     //Show updated data in message block
-                    document.getElementsByClassName('message-block')[0].innerHTML = '<div class="alert-box success">'+key+' updated to '+obj[key]+'</div>';
+                    document.getElementsByClassName('message-block')[0].innerHTML = statusMessage;
                     //Set message block display to initial if it was toggled
                     document.getElementsByClassName('message-block')[0].style.display = 'initial';
                     //Update text in original element of inline update
