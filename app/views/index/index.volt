@@ -1,15 +1,15 @@
         <div class="row slider">
-            <div class="large-12 large-centered columns">
+            <div class="large-9 large-centered columns">
                 <div class="flexslider">
                     <ul class="slides">
                         <li>
-                            <img src="http://akurat.auto/public/img/Akura-slide1.jpg" />
+                            <img src="http://akurat.auto/public/img/slide2.jpg" />
                         </li>
                         <li>
-                            <img src="http://akurat.auto/public/img/Akura-slide2.jpg" />
+                            <img src="http://akurat.auto/public/img/slide1.jpg" />
                         </li>
                         <li>
-                            <img src="http://akurat.auto/public/img/Akura-slide3.jpg" />
+                            <img src="http://akurat.auto/public/img/slide3.jpg" />
                         </li>
                     </ul>
                 </div>
@@ -17,16 +17,16 @@
         </div>
         <div class="row special-service1">
             <div class="large-8 large-centered columns">
-                <div class="large-12 columns"><h2>SPECIAL SERVICE ONE</h2></div>
-                <div class="large-8 columns"><img class="shadow" src="http://akurat.auto/public/img/service1.jpg" /></div>
+                <div class="large-12 columns"><h2>Full Car system diagnostic maintenance</h2></div>
+                <div class="large-8 columns"><img class="shadow" src="http://akurat.auto/public/img/car-truck-repair.jpg" /></div>
                 <div class="large-4 columns"><div class="info-text">Vivamus in cursus lectus, id vehicula tortor. Nullam ipsum sem, commodo sit amet consectetur vitae, gravida ut massa. Nullam velit justo, molestie eu erat id, facilisis condimentum dui. Quisque a lectus eu diam mollis ultricies ut sit amet ante. Mauris tristique consequat dolor accumsan lacinia.</div>
                 </div>
             </div>
         </div>
         <div class="row special-service2">
             <div class="large-8 large-centered columns">
-                <div class="large-12 columns"><h2>SPECIAL SERVICE TWO</h2></div>
-                <div class="large-8 columns"><img class="shadow" src="http://akurat.auto/public/img/service2.jpg" /></div>
+                <div class="large-12 columns"><h2>Full Stack Car maintenance services</h2></div>
+                <div class="large-8 columns"><img class="shadow" src="http://akurat.auto/public/img/icons-car.jpg" /></div>
                 <div class="large-4 columns"><div class="info-text">Nullam id risus elit. Etiam cursus condimentum facilisis. In sit amet eros malesuada libero interdum dictum. Praesent ultrices, sem eget tristique commodo, dolor ligula ullamcorper eros, nec porttitor libero nulla quis metus. Nam quis sem tempor, tempus quam vitae, pulvinar turpis.</div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
             <div class="large-8 large-centered columns">
                 <div class="row">
                     <div class="large-12 columns"><h2>OUR TEAM</h2></div>
-                    <div class="large-8 columns"><img class="shadow" src="http://akurat.auto/public/img/Akurat-team.jpg" /></div>
+                    <div class="large-8 columns"><img class="shadow" src="http://akurat.auto/public/img/team.jpg" /></div>
                     <div class="large-4 columns">
                         <div class="info-text">
                             Sed cursus, ligula vitae iaculis volutpat, orci orci

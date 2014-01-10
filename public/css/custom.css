@@ -80,9 +80,12 @@ body {
 #content {
   margin-top: 5em;
 }
+.row.slider {
+  padding: 0em;
+}
 
-.row.slider, .row.special-service1, .row.special-service2, .row.other-services, .row.our-team, .row.our-contacts {
-  padding: 0em 0em;
+.row.special-service1, .row.special-service2, .row.other-services, .row.our-team, .row.our-contacts {
+  padding: 2em 0em;
   max-width: 100%;
 }
 
@@ -217,7 +220,18 @@ background-color: #e7e7e7;
 .remind-status-th {
 display: none;
 }
-
+/* Dynatabled styling */
+.dynatable-head a {
+  color: #222;
+}
+.dynatable-head a:hover {
+  color: initial;
+  text-decoration: underline;
+}
+.dynatable-search {
+  float: left;
+}
+/* Analytic block styling */
 .label.secondary.car-regnum {
 text-align: center;
 }

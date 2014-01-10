@@ -183,10 +183,25 @@ AK.makeTableSortable = function(tableId) {
     //Make provided services table sortable with dynatable js
     //TODO make work with multiple tables on one page
     var table = $('#'+tableId).dynatable();
+    //Add appropriate classes to dyna controls
+    AK.styleDynatableControls();
     //Automatically restore attributes after each dynatable update
     table.bind("dynatable:afterUpdate",AK.restoreServicesAttr);
     //Restore after initial normalization of dynatable
     AK.restoreServicesAttr();
+}
+//Style dynatable controls
+AK.styleDynatableControls = function() {
+    //TODO make it work with many tables per page
+    var targets = [];
+    targets[".dynatable-search"] = "large-4 columns";
+    targets[".dynatable-per-page"] = "large-2 columns";
+    var el = $('.dynatable-search');
+    el.children('input').attr('placeholder','Искать в таблицы ...' );
+    for(key in targets) {
+        $(key).addClass(targets[key]);
+    }
+
 }
 $(window).load(function(){
 
@@ -197,7 +212,7 @@ $(window).load(function(){
 
     AK.updateOwnData();
     AK.checkRemindStatus();
-
+    //TODO create charts from table data
     AK.makeTableSortable("table-provided-services");
 
 });

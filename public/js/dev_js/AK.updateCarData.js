@@ -39,3 +39,15 @@ AK.restoreServicesAttr = function(){
         AK.setProvidedServiceAttr(el,obj);
     }
 }
+
+AK.styleDynatableControls = function() {
+    //TODO make it work with many tables per page
+    var targets = [];
+    targets[".dynatable-search"] = "large-4 columns";
+    targets[".dynatable-per-page"] = "large-2 columns";
+    $('.dynatable-search')[0].children('input').attr('placeholder','Искать в таблицы ...' );
+    for(key in targets) {
+        $(key).addClass(targets[key]);
+    }
+
+}

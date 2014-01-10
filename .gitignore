@@ -222,3 +222,4 @@ pip-log.txt
 .idea/
 app/cache/
 app/logs/
+public/img/
