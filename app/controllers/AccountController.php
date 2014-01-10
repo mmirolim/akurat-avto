@@ -84,7 +84,7 @@ class AccountController extends ControllerBase
             'hydration' => Resultset::HYDRATE_RECORDS
         ));
         //Get client's cars info
-        //HYDRATE client cars as Cars object so user can easily modify own cars data if required
+        //HYDRATE client cars as Cars object so we can get related provided services for each car
         $cars = $client->info->getCars()->setHydrateMode(Resultset::HYDRATE_RECORDS);
         //Get all provided services to client
         foreach($cars as $car) {

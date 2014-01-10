@@ -16,7 +16,15 @@
         </thead>
         <tbody>
             <?php
+            //Create associative car array to store some analytic data
+            $cars = array();
             foreach ($client->cars as $car) {
+                $cars[$car->regnum] = new stdClass();
+                //Collect Active reminders by date and km to compare and use it for health, issue etc
+                $cars[$car->regnum]->remindKmAlert = 0;
+                $cars[$car->regnum]->remindKmOK = 0;
+                $cars[$car->regnum]->remindDateAlert = 0;
+                $cars[$car->regnum]->remindDateOK = 0;
                 foreach ($car->providedServices as $providedService) {
                     echo '<tr>';
                     echo '<td>'.$car->regnum.'</td>';
@@ -47,8 +55,10 @@
                                 $kmSince = $days*$car->dailymilage;
                                 if ($providedService->remindkm > 0 && ($milageRemind  - ($car->milage + $kmSince)) < 0) {
                                     $kmRemindStatus = "alert";
+                                    $cars[$car->regnum]->remindKmAlert++;
                                 } else {
                                     $kmRemindStatus = "success";
+                                    $cars[$car->regnum]->remindKmOK++;
                                 }
                             }
                         }
@@ -59,8 +69,10 @@
                     if($providedService->remind > 0) {
                         if (time() - strtotime($providedService->reminddate) > 0){
                             $remindDateStatus = "alert";
+                            $cars[$car->regnum]->remindDateAlert++;
                         } else {
                             $remindDateStatus = "success";
+                            $cars[$car->regnum]->remindDateOK++;
                         }
                     } else {
                         $remindDateStatus = 'secondary';
@@ -78,7 +90,7 @@
 <div class="large-4 columns analytics-block">
     <div class="analytics-board">
         <?php
-        foreach ($client->cars as $car) {
+        foreach ($client->cars as $key =>$car) {
             //Create div block per car
             echo '<div class="analytic-data">';
             $car->totalExpenses = 0;
@@ -94,13 +106,37 @@
                     }
                 }
             }
-            echo '<h5 class="label radius secondary car-regnum">'.$car->regnum.'</h5>';
+            echo '<h5 class="label radius secondary car-regnum">'.$car->regnum.' - '.$car->model.'</h5>';
             echo '<div class="total-expenses">';
-            echo '<h5>Total Expenses</h5><span id="total-cost" class="label radius success">'.$car->totalExpenses.' cум</span>';
+            echo '<h5>Total Expenses</h5><span id="total-cost" class="label radius">'.$car->totalExpenses.' cум</span>';
         ?>
             </div>
-        <div class="total-health"><h5>Total Health</h5><span id="car-health" class="label radius">75%</span></div>
-        <div class="show-issues"><h5>Issues</h5><span id="issue-status" class="label radius alert">2</span></div>
+        <div class="total-health"><h5>Total Health</h5><span id="car-health" class="label radius success">
+                <?php
+                //Get health estimation for car according to non accomplished reminders by KM(priority) or date
+                //TODO health estimation should be done according to pending service types by their weight
+                //ex change filter priority 2 but check engine priority is 4
+                if($cars[$car->regnum]->remindKmAlert > $cars[$car->regnum]->remindDateAlert) {
+                    echo round(100*$cars[$car->regnum]->remindKmOK/($cars[$car->regnum]->remindKmAlert + $cars[$car->regnum]->remindKmOK)).'%';
+                } else {
+                    echo round(100*$cars[$car->regnum]->remindDateOK/($cars[$car->regnum]->remindDateAlert + $cars[$car->regnum]->remindDateOK)).'%';
+                }
+                ?></span></div>
+        <div class="show-issues"><h5>Issues</h5><span id="issue-status" class="label radius <?php
+            if($cars[$car->regnum]->remindKmAlert == 0 && $cars[$car->regnum]->remindDateAlert == 0) {
+                echo 'secondary';
+            } else {
+                echo 'alert';
+            }
+            ?>">
+                <?php
+                //Get issues estimation for car according to non accomplished reminders by KM(priority) or date
+                    if($cars[$car->regnum]->remindKmAlert > $cars[$car->regnum]->remindDateAlert) {
+                        echo $cars[$car->regnum]->remindKmAlert;
+                    } else {
+                        echo $cars[$car->regnum]->remindDateAlert;
+                    }
+                ?></span></div>
         <div class="days-in-maintenance"><h5>Days in Maintenance</h5><span id="days-in-maintenance" class="label radius secondary"><?php echo ($car->daysInMaintenance/86400);?></span></div>
         <?php
             //Close tag for per car block
@@ -135,6 +171,7 @@
             echo '<li><span class="'.$labelInfoClass.'">Add info:</span>'.$car->moreinfo.'</li>';
             echo '</ul>';
         }
+
         ?>
     </div>
 </div>
