@@ -46,7 +46,11 @@
                     echo '<td>'.$providedService->moreinfo.'</td>';
 
                     //If remindKm set estimate status of alert according to milage, milage date update and daily milage
-                    //TODO test what will be if remindkm or/and reminddate missing
+                    /**
+                     * TODO test what will be if remindkm or/and reminddate missing
+                     * Fix when same number of alert km and date but in different services
+                     * currently only number of KMalert will be shown
+                     **/
                     $milageRemind = $providedService->remindkm + $providedService->milage;
                     if($providedService->remind > 0) {
                         if(isset($car->mlgdate) && isset($car->dailymilage)) {
@@ -69,12 +73,16 @@
                     }
                     echo '<td class="km-'.$kmRemindStatus.'">'.$milageRemind.'</td>';
                     if($providedService->remind > 0) {
-                        if (time() - strtotime($providedService->reminddate) > 0){
+                        if (time() - strtotime($providedService->reminddate) > 0) {
                             $remindDateStatus = "alert";
-                            $cars[$car->regnum]->remindDateAlert++;
+                            if ( $kmRemindStatus == "success") {
+                                $cars[$car->regnum]->remindDateAlert++;
+                            }
                         } else {
                             $remindDateStatus = "success";
-                            $cars[$car->regnum]->remindDateOK++;
+                            if ( $kmRemindStatus == "success") {
+                                $cars[$car->regnum]->remindDateOK++;
+                            }
                         }
                     } else {
                         $remindDateStatus = 'secondary';
@@ -101,6 +109,7 @@
             foreach ($car->providedServices as $providedService) {
                 $car->totalExpenses += $providedService->cost;
                 //Calculate days in maintenance per car
+                //TODO exclude services accomplished same day (filter,oil,check all same time period)
                 if(isset($providedService->finishdate)) {
                     //Check if finishdate not same date of startdate
                     if(strtotime($providedService->finishdate) - strtotime($providedService->startdate) > 0){
@@ -118,11 +127,10 @@
                 //Get health estimation for car according to non accomplished reminders by KM(priority) or date
                 //TODO health estimation should be done according to pending service types by their weight
                 //ex change filter priority 2 but check engine priority is 4
-                if($cars[$car->regnum]->remindKmAlert > $cars[$car->regnum]->remindDateAlert) {
-                    echo round(100*$cars[$car->regnum]->remindKmOK/($cars[$car->regnum]->remindKmAlert + $cars[$car->regnum]->remindKmOK)).'%';
-                } else {
-                    echo round(100*$cars[$car->regnum]->remindDateOK/($cars[$car->regnum]->remindDateAlert + $cars[$car->regnum]->remindDateOK)).'%';
-                }
+                //Calculate health by counting all active services by km+date and dividing 100*(kmOK+dateOK)/(km+date)
+                $totalReminderNumber = $cars[$car->regnum]->remindKmOK + $cars[$car->regnum]->remindKmAlert + $cars[$car->regnum]->remindDateOK + $cars[$car->regnum]->remindDateAlert;
+                    echo round(100*($cars[$car->regnum]->remindKmOK + $cars[$car->regnum]->remindDateOK)/$totalReminderNumber).'%';
+
                 ?></span></div>
         <div class="show-issues"><h5>Issues</h5><span id="issue-status" class="label radius <?php
             if($cars[$car->regnum]->remindKmAlert == 0 && $cars[$car->regnum]->remindDateAlert == 0) {
@@ -132,12 +140,8 @@
             }
             ?>">
                 <?php
-                //Get issues estimation for car according to non accomplished reminders by KM(priority) or date
-                    if($cars[$car->regnum]->remindKmAlert > $cars[$car->regnum]->remindDateAlert) {
-                        echo $cars[$car->regnum]->remindKmAlert;
-                    } else {
-                        echo $cars[$car->regnum]->remindDateAlert;
-                    }
+                //Get issues estimation for car according to non accomplished reminders by KM(priority) and date
+                        echo $cars[$car->regnum]->remindKmAlert + $cars[$car->regnum]->remindDateAlert;
                 ?></span></div>
         <div class="days-in-maintenance"><h5>Days in Maintenance</h5><span id="days-in-maintenance" class="label radius secondary"><?php echo ($car->daysInMaintenance/86400);?></span></div>
         <?php
