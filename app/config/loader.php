@@ -13,3 +13,8 @@ $loader->registerDirs(
         $config->application->libraryDir
 	)
 )->register();
+
+/**
+ * Include Composer autoloading script
+ */
+require_once  __DIR__ .'/../../vendor/autoload.php';
