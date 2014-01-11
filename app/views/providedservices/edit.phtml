@@ -3,7 +3,7 @@
 
 <?php echo $this->tag->form("/providedservices/save") ?>
 
-<table width="100%">
+<table class="basic-form" width="100%">
     <tr>
         <td align="left"><?php echo $this->tag->linkTo(array("providedservices", "Back")) ?></td>
         <td align="right"><?php echo $this->tag->submitButton("Save") ?></td>
@@ -14,7 +14,7 @@
     <h1>Edit providedservices</h1>
 </div>
 
-<table>
+<table class="basic-form">
     <tr>
         <td align="right">
             <label for="car_id">Car</label>
@@ -93,6 +93,14 @@
         </td>
         <td align="left">
                 <?php echo $this->tag->textField(array("moreinfo", "type" => "date")) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="moreinfo">Remind</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("remind", "type" => "number")) ?>
         </td>
     </tr>
 

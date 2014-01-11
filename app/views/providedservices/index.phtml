@@ -11,7 +11,7 @@
     <h1>Search providedservices</h1>
 </div>
 
-<table>
+<table class="basic-form">
     <tr>
         <td align="right">
             <label for="id">Id</label>
@@ -98,6 +98,14 @@
         </td>
         <td align="left">
                 <?php echo $this->tag->textField(array("moreinfo", "type" => "date")) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="moreinfo">Remind</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("remind", "type" => "number")) ?>
         </td>
     </tr>
 

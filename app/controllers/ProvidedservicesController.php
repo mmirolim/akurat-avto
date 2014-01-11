@@ -66,10 +66,10 @@ class ProvidedservicesController extends ControllerBase
      *
      * @param string $id
      */
-    public function editAction($id)
+    public function editAction($id = null)
     {
 
-        if (!$this->request->isPost()) {
+        if (!$this->request->isPost() && $this->request->getPost("id") > 0) {
 
             $providedservice = Providedservices::findFirstByid($id);
             if (!$providedservice) {
@@ -93,7 +93,7 @@ class ProvidedservicesController extends ControllerBase
             $this->tag->setDefault("reminddate", $providedservice->reminddate);
             $this->tag->setDefault("remindkm", $providedservice->remindkm);
             $this->tag->setDefault("moreinfo", $providedservice->moreinfo);
-            
+            $this->tag->setDefault("remind", $providedservice->remind);
         }
     }
 
@@ -123,6 +123,8 @@ class ProvidedservicesController extends ControllerBase
         $providedservice->reminddate = $this->request->getPost("reminddate");
         $providedservice->remindkm = $this->request->getPost("remindkm");
         $providedservice->moreinfo = $this->request->getPost("moreinfo");
+        //TODO make it recieve checkbox value
+        $providedservice->remind = $this->request->getPost("remind");
         
 
         if (!$providedservice->save()) {

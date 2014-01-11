@@ -191,6 +191,9 @@ border-bottom: none;
 table {
   width: 100%;
 }
+.basic-form {
+width: 30em;
+}
 
 #table-provided-services tr:hover {
   background: rgb(231, 233, 232) !important;
