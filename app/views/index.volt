@@ -16,7 +16,7 @@
                     <?php echo $this->elements->getTopBarMenu(); ?>
             </div>
             <div id="main">
-                <div class="message-block" onclick="$(this).toggle();">
+                <div id="message-block" onclick="$(this).toggle();">
                     <?php  echo $this->flashSession->output(); ?>
                 </div>
 		        {{ content() }}

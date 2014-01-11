@@ -51,8 +51,8 @@ class LoginController extends ControllerBase
                         $this->_registerSession($user);
                         $this->flashSession->success("Welcome ". $user->fullname);
                         //Try to send SMS
-                       // $urlSMS = 'http://192.168.1.106:8080/send/?pass=&number=%2B998909862900&data='.urlencode('User '.$user->username.' вошел в личный кабинет '.date('Y-m-d h:i:s')).'&submit=&id=';
-                       // $output = file_get_contents($urlSMS);
+                        //$urlSMS = 'http://192.168.1.106:8080/send/?pass=&number=%2B998909862900&data='.urlencode('User '.$user->username.' вошел в личный кабинет '.date('Y-m-d h:i:s')).'&submit=&id=';
+                        //$output = file_get_contents($urlSMS);
                         //$this->flashSession->success("Test SMS sending via SMS gateway. Result => ".$output);
                         return $this->response->redirect("/account/".$user->username."/view");
                     } else {

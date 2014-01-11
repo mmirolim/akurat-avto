@@ -93,7 +93,7 @@ body {
   background: white;
 }
 
-.message-block {
+#message-block {
   text-align: center;
   position: fixed;
   width: 100%;
@@ -102,7 +102,7 @@ body {
   top: 4em;
 }
 
-.message-block .alert-box {
+#message-block .alert-box {
   font-size: 1.2em;
 }
 
