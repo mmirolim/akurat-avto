@@ -4,8 +4,10 @@
         <meta charset='utf-8'>
 		<title>Akurat Avto Service</title>
         {{ stylesheet_link('/../css/foundation.css')}}
+        {{ stylesheet_link('/../css/foundation-icons/foundation-icons.css')}}
         {{ stylesheet_link('/../libraries/flexslider/flexslider.css')}}
         {{ stylesheet_link('/../libraries/dynatable/jquery.dynatable.css')}}
+        {{ stylesheet_link('/../libraries/datepicker/datepicker.css')}}
         {{ stylesheet_link('/../css/custom.css')}}
 	</head>
 	<body>
@@ -68,6 +70,7 @@
          </script>
         {{ javascript_include("/../libraries/flexslider/jquery.flexslider-min.js") }}
         {{ javascript_include("/../libraries/dynatable/jquery.dynatable.js") }}
+        {{ javascript_include("/../libraries/datepicker/bootstrap-datepicker.js") }}
         {{ javascript_include("/../js/custom.js") }}
 	</body>
 </html>

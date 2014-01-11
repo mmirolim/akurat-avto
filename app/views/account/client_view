@@ -155,7 +155,9 @@
             <li><?php echo '<span class="'.$labelInfoClass.'">Signup date:</span>'.$client->info->regdate;?></li>
             <li><?php echo '<span class="'.$labelInfoClass.'">Add info:</span><span class="moreinfo">'.$client->info->moreinfo;?></span></li>
             <li><?php echo '<span class="'.$labelInfoClass.'">Username:</span>'.$client->info->username;?></li>
-            <li><span class="password" data-updatable="yes">Change password</span></li>
+            <li><?php echo '<span class="'.$labelInfoClass.'">Notify me :</span><span class="remind">';
+                 if ($client->info->remind > 0) {echo 'Yes';} else {echo 'No';};?></span></li>
+            <li><span class="password">Change password</span></li>
         </ul>
     </div>
     <div class="car-data">

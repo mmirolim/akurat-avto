@@ -256,6 +256,9 @@ text-align: center;
 .client-info li, .car-info li {
   list-style: none;
 }
+#notify {
+  height: initial;
+}
 .change-password.button {
 font-size: 0.8em;
 padding: 0.5em 0.7em;
@@ -288,7 +291,8 @@ border-color: #0079a1;
 padding: 0.5em 0.7em;
 color: white;
 font-size: small;
-margin-left: 30%;
+position: relative;
+top: 0.5em;
 }
 
 label[for="currentpass"] {
@@ -336,7 +340,7 @@ input.button.inline-update-button, .button.inline-close-button {
   background: #fff;
   margin-bottom: 1.25rem;
   border: solid 1px #ddd;
-  padding: 1em 2em;
+  padding: 1em 1em 1.5em 1em;
 }
 
 ul.car-info, ul.client-info {
@@ -346,4 +350,9 @@ ul.car-info, ul.client-info {
 .car-info h5, .client-info h5 {
   font-size: inherit;
   color: #474747;
+}
+.datepicker {
+  display: none;
+  width: 19em;
+  position: absolute;
 }

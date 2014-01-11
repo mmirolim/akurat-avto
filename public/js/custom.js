@@ -7,7 +7,7 @@ AK = {
 AK.updateOwnData = function() {
 
     //Prepare array with target elements
-    var targets = ['dailymilage','milage','contactphone','contactemail','moreinfo','password'];
+    var targets = ['dailymilage','milage','contactphone','contactemail','moreinfo','remind','password'];
     for (var i = 0; i < targets.length; i++) {
         var els = document.getElementsByClassName(targets[i]);
         //Check if elements present
@@ -33,12 +33,23 @@ AK.updateOwnData = function() {
                     var form = '<div class="form-inline-update">';
                     form +='<input name="id" id="id" value="'+ dataId +'" type="hidden">';
                     //TODO change to textarea for moreinfo data
-                    if(param === 'password') {
-                        form +='<label for="currentpass">Your current password</label>';
-                        form +='<input name="currentpass" id="currentpass" type="password">';
-                        form +='<input name="newpass" id="newpass" type="text" autocomplete="off" placeholder="type your new password">';
-                    } else {
-                        form +='<input name="'+ param +'" id="'+ param +'" value="'+ data +'" type="text">';
+                    switch (param) {
+                        case 'password':
+                            form +='<label for="currentpass">Your current password</label>';
+                            form +='<input name="currentpass" id="currentpass" type="password">';
+                            form +='<input name="newpass" id="newpass" type="text" autocomplete="off" placeholder="type your new password">';
+                            break;
+                        case 'remind':
+                            if(data == 'Yes') {
+                                var checked = 'checked';
+                            } else {
+                                var checked = '';
+                            }
+                            form +='<input name="notify" id="notify" type="checkbox" value="'+ data +'"'+ checked +' onClick="'+"$(this).val() == 'Yes' ? $(this).val('No') : $(this).val('Yes');"+'">';
+                            break;
+                        default :
+                             form +='<input name="'+ param +'" id="'+ param +'" value="'+ data +'" type="text">';
+                            break;
                     }
                     form +='<input class="button inline-update-button" value="update" type="button" onclick="AK.inlineFormSendData(event);">';
                     form +='<input class="button secondary inline-close-button" value="close" type="button" onclick="AK.inlineFormRemove(event);">';
@@ -116,6 +127,9 @@ AK.inlineFormSendData = function(event) {
 
             siblingParent.style.display = "initial";
             event.target.parentNode.parentNode.remove();
+        } else {
+            //Show updated data in message block
+            document.getElementsByClassName('message-block')[0].innerHTML = "Sorry, we can't process your request right now.";
         }
     }
 }
@@ -219,6 +233,17 @@ AK.styleDynatableControls = function() {
     }
 
 }
+
+//Add datepicker to appropriate input tags
+//TODO use component in datepicker elements
+AK.addDatepicker = function () {
+    var els = ['#startdate','#finishdate','#reminddate'];
+    for (key in els) {
+        $(els[key]).datepicker({
+            format : 'yyyy-mm-dd'
+        });
+    }
+}
 $(window).load(function(){
 
     //TODO add appropriate marks to body tag class to identify what functions to initialize
@@ -228,7 +253,11 @@ $(window).load(function(){
 
     AK.updateOwnData();
     AK.checkRemindStatus();
+
     //TODO create charts from table data
     AK.makeTableSortable("table-provided-services");
+
+    //Call function to add datepicker
+    AK.addDatepicker();
 
 });

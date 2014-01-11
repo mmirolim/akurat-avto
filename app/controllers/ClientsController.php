@@ -267,6 +267,8 @@ class ClientsController extends ControllerBase
         //Get client info
         $client = Clients::findFirstById($id);
 
+        //TODO Refactor to check what is updated and place all error to one bin and don't send all client information
+
         if (!$client) {
             $this->flash->error("Client does not exist");
             return $this->response->redirect("/account/".$clientUsername."/view");
@@ -282,7 +284,7 @@ class ClientsController extends ControllerBase
             $client->moreinfo = $this->request->getPost("moreinfo");
         }
         $passwordChangeText = 'Secret';
-        if($this->request->getPost("newpass") && $this->request->getPost("currentpass")) {
+        if ($this->request->getPost("newpass") && $this->request->getPost("currentpass")) {
                 if ($this->security->checkHash($this->request->getPost("currentpass"), $client->password)) {
                     $client->password = $this->security->hash($this->request->getPost("newpass"));
                     $passwordChangeText = "Success";
@@ -290,9 +292,21 @@ class ClientsController extends ControllerBase
                     $passwordChangeText = "Current password wrong";
                 }
         } else {
-            $passwordChangeText = "Current and New password should not be empty";
+            if ($this->request->getPost("newpass") == '' || $this->request->getPost("currentpass") == '') {
+                $passwordChangeText = "Current and New password should not be empty";
+            }
         }
 
+        $notifyStatus = '';
+        if ($this->request->getPost("notify")) {
+            if ($this->request->getPost("notify") == "Yes") {
+                $client->remind = 1;
+                $notifyStatus = "Yes";
+            } else {
+                $client->remind = 0;
+                $notifyStatus = "No";
+            }
+        }
 
         if (!$client->save()) {
 
@@ -307,6 +321,8 @@ class ClientsController extends ControllerBase
         $client->password = $passwordChangeText;
         $client->id = '';
         $client->username = '';
+        //Send notify status
+        $client->remind =  $notifyStatus;
 
         echo json_encode($client);
         $this->view->disable();
