@@ -19,6 +19,8 @@ $I->seeElement("span.contactphone");
 $I->doubleClick("span.contactphone");
 $I->fillField("contactphone",'(99890) 124-23-22');
 $I->doubleClick(".inline-update-button");
+//Add wait to process ajax response
+$I->wait(50);
 $I->see("(99890) 124-23-22");
 
 
