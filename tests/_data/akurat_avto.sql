@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Янв 11 2014 г., 11:54
+-- Время создания: Янв 12 2014 г., 14:46
 -- Версия сервера: 5.5.24-log
 -- Версия PHP: 5.4.3
 
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `cars` (
 
 INSERT INTO `cars` (`id`, `regnum`, `owner_id`, `model`, `bodynumber`, `enginenumber`, `regdate`, `year`, `milage`, `dailymilage`, `moreinfo`, `mlgdate`) VALUES
 (5, 'F321BA', 3, 'Skoda', '481094329809', '213340957806', '2013-10-24', 2009, 20000, 10, 'Красного цвета в хорошем состоянии', '0000-00-00'),
-(6, 'F312TA', 2, 'Нексия', '3214892347907', '9812310473210', '2013-12-13', 2007, 50201, 17, 'Белая, двигатель изношен', '2014-01-11'),
+(6, 'F312TA', 2, 'Нексия', '3214892347907', '9812310473210', '2013-12-13', 2007, 50203, 17, 'Белая, двигатель изношен', '2014-01-12'),
 (7, 'X820BA', 1, 'Матиз', '3479870348987', '8921743287432', '2013-12-12', 2011, 10000, 10, 'Цвет салатовый, в хорошем состоянии', '0000-00-00'),
 (8, 'F121XA', 2, 'Lacetti', '34546786535', '12354354656', '2013-12-10', 2013, 3000, 13, 'Новенькая', '2014-01-09');
 
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
 
 INSERT INTO `clients` (`id`, `username`, `password`, `fullname`, `contactemail`, `contactphone`, `regdate`, `moreinfo`, `remind`) VALUES
 (1, 'anvar', '$2a$08$GXcxPDochIra7bvNvvjSYe8RnmGvGSHM0FeIFjfi4aiOD80bbpeoy', 'Анвар Анваров', 'exmpl@mail.com', '(99893) 567-12-32', '2013-12-12', 'Матиз, цвет салат "X 820 BA"', 0),
-(2, 'valentin', '$2a$08$gMOad4plEGMKHcgpT4aVMORqhZruew0FgZHAQq.zW5bU1tVcPX7jW', 'Валентин Ан', 'mail7@gmail.ru', '(99893) 567-12-36', '2013-12-13', 'Нексия, белая "F 312 TA"', 1),
+(2, 'valentin', '$2a$08$gMOad4plEGMKHcgpT4aVMORqhZruew0FgZHAQq.zW5bU1tVcPX7jW', 'Валентин Ан', 'mail7@gmail.ru', '(99893) 567-12-36', '2013-12-13', 'Нексия, белая moreinfo', 1),
 (3, 'sanjar', '$2a$08$FMa2OMhYX1e5xPyWstG1EuhxGLRwZqzcAtoME8ZO9JLSnolWMHCFm', 'Санжар Абдурахманов', 'mail@g.ru', '(99890) 124-96-01', '2013-10-24', 'Shkoda, красная "F321BA"', 0);
 
 -- --------------------------------------------------------

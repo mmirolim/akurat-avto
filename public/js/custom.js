@@ -128,8 +128,10 @@ AK.inlineFormSendData = function(event) {
             siblingParent.style.display = "initial";
             event.target.parentNode.parentNode.remove();
         } else {
-            //Show updated data in message block
-            document.getElementById('message-block').innerHTML = "Sorry, we can't process your request right now.";
+            //Show only if xmlhttp status is not OK
+            if(xmlhttp.status != 200) {
+                document.getElementById('message-block').innerHTML = "<div class='alert-box alert'>Sorry, we can't process your request right now.</div>";
+            }
         }
     }
 }

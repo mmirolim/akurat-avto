@@ -224,3 +224,4 @@ app/cache/
 app/logs/
 public/img/
 tests/_log/
+public/js/dev_js/
