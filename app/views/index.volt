@@ -71,6 +71,8 @@
         {{ javascript_include("/../libraries/flexslider/jquery.flexslider-min.js") }}
         {{ javascript_include("/../libraries/dynatable/jquery.dynatable.js") }}
         {{ javascript_include("/../libraries/datepicker/bootstrap-datepicker.js") }}
+        {{ javascript_include("/../libraries/moment/moment.min.js") }}
+        {{ javascript_include("/../libraries/moment/ru-uz.js") }}
         {{ javascript_include("/../js/custom.js") }}
 	</body>
 </html>

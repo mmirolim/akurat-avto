@@ -1,6 +1,6 @@
 //Namespace js functions
 AK = {
-
+    lang : 'ru'
 }
 
 //Update client's own data like personal info and car milage and daily milage
@@ -217,8 +217,12 @@ AK.makeTableSortable = function(tableId) {
     AK.styleDynatableControls();
     //Automatically restore attributes after each dynatable update
     table.bind("dynatable:afterUpdate",AK.restoreServicesAttr);
+    //Format all dates after each sort
+    table.bind("dynatable:afterUpdate",AK.formatDates);
     //Restore after initial normalization of dynatable
     AK.restoreServicesAttr();
+    //Foramt dates after initial normalization of dynatable
+    AK.formatDates();
 }
 //Style dynatable controls
 AK.styleDynatableControls = function() {
@@ -242,6 +246,19 @@ AK.addDatepicker = function () {
         $(els[key]).datepicker({
             format : 'yyyy-mm-dd'
         });
+    }
+}
+//Format dates from ISO to local
+AK.formatDates = function(){
+    moment.lang(AK.lang);
+    //Select in once all date elements
+    var els = document.querySelectorAll('[class^=date-],[id=table-provided-services] td:nth-child(3)');
+    var elsTotal = els.length;
+    for (var i = 0; i < elsTotal; i++) {
+        var date = els[i].textContent;
+        //Set required date format
+        var localDate = moment(date).format("MMM DD YYYY");
+        els[i].textContent = localDate;
     }
 }
 $(window).load(function(){
