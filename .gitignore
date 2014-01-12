@@ -223,4 +223,3 @@ pip-log.txt
 app/cache/
 app/logs/
 public/img/
-tests/
