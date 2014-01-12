@@ -217,12 +217,8 @@ AK.makeTableSortable = function(tableId) {
     AK.styleDynatableControls();
     //Automatically restore attributes after each dynatable update
     table.bind("dynatable:afterUpdate",AK.restoreServicesAttr);
-    //Format all dates after each sort
-    table.bind("dynatable:afterUpdate",AK.formatDates);
     //Restore after initial normalization of dynatable
     AK.restoreServicesAttr();
-    //Foramt dates after initial normalization of dynatable
-    AK.formatDates();
 }
 //Style dynatable controls
 AK.styleDynatableControls = function() {
@@ -270,6 +266,9 @@ $(window).load(function(){
 
     AK.updateOwnData();
     AK.checkRemindStatus();
+
+    //Format dates from ISO to local before dynatable normalization
+    AK.formatDates();
 
     //TODO create charts from table data
     AK.makeTableSortable("table-provided-services");
