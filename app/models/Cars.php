@@ -77,9 +77,18 @@ class Cars extends \Phalcon\Mvc\Model
      */
     public $mlgdate;
 
+    /**
+     * current timestamp on each update
+     * @var timestamp
+     */
+    public $when_updated;
+
 
     public function initialize()
     {
+        //Skips fields/columns on both INSERT/UPDATE operations
+        $this->skipAttributes(array('when_updated'));
+
         //Set has-many cars relationship
         $this->hasMany("id", "Providedservices", "car_id");
 

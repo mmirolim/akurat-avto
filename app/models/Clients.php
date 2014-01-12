@@ -59,24 +59,17 @@ class Clients extends \Phalcon\Mvc\Model
     public $remind;
 
     /**
-     * Independent Column Mapping.
+     * current timestamp on each update
+     * @var timestamp
      */
-    public function columnMap() {
-        return array(
-            'id' => 'id', 
-            'username' => 'username',
-            'password' => 'password', 
-            'fullname' => 'fullname',
-            'contactemail' => 'contactemail',
-            'contactphone' => 'contactphone',
-            'regdate' => 'regdate',
-            'moreinfo' => 'moreinfo',
-            'remind' => 'remind'
-        );
-    }
+    public $when_updated;
+
 
     public function initialize()
     {
+        //Skips fields/columns on both INSERT/UPDATE operations
+        $this->skipAttributes(array('when_updated'));
+
         //Set has-many cars relationship
         $this->hasMany("id", "Cars", "owner_id");
 

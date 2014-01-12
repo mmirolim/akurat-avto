@@ -57,26 +57,19 @@ class Employees extends \Phalcon\Mvc\Model
      * @var string
      */
     public $date;
-     
+
     /**
-     * Independent Column Mapping.
+     * current timestamp on each update
+     * @var timestamp
      */
-    public function columnMap() {
-        return array(
-            'id' => 'id', 
-            'username' => 'username', 
-            'password' => 'password', 
-            'role_id' => 'role_id', 
-            'fullname' => 'fullname', 
-            'job' => 'job', 
-            'contacts' => 'contacts', 
-            'moreinfo' => 'moreinfo', 
-            'date' => 'date'
-        );
-    }
+    public $when_updated;
+     
 
     public function initialize()
     {
+        //Skips fields/columns on both INSERT/UPDATE operations
+        $this->skipAttributes(array('when_updated'));
+
         //Use dynamic update to improve performance
         $this->useDynamicUpdate(true);
 

@@ -22,16 +22,6 @@ class Roles extends \Phalcon\Mvc\Model
      */
     public $moreinfo;
      
-    /**
-     * Independent Column Mapping.
-     */
-    public function columnMap() {
-        return array(
-            'id' => 'id', 
-            'role' => 'role', 
-            'moreinfo' => 'moreinfo'
-        );
-    }
 
     public function initialize()
     {
