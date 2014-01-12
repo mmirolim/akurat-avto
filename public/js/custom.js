@@ -113,9 +113,9 @@ AK.inlineFormSendData = function(event) {
                     }
 
                     //Show updated data in message block
-                    document.getElementsByClassName('message-block')[0].innerHTML = statusMessage;
+                    document.getElementById('message-block').innerHTML = statusMessage;
                     //Set message block display to initial if it was toggled
-                    document.getElementsByClassName('message-block')[0].style.display = 'initial';
+                    document.getElementById('message-block').style.display = 'initial';
                     //Update text in original element of inline update
                     siblingParent.textContent = obj[key];
                     //If milage updated, update data-mlgdate of original element of editing
@@ -129,7 +129,7 @@ AK.inlineFormSendData = function(event) {
             event.target.parentNode.parentNode.remove();
         } else {
             //Show updated data in message block
-            document.getElementsByClassName('message-block')[0].innerHTML = "Sorry, we can't process your request right now.";
+            document.getElementById('message-block').innerHTML = "Sorry, we can't process your request right now.";
         }
     }
 }
