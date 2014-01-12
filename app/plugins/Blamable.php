@@ -24,8 +24,10 @@ class Blamable extends Behavior implements BehaviorInterface
                 //Write to new log every week
                 //TODO rotate logs the right way
                 $week = round(time()/604800);
+                //Add current date and time to log
+                $date = date('Y-m-d h:m:s');
                 //Store in a log the username, event type serialized model
-                file_put_contents(__DIR__ . '/../../app/logs/blamable-log-'.$week.'.txt', "\n" . 'userName='.$userName .' '. 'event='.$eventType .' '. serialize($model),FILE_APPEND);
+                file_put_contents(__DIR__ . '/../../app/logs/blamable-log-'.$week.'.txt', "\n" .$date.' userName='.$userName .' '. 'event='.$eventType .' '. serialize($model),FILE_APPEND);
                 break;
             default:
                 //Ignore the rest of events

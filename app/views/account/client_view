@@ -11,7 +11,7 @@
             <th data-tooltip class="has-tip prs-th" title="Мастер выполнявший тех. обслуживани">Мастер</th>
             <th data-tooltip class="has-tip prs-th" title="Дополнительная информация">Заметка</th>
             <th data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после КМ">КМ</th>
-            <th width="100" data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после Даты">Дата</th>
+            <th width="120" data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после Даты">Дата</th>
             <th class="remind-status-th prs-th">Статус напоминания</th>
         </tr>
         </thead>
@@ -30,7 +30,7 @@
                     echo '<tr>';
                     echo '<td>'.$providedService->id.'</td>';
                     echo '<td>'.$car->regnum.'</td>';
-                    echo '<td>'.$providedService->startdate.'</td>';
+                    echo '<td class="date-when">'.$providedService->startdate.'</td>';
                     foreach($carservices as $carservice) {
                         if($providedService->work_id == $carservice->id) {
                             echo '<td>'.$carservice->carservice.'</td>';
@@ -156,7 +156,7 @@
                 $labelInfoClass = 'label-info';
                 echo '<span class="'.$labelInfoClass.'">Phone:</span><span class="contactphone">'.$client->info->contactphone;?></span></li>
             <li><?php echo '<span class="'.$labelInfoClass.'">Email:</span><span class="contactemail">'.$client->info->contactemail;?></span></li>
-            <li><?php echo '<span class="'.$labelInfoClass.'">Signup date:</span>'.$client->info->regdate;?></li>
+            <li><?php echo '<span class="'.$labelInfoClass.'">Signup date:</span><span class="date-reg">'.$client->info->regdate;?></span></li>
             <li><?php echo '<span class="'.$labelInfoClass.'">Add info:</span><span class="moreinfo">'.$client->info->moreinfo;?></span></li>
             <li><?php echo '<span class="'.$labelInfoClass.'">Username:</span>'.$client->info->username;?></li>
             <li><?php echo '<span class="'.$labelInfoClass.'">Notify me :</span><span class="remind">';
