@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Янв 12 2014 г., 14:46
+-- Время создания: Янв 12 2014 г., 17:43
 -- Версия сервера: 5.5.24-log
 -- Версия PHP: 5.4.3
 
@@ -41,22 +41,23 @@ CREATE TABLE IF NOT EXISTS `cars` (
   `dailymilage` smallint(6) NOT NULL COMMENT 'integer number of daily milage in km',
   `moreinfo` text NOT NULL COMMENT 'more info',
   `mlgdate` date NOT NULL COMMENT 'When milage was last updated',
-  PRIMARY KEY (`id`),
+  `when_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY `regnum` (`regnum`),
   UNIQUE KEY `id` (`id`),
   KEY `model` (`model`,`bodynumber`,`enginenumber`),
-  KEY `owner_id` (`owner_id`)
+  KEY `owner_id` (`owner_id`),
+  KEY `when_updated` (`when_updated`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Дамп данных таблицы `cars`
 --
 
-INSERT INTO `cars` (`id`, `regnum`, `owner_id`, `model`, `bodynumber`, `enginenumber`, `regdate`, `year`, `milage`, `dailymilage`, `moreinfo`, `mlgdate`) VALUES
-(5, 'F321BA', 3, 'Skoda', '481094329809', '213340957806', '2013-10-24', 2009, 20000, 10, 'Красного цвета в хорошем состоянии', '0000-00-00'),
-(6, 'F312TA', 2, 'Нексия', '3214892347907', '9812310473210', '2013-12-13', 2007, 50203, 17, 'Белая, двигатель изношен', '2014-01-12'),
-(7, 'X820BA', 1, 'Матиз', '3479870348987', '8921743287432', '2013-12-12', 2011, 10000, 10, 'Цвет салатовый, в хорошем состоянии', '0000-00-00'),
-(8, 'F121XA', 2, 'Lacetti', '34546786535', '12354354656', '2013-12-10', 2013, 3000, 13, 'Новенькая', '2014-01-09');
+INSERT INTO `cars` (`id`, `regnum`, `owner_id`, `model`, `bodynumber`, `enginenumber`, `regdate`, `year`, `milage`, `dailymilage`, `moreinfo`, `mlgdate`, `when_updated`) VALUES
+(8, 'F121XA', 2, 'Lacetti', '34546786535', '12354354656', '2013-12-10', 2013, 3000, 13, 'Новенькая', '2014-01-09', '0000-00-00 00:00:00'),
+(6, 'F312TA', 2, 'Нексия', '3214892347907', '9812310473210', '2013-12-13', 2007, 50203, 17, 'Белая, двигатель изношен', '2014-01-12', '0000-00-00 00:00:00'),
+(5, 'F321BA', 3, 'Skoda', '481094329809', '213340957806', '2013-10-24', 2009, 20000, 10, 'Красного цвета в хорошем состоянии', '0000-00-00', '0000-00-00 00:00:00'),
+(7, 'X820BA', 1, 'Матиз', '3479870348987', '8921743287432', '2013-12-12', 2011, 10000, 10, 'Цвет салатовый, в хорошем состоянии', '0000-00-00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -68,24 +69,26 @@ CREATE TABLE IF NOT EXISTS `carservices` (
   `id` tinyint(4) unsigned NOT NULL AUTO_INCREMENT COMMENT 'auto increment',
   `carservice` varchar(255) NOT NULL COMMENT 'service name',
   `moreinfo` text NOT NULL COMMENT 'more info about service',
+  `when_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `carservice` (`carservice`)
+  UNIQUE KEY `carservice` (`carservice`),
+  KEY `when_updated` (`when_updated`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
 
 --
 -- Дамп данных таблицы `carservices`
 --
 
-INSERT INTO `carservices` (`id`, `carservice`, `moreinfo`) VALUES
-(19, 'Аккумулятор', 'Замена'),
-(20, 'Амортизаторы', 'Замена'),
-(21, 'Воздушный фильтр', 'Замена'),
-(22, 'Давление в Шинах', 'Проверка'),
-(23, 'Другое', 'Виды услуг'),
-(24, 'Замена тормозов', 'Замена'),
-(25, 'Масляный Фильтр', 'Замена'),
-(26, 'Осмотр', 'Комплексный'),
-(27, 'Замена Масла двигателя', 'Замена');
+INSERT INTO `carservices` (`id`, `carservice`, `moreinfo`, `when_updated`) VALUES
+(19, 'Аккумулятор', 'Замена', '0000-00-00 00:00:00'),
+(20, 'Амортизаторы', 'Замена', '0000-00-00 00:00:00'),
+(21, 'Воздушный фильтр', 'Замена', '0000-00-00 00:00:00'),
+(22, 'Давление в Шинах', 'Проверка', '0000-00-00 00:00:00'),
+(23, 'Другое', 'Виды услуг', '0000-00-00 00:00:00'),
+(24, 'Замена тормозов', 'Замена', '0000-00-00 00:00:00'),
+(25, 'Масляный Фильтр', 'Замена', '0000-00-00 00:00:00'),
+(26, 'Осмотр', 'Комплексный', '0000-00-00 00:00:00'),
+(27, 'Замена Масла двигателя', 'Замена', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -103,19 +106,21 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `regdate` date NOT NULL COMMENT 'start date of using services',
   `moreinfo` text NOT NULL COMMENT 'more information',
   `remind` tinyint(1) NOT NULL COMMENT 'Client status to recieve reminders, 0 is no',
+  `when_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
-  KEY `fullname` (`fullname`,`regdate`)
+  KEY `fullname` (`fullname`,`regdate`),
+  KEY `when_updated` (`when_updated`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `clients`
 --
 
-INSERT INTO `clients` (`id`, `username`, `password`, `fullname`, `contactemail`, `contactphone`, `regdate`, `moreinfo`, `remind`) VALUES
-(1, 'anvar', '$2a$08$GXcxPDochIra7bvNvvjSYe8RnmGvGSHM0FeIFjfi4aiOD80bbpeoy', 'Анвар Анваров', 'exmpl@mail.com', '(99893) 567-12-32', '2013-12-12', 'Матиз, цвет салат "X 820 BA"', 0),
-(2, 'valentin', '$2a$08$gMOad4plEGMKHcgpT4aVMORqhZruew0FgZHAQq.zW5bU1tVcPX7jW', 'Валентин Ан', 'mail7@gmail.ru', '(99893) 567-12-36', '2013-12-13', 'Нексия, белая moreinfo', 1),
-(3, 'sanjar', '$2a$08$FMa2OMhYX1e5xPyWstG1EuhxGLRwZqzcAtoME8ZO9JLSnolWMHCFm', 'Санжар Абдурахманов', 'mail@g.ru', '(99890) 124-96-01', '2013-10-24', 'Shkoda, красная "F321BA"', 0);
+INSERT INTO `clients` (`id`, `username`, `password`, `fullname`, `contactemail`, `contactphone`, `regdate`, `moreinfo`, `remind`, `when_updated`) VALUES
+(1, 'anvar', '$2a$08$GXcxPDochIra7bvNvvjSYe8RnmGvGSHM0FeIFjfi4aiOD80bbpeoy', 'Анвар Анваров', 'exmpl@mail.com', '(99893) 567-12-32', '2013-12-12', 'Матиз, цвет салат "X 820 BA"', 0, '0000-00-00 00:00:00'),
+(2, 'valentin', '$2a$08$gMOad4plEGMKHcgpT4aVMORqhZruew0FgZHAQq.zW5bU1tVcPX7jW', 'Валентин Ан', 'mail7@gmail.ru', '(99893) 567-12-36', '2013-12-13', 'Нексия, белая moreinfo', 1, '0000-00-00 00:00:00'),
+(3, 'sanjar', '$2a$08$FMa2OMhYX1e5xPyWstG1EuhxGLRwZqzcAtoME8ZO9JLSnolWMHCFm', 'Санжар Абдурахманов', 'mail@g.ru', '(99890) 124-96-01', '2013-10-24', 'Shkoda, красная "F321BA"', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -133,20 +138,22 @@ CREATE TABLE IF NOT EXISTS `employees` (
   `contacts` text NOT NULL COMMENT 'Contant data',
   `moreinfo` text NOT NULL COMMENT 'Additional information',
   `date` date NOT NULL COMMENT 'Started working',
+  `when_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
-  KEY `role_id` (`role_id`)
+  KEY `role_id` (`role_id`),
+  KEY `when_updated` (`when_updated`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Дамп данных таблицы `employees`
 --
 
-INSERT INTO `employees` (`id`, `username`, `password`, `role_id`, `fullname`, `job`, `contacts`, `moreinfo`, `date`) VALUES
-(9, 'mirodil', '$2a$08$GhZN5HJ5g47aSIymoRiPXufcilZit0ThOgZAS4AtKjj/DfIR3VqCe', 2, 'Миродил Мирзахмедов', 'Директор', '(99893) 395-96-52', 'Доп. информация', '2013-07-26'),
-(10, 'dima', '$2a$08$fUnEBwUBR6rUrrajyBvIuu8rbdjlYCkxHc/glyIUBMXOFtjvoLGRe', 3, 'Дима Д', 'Механик', '(99893) 125-54-12', 'Доп. информация', '2013-07-30'),
-(11, 'mahmud', '$2a$08$JsOaRYJ6nTXBrkbrCShgiO0uLBs1n1/rJU05CZ3w1.Ymux3Om.hke', 4, 'Махмуд М', 'Механик', '(99890) 125-95-47', 'Доп. информация', '2013-07-30'),
-(13, 'iamadmin', '$2a$08$nEXNW2UOq7qP88kKkc2xCOwG3SSBqHQZQevOaScguWTWa200QiBJK', 1, 'Incognito', 'Admin', 'ss@ss.ss', 'Some data', '2014-01-08');
+INSERT INTO `employees` (`id`, `username`, `password`, `role_id`, `fullname`, `job`, `contacts`, `moreinfo`, `date`, `when_updated`) VALUES
+(9, 'mirodil', '$2a$08$GhZN5HJ5g47aSIymoRiPXufcilZit0ThOgZAS4AtKjj/DfIR3VqCe', 2, 'Миродил Мирзахмедов', 'Директор', '(99893) 395-96-52', 'Доп. информация', '2013-07-26', '0000-00-00 00:00:00'),
+(10, 'dima', '$2a$08$fUnEBwUBR6rUrrajyBvIuu8rbdjlYCkxHc/glyIUBMXOFtjvoLGRe', 3, 'Дима Д', 'Механик', '(99893) 125-54-12', 'Доп. информация', '2013-07-30', '0000-00-00 00:00:00'),
+(11, 'mahmud', '$2a$08$JsOaRYJ6nTXBrkbrCShgiO0uLBs1n1/rJU05CZ3w1.Ymux3Om.hke', 4, 'Махмуд М', 'Механик', '(99890) 125-95-47', 'Доп. информация', '2013-07-30', '0000-00-00 00:00:00'),
+(13, 'iamadmin', '$2a$08$nEXNW2UOq7qP88kKkc2xCOwG3SSBqHQZQevOaScguWTWa200QiBJK', 1, 'Incognito', 'Admin', 'ss@ss.ss', 'Some data', '2014-01-08', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -167,32 +174,34 @@ CREATE TABLE IF NOT EXISTS `providedservices` (
   `remindkm` mediumint(9) unsigned NOT NULL COMMENT 'remind after x km',
   `remind` tinyint(1) NOT NULL COMMENT '1 or 0, yes or no if already reminded service provided',
   `moreinfo` text NOT NULL COMMENT 'more info',
+  `when_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `car_id` (`car_id`,`work_id`,`master_id`),
   KEY `work_id` (`work_id`),
   KEY `master_id` (`master_id`),
-  KEY `remind` (`remind`)
+  KEY `remind` (`remind`),
+  KEY `when_updated` (`when_updated`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Дамп данных таблицы `providedservices`
 --
 
-INSERT INTO `providedservices` (`id`, `car_id`, `work_id`, `master_id`, `cost`, `startdate`, `finishdate`, `milage`, `reminddate`, `remindkm`, `remind`, `moreinfo`) VALUES
-(1, 6, 19, 11, 120000, '2013-12-14', '2013-12-15', 50000, '2014-12-15', 10000, 1, 'Good quality korean battery installed'),
-(2, 6, 20, 10, 50000, '2013-12-14', '2013-12-14', 50000, '2014-06-20', 200, 1, 'Настройка'),
-(3, 6, 27, 11, 30000, '2013-12-15', '2013-12-15', 50000, '2014-06-15', 5000, 1, 'Синтетика'),
-(4, 5, 21, 10, 20000, '2013-10-24', '2013-10-24', 20000, '2030-00-00', 3000, 1, 'Доп. информация'),
-(5, 5, 22, 10, 5000, '2013-10-24', '2013-10-24', 20000, '2014-06-15', 5000, 1, 'Доп. информация'),
-(6, 5, 25, 10, 20000, '2013-10-24', '2013-10-24', 20000, '2014-06-15', 3000, 1, 'Доп. информация'),
-(7, 5, 27, 10, 35000, '2013-10-24', '2013-10-24', 20000, '2014-06-15', 3000, 1, 'Доп. информация'),
-(8, 7, 24, 10, 50000, '2013-12-12', '2013-12-12', 10000, '2014-12-12', 5000, 1, 'Доп. информация'),
-(9, 8, 27, 10, 20000, '2013-12-12', '2013-12-14', 2100, '2014-06-12', 3000, 1, ''),
-(10, 8, 26, 11, 15000, '2013-12-20', '2013-12-20', 2500, '2014-01-07', 200, 1, 'Нужен осмотр'),
-(11, 8, 22, 11, 10000, '2013-12-12', '2013-12-12', 2100, '2013-12-22', 150, 0, 'Давление нормальное'),
-(12, 6, 22, 10, 25000, '2013-12-16', '2013-12-17', 50100, '2014-01-14', 50, 0, 'Filter from Ztech korea'),
-(13, 6, 24, 10, 50000, '2013-12-16', '2013-12-17', 50100, '2014-02-20', 3000, 1, 'Syntetics'),
-(14, 6, 23, 10, 45000, '2014-01-01', '2014-01-01', 50110, '2014-01-10', 2000, 1, 'Проверка электроники');
+INSERT INTO `providedservices` (`id`, `car_id`, `work_id`, `master_id`, `cost`, `startdate`, `finishdate`, `milage`, `reminddate`, `remindkm`, `remind`, `moreinfo`, `when_updated`) VALUES
+(1, 6, 19, 11, 120000, '2013-12-14', '2013-12-15', 50000, '2014-12-15', 10000, 1, 'Good quality korean battery installed', '0000-00-00 00:00:00'),
+(2, 6, 20, 10, 50000, '2013-12-14', '2013-12-14', 50000, '2014-06-20', 200, 1, 'Настройка', '0000-00-00 00:00:00'),
+(3, 6, 27, 11, 30000, '2013-12-15', '2013-12-15', 50000, '2014-06-15', 5000, 1, 'Синтетика', '0000-00-00 00:00:00'),
+(4, 5, 21, 10, 20000, '2013-10-24', '2013-10-24', 20000, '2030-00-00', 3000, 1, 'Доп. информация', '0000-00-00 00:00:00'),
+(5, 5, 22, 10, 5000, '2013-10-24', '2013-10-24', 20000, '2014-06-15', 5000, 1, 'Доп. информация', '0000-00-00 00:00:00'),
+(6, 5, 25, 10, 20000, '2013-10-24', '2013-10-24', 20000, '2014-06-15', 3000, 1, 'Доп. информация', '0000-00-00 00:00:00'),
+(7, 5, 27, 10, 35000, '2013-10-24', '2013-10-24', 20000, '2014-06-15', 3000, 1, 'Доп. информация', '0000-00-00 00:00:00'),
+(8, 7, 24, 10, 50000, '2013-12-12', '2013-12-12', 10000, '2014-12-12', 5000, 1, 'Доп. информация', '0000-00-00 00:00:00'),
+(9, 8, 27, 10, 20000, '2013-12-12', '2013-12-14', 2100, '2014-06-12', 3000, 1, '', '0000-00-00 00:00:00'),
+(10, 8, 26, 11, 15000, '2013-12-20', '2013-12-20', 2500, '2014-01-07', 200, 1, 'Нужен осмотр', '0000-00-00 00:00:00'),
+(11, 8, 22, 11, 10000, '2013-12-12', '2013-12-12', 2100, '2013-12-22', 150, 0, 'Давление нормальное', '0000-00-00 00:00:00'),
+(12, 6, 22, 10, 25000, '2013-12-16', '2013-12-17', 50100, '2014-01-14', 50, 0, 'Filter from Ztech korea', '0000-00-00 00:00:00'),
+(13, 6, 24, 10, 50000, '2013-12-16', '2013-12-17', 50100, '2014-02-20', 3000, 1, 'Syntetics', '0000-00-00 00:00:00'),
+(14, 6, 23, 10, 45000, '2014-01-01', '2014-01-01', 50110, '2014-01-10', 2000, 1, 'Проверка электроники', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
