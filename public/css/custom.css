@@ -91,6 +91,7 @@ body {
 
 .row.slider, .row.special-service2, .row.our-team {
   background: white;
+  max-width: 100%;
 }
 
 #message-block {
@@ -162,6 +163,7 @@ img.shadow {
   padding: 2em;
   margin-top: 10em;
   min-height: 12em;
+  max-width: 100%;
 }
 
 #footer ul {
