@@ -43,7 +43,7 @@ class Security extends Plugin
                 'providedservices' => array('index','search','create','new','edit','save','delete'),
                 'employees' => array('index','search','create','new','edit','save','delete'),
                 'clients' => array('index','search','create','new','edit','save','delete','updateOwn'),
-                'cars' => array('index','search','create','new','edit','save','delete','updateOwn'),
+                'cars' => array('index','search','create','new','edit','save','delete','updateOwn','findByVin'),
                 'carservices' => array('index','search','create','new','edit','save','delete'),
                 'account' => array('index','view','search','create','new','edit','save','delete')
             );
@@ -66,28 +66,31 @@ class Security extends Plugin
                 'providedservices' => array('index','search','create','new','edit','save','delete'),
                 'employees' => array('index','search','create','new','edit','save','delete'),
                 'clients' => array('index','search','create','new','edit','save','delete'),
-                'cars' => array('index','search','create','new','edit','save','delete'),
-                'carservices' => array('index','search','create','new','edit','save','delete')
+                'cars' => array('index','search','create','new','edit','save','delete','findByVin'),
+                'carservices' => array('index','search','create','new','edit','save','delete'),
+                'account' => array('index','view'),
             );
 
             //Define array of resources and action accessible by Master
             $masterResources = array(
                 'providedservices' => array('index','search','create','new','edit','save'),
                 'clients' => array('index','search','create','new','edit','save'),
-                'cars' => array('index','search','create','new','edit','save'),
+                'cars' => array('index','search','create','new','edit','save','findByVin'),
+                'account' => array('index','view'),
             );
 
             //Define array of resources and action accessible by Employee
             $employeeResources = array(
                 'providedservices' => array('index','search'),
                 'clients' => array('index','search'),
-                'cars' => array('index','search'),
+                'cars' => array('index','search','findByVin'),
+                'account' => array('index','view'),
             );
             //Define array of resources and action accessible by Client
             $clientResources = array(
                 'account' => array('index','view'),
                 'clients' => array('updateOwn'),
-                'cars' => array('updateOwn')
+                'cars' => array('updateOwn','findByVin')
             );
 
             //Grant access to Admin

@@ -1,0 +1,79 @@
+<?php echo $this->getContent(); ?>
+<div class="large-8 large-centered columns services-block">
+    <h3>VIN <?php echo $car->vin; ?></h3>
+    <table id="table-provided-services" align="center">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th width="85" data-tooltip class="has-tip prs-th" title="Номер Машины">#</th>
+            <th width="100" data-tooltip class="has-tip prs-th" title="Дата проведения тех. обслуживания">Когда</th>
+            <th data-tooltip class="has-tip prs-th" title="Тип технического облуживания">Tex. услуга</th>
+            <th data-tooltip class="has-tip prs-th" title="Стоимость тех. облуживания">$</th>
+            <th data-tooltip class="has-tip prs-th" title="Пробег машины в километрах на момент тех. обслуживания">Пробег</th>
+            <th data-tooltip class="has-tip prs-th" title="Мастер выполнявший тех. обслуживани">Мастер</th>
+            <th data-tooltip class="has-tip prs-th" title="Дополнительная информация">Заметка</th>
+            <th data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после КМ">КМ</th>
+            <th width="120" data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после Даты">Дата</th>
+            <th class="remind-status-th prs-th">Статус напоминания</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+            foreach ($providedServices as $providedService) {
+                echo '<tr>';
+                echo '<td>'.$providedService->id.'</td>';
+                echo '<td>'.$car->regnum.'</td>';
+                echo '<td class="date-when">'.$providedService->startdate.'</td>';
+                foreach($carservices as $carservice) {
+                    if($providedService->work_id == $carservice->id) {
+                        echo '<td>'.$carservice->carservice.'</td>';
+                    }
+                }
+                echo '<td>'.$providedService->cost.'</td>';
+                echo '<td>'.$providedService->milage.'</td>';
+                foreach($employees as $employee) {
+                    if($providedService->master_id == $employee->id) {
+                        echo '<td>'.$employee->fullname.'</td>';
+                    }
+                }
+                echo '<td>'.$providedService->moreinfo.'</td>';
+
+                //If remindKm set estimate status of alert according to milage, milage date update and daily milage
+                $milageRemind = $providedService->remindkm + $providedService->milage;
+                if($providedService->remind > 0) {
+                    $kmRemindStatus = 'none';
+                    if(isset($car->mlgdate) && isset($car->dailymilage)) {
+                        if ($car->mlgdate > 0 && $car->dailymilage > 0) {
+                            //Get number of days between now and last milage updated
+                            $days = round((time() - strtotime($car->mlgdate))/86400);
+                            //Get estimated km after last milage data update
+                            $kmSince = $days*$car->dailymilage;
+                            if ($providedService->remindkm > 0 && ($milageRemind  - ($car->milage + $kmSince)) < 0) {
+                                $kmRemindStatus = "alert";
+                            } else {
+                                $kmRemindStatus = "success";
+                            }
+                        }
+                    }
+                } else {
+                    $kmRemindStatus = 'secondary';
+                }
+                echo '<td class="km-'.$kmRemindStatus.'">'.$milageRemind.'</td>';
+                if($providedService->remind > 0) {
+                    if (time() - strtotime($providedService->reminddate) > 0) {
+                        $remindDateStatus = "alert";
+                        } else {
+                        $remindDateStatus = "success";
+                        }
+                } else {
+                    $remindDateStatus = 'secondary';
+                }
+                echo '<td class="date-'.$remindDateStatus.'">';
+                echo $providedService->reminddate.'</td>';
+                echo '<td class="remind-status">'.$providedService->remind.'</td>';
+                echo '</tr>';
+            }
+        ?>
+        </tbody>
+    </table>
+</div>
