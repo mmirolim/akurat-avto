@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Янв 12 2014 г., 17:43
+-- Время создания: Янв 13 2014 г., 09:43
 -- Версия сервера: 5.5.24-log
 -- Версия PHP: 5.4.3
 
@@ -30,6 +30,7 @@ USE `akurat_avto`;
 
 CREATE TABLE IF NOT EXISTS `cars` (
   `id` mediumint(9) unsigned NOT NULL AUTO_INCREMENT COMMENT 'auto increment',
+  `vin` varchar(100) NOT NULL COMMENT 'vin of a car',
   `regnum` varchar(100) NOT NULL COMMENT 'car registration number',
   `owner_id` mediumint(9) unsigned NOT NULL COMMENT 'owner id',
   `model` varchar(255) NOT NULL COMMENT 'car model',
@@ -44,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `cars` (
   `when_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY `regnum` (`regnum`),
   UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `vin` (`vin`),
   KEY `model` (`model`,`bodynumber`,`enginenumber`),
   KEY `owner_id` (`owner_id`),
   KEY `when_updated` (`when_updated`)
@@ -53,11 +55,11 @@ CREATE TABLE IF NOT EXISTS `cars` (
 -- Дамп данных таблицы `cars`
 --
 
-INSERT INTO `cars` (`id`, `regnum`, `owner_id`, `model`, `bodynumber`, `enginenumber`, `regdate`, `year`, `milage`, `dailymilage`, `moreinfo`, `mlgdate`, `when_updated`) VALUES
-(8, 'F121XA', 2, 'Lacetti', '34546786535', '12354354656', '2013-12-10', 2013, 3000, 13, 'Новенькая', '2014-01-09', '0000-00-00 00:00:00'),
-(6, 'F312TA', 2, 'Нексия', '3214892347907', '9812310473210', '2013-12-13', 2007, 50203, 17, 'Белая, двигатель изношен', '2014-01-12', '0000-00-00 00:00:00'),
-(5, 'F321BA', 3, 'Skoda', '481094329809', '213340957806', '2013-10-24', 2009, 20000, 10, 'Красного цвета в хорошем состоянии', '0000-00-00', '0000-00-00 00:00:00'),
-(7, 'X820BA', 1, 'Матиз', '3479870348987', '8921743287432', '2013-12-12', 2011, 10000, 10, 'Цвет салатовый, в хорошем состоянии', '0000-00-00', '0000-00-00 00:00:00');
+INSERT INTO `cars` (`id`, `vin`, `regnum`, `owner_id`, `model`, `bodynumber`, `enginenumber`, `regdate`, `year`, `milage`, `dailymilage`, `moreinfo`, `mlgdate`, `when_updated`) VALUES
+(8, 'KLAF69ZEV012345', 'F121XA', 2, 'Lacetti', '34546786535', '12354354656', '2013-12-10', 2013, 3000, 13, 'Новенькая', '2014-01-09', '2014-01-13 03:19:10'),
+(6, 'AZAF69ZEV016666', 'F312TA', 2, 'Нексия', '3214892347907', '9812310473210', '2013-12-13', 2007, 50203, 17, 'Белая, двигатель изношен', '2014-01-12', '2014-01-13 03:19:10'),
+(5, 'FGFF69ZEV017877', 'F321BA', 3, 'Skoda', '481094329809', '213340957806', '2013-10-24', 2009, 20000, 10, 'Красного цвета в хорошем состоянии', '0000-00-00', '2014-01-13 03:19:10'),
+(7, 'WZAF69ZEV012567', 'X820BA', 1, 'Матиз', '3479870348987', '8921743287432', '2013-12-12', 2011, 10000, 10, 'Цвет салатовый, в хорошем состоянии', '0000-00-00', '2014-01-13 03:19:10');
 
 -- --------------------------------------------------------
 
