@@ -6,9 +6,9 @@
  * Time: 11:55 AM
  */
 
-use Phalcon\Mvc\Model\Criteria,
-    Phalcon\Mvc\Model\Resultset,
-    Phalcon\Paginator\Adapter\Model as Paginator;
+use Phalcon\Mvc\Model\Criteria;
+use Phalcon\Mvc\Model\Resultset;
+use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class AccountController extends ControllerBase
 {
@@ -60,6 +60,7 @@ class AccountController extends ControllerBase
                 $this->_getClientData($username);
                 break;
             case 'Employee':
+                $this->_getEmployeeData($username);
                 break;
             case 'Master':
                 break;
@@ -103,7 +104,9 @@ class AccountController extends ControllerBase
 
     protected function _getEmployeeData($username)
     {
-
+        //Get employee info
+        $employee = Employees::findFirst("username = '".$username."'");
+        $this->view->employee = $employee;
     }
 
     protected function _getMasterData($username)

@@ -1,5 +1,6 @@
 <div id="content" class="account-view-content row">
 <?php
+
 //Get appropriate data according to users role
 switch($currentUserRole)
 {
@@ -8,6 +9,8 @@ switch($currentUserRole)
         include('client_view');
         break;
     case 'Employee':
+        //Get html for employee view
+        include('employee_view');
         break;
     case 'Master':
         break;
