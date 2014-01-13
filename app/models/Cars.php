@@ -10,7 +10,13 @@ class Cars extends \Phalcon\Mvc\Model
      * @var integer
      */
     public $id;
-     
+
+    /**
+     * Vehicle identification number
+     * @var string
+     */
+    public $vin;
+
     /**
      *
      * @var string
