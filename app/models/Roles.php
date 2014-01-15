@@ -20,7 +20,19 @@ class Roles extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $moreinfo;
+    public $moreInfo;
+
+    public function columnMap()
+    {
+        //Keys are the real names in the table and
+        //the values their names in the application
+        return array(
+        'id' => 'id',
+        'role' => 'role',
+        'more_info' => 'moreInfo',
+
+    );
+    }
      
 
     public function initialize()

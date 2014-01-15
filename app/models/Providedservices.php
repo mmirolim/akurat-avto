@@ -1,7 +1,7 @@
 <?php
 
 
-class Providedservices extends \Phalcon\Mvc\Model
+class ProvidedServices extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -14,37 +14,31 @@ class Providedservices extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    public $car_id;
+    public $carId;
      
     /**
      *
      * @var integer
      */
-    public $work_id;
+    public $serviceId;
      
     /**
      *
      * @var integer
      */
-    public $master_id;
-     
+    public $masterId;
+
     /**
      *
-     * @var integer
+     * @var string
      */
-    public $cost;
+    public $startDate;
      
     /**
      *
      * @var string
      */
-    public $startdate;
-     
-    /**
-     *
-     * @var string
-     */
-    public $finishdate;
+    public $finishDate;
      
     /**
      *
@@ -56,37 +50,56 @@ class Providedservices extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $reminddate;
+    public $remindDate;
      
     /**
      *
      * @var integer
      */
-    public $remindkm;
-     
-    /**
-     *
-     * @var string
-     */
-    public $moreinfo;
+    public $remindKm;
 
     /**
      *
      * @var integer
      */
-    public $remind;
+    public $remindStatus;
+
+    /**
+     *
+     * @var string
+     */
+    public $moreInfo;
 
     /**
      * current timestamp on each update
      * @var timestamp
      */
-    public $when_updated;
+    public $whenUpdated;
 
+    public function columnMap()
+    {
+        //Keys are the real names in the table and
+        //the values their names in the application
+        return array(
+            'id' => 'id',
+            'car_id' => 'carId',
+            'service_id' => 'serviceId',
+            'master_id' => 'masterId',
+            'start_date' => 'startDate',
+            'finish_date' => 'finishDate',
+            'milage' => 'milage',
+            'remind_date' =>  'remindDate',
+            'remind_km'=>'remindKm' ,
+            'remind_status' => 'remindStatus',
+            'more_info' => 'moreInfo',
+            'when_updated'=> 'whenUpdated'
+        );
+    }
 
     public function initialize()
     {
         //Skips fields/columns on both INSERT/UPDATE operations
-        $this->skipAttributes(array('when_updated'));
+        $this->skipAttributes(array('whenUpdated'));
 
         //Use dynamic update to improve performance
         $this->useDynamicUpdate(true);

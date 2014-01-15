@@ -22,33 +22,32 @@
             foreach ($providedServices as $providedService) {
                 echo '<tr>';
                 echo '<td>'.$providedService->id.'</td>';
-                echo '<td>'.$car->regnum.'</td>';
-                echo '<td class="date-when">'.$providedService->startdate.'</td>';
-                foreach($carservices as $carservice) {
-                    if($providedService->work_id == $carservice->id) {
-                        echo '<td>'.$carservice->carservice.'</td>';
+                echo '<td>'.$car->regNumber.'</td>';
+                echo '<td class="date-when">'.$providedService->startDate.'</td>';
+                foreach($carServices as $carService) {
+                    if($providedService->serviceId == $carService->id) {
+                        echo '<td>'.$carService->service.'</td>';
                     }
                 }
-                echo '<td>'.$providedService->cost.'</td>';
                 echo '<td>'.$providedService->milage.'</td>';
                 foreach($employees as $employee) {
-                    if($providedService->master_id == $employee->id) {
+                    if($providedService->masterId == $employee->id) {
                         echo '<td>'.$employee->fullname.'</td>';
                     }
                 }
-                echo '<td>'.$providedService->moreinfo.'</td>';
+                echo '<td>'.$providedService->moreInfo.'</td>';
 
                 //If remindKm set estimate status of alert according to milage, milage date update and daily milage
-                $milageRemind = $providedService->remindkm + $providedService->milage;
-                if($providedService->remind > 0) {
+                $milageRemind = $providedService->remindKm + $providedService->milage;
+                if($providedService->remindStatus > 0) {
                     $kmRemindStatus = 'none';
-                    if(isset($car->mlgdate) && isset($car->dailymilage)) {
-                        if ($car->mlgdate > 0 && $car->dailymilage > 0) {
+                    if(isset($car->milageDate) && isset($car->dailyMilage)) {
+                        if ($car->milageDate > 0 && $car->dailyMilage > 0) {
                             //Get number of days between now and last milage updated
-                            $days = round((time() - strtotime($car->mlgdate))/86400);
+                            $days = round((time() - strtotime($car->milageDate))/86400);
                             //Get estimated km after last milage data update
-                            $kmSince = $days*$car->dailymilage;
-                            if ($providedService->remindkm > 0 && ($milageRemind  - ($car->milage + $kmSince)) < 0) {
+                            $kmSince = $days*$car->dailyMilage;
+                            if ($providedService->remindKm > 0 && ($milageRemind  - ($car->milage + $kmSince)) < 0) {
                                 $kmRemindStatus = "alert";
                             } else {
                                 $kmRemindStatus = "success";
@@ -59,8 +58,8 @@
                     $kmRemindStatus = 'secondary';
                 }
                 echo '<td class="km-'.$kmRemindStatus.'">'.$milageRemind.'</td>';
-                if($providedService->remind > 0) {
-                    if (time() - strtotime($providedService->reminddate) > 0) {
+                if($providedService->remindStatus > 0) {
+                    if (time() - strtotime($providedService->remindDate) > 0) {
                         $remindDateStatus = "alert";
                         } else {
                         $remindDateStatus = "success";
@@ -69,8 +68,8 @@
                     $remindDateStatus = 'secondary';
                 }
                 echo '<td class="date-'.$remindDateStatus.'">';
-                echo $providedService->reminddate.'</td>';
-                echo '<td class="remind-status">'.$providedService->remind.'</td>';
+                echo $providedService->remindDate.'</td>';
+                echo '<td class="remind-status">'.$providedService->remindStatus.'</td>';
                 echo '</tr>';
             }
         ?>

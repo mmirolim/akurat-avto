@@ -21,37 +21,25 @@ class Cars extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $regnum;
+    public $regNumber;
      
     /**
      *
      * @var integer
      */
-    public $owner_id;
+    public $ownerId;
      
     /**
      *
      * @var string
      */
     public $model;
-     
+
     /**
      *
      * @var string
      */
-    public $bodynumber;
-     
-    /**
-     *
-     * @var string
-     */
-    public $enginenumber;
-     
-    /**
-     *
-     * @var string
-     */
-    public $regdate;
+    public $regDate;
      
     /**
      *
@@ -69,39 +57,59 @@ class Cars extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    public $dailymilage;
+    public $dailyMilage;
      
     /**
      *
      * @var string
      */
-    public $moreinfo;
+    public $moreInfo;
 
     /**
      * When last milage updated
      * @var date
      */
-    public $mlgdate;
+    public $milageDate;
 
     /**
      * current timestamp on each update
      * @var timestamp
      */
-    public $when_updated;
+    public $whenUpdated;
+
+    public function columnMap()
+    {
+        //Keys are the real names in the table and
+        //the values their names in the application
+         return array(
+            'id' => 'id',
+            'vin' => 'vin',
+            'registration_number' => 'regNumber',
+            'owner_id' => 'ownerId',
+            'model' => 'model',
+            'registered_date' => 'regDate',
+            'year' => 'year',
+            'milage' => 'milage',
+            'daily_milage' =>  'dailyMilage',
+            'more_info'=>'moreInfo' ,
+            'milage_date' => 'milageDate',
+            'when_updated'=> 'whenUpdated'
+        );
+    }
 
 
     public function initialize()
     {
         //Skips fields/columns on both INSERT/UPDATE operations
-        $this->skipAttributes(array('when_updated'));
+        $this->skipAttributes(array('whenUpdated'));
 
         //Set has-many cars relationship
-        $this->hasMany("id", "Providedservices", "car_id");
+        $this->hasMany("id", "ProvidedServices", "carId");
 
         //Insert date on creation for milage date
         //TODO test Behavior
         $this->addBehavior(new Timestampable(array(
-            'beforeCreate' => array('field' => 'mlgdate','format' => 'Y-m-d')
+            'beforeCreate' => array('field' => 'milageDate','format' => 'Y-m-d H:i:s')
         )));
 
         //Use dynamic update to improve performance
@@ -118,9 +126,9 @@ class Cars extends \Phalcon\Mvc\Model
      * @param null $parameters
      * @return \Providedservices[]
      */
-    public function getProvidedservices($parameters = null)
+    public function getProvidedServices($parameters = null)
     {
-        return $this->getRelated("Providedservices", $parameters);
+        return $this->getRelated("ProvidedServices", $parameters);
     }
 
 }

@@ -1,14 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Simon
- * Date: 1/5/14
- * Time: 6:47 PM
- */
-use Phalcon\Events\Event,
-    Phalcon\Mvc\User\Plugin,
-    Phalcon\Mvc\Dispatcher,
-    Phalcon\Acl;
+
+use Phalcon\Events\Event;
+use Phalcon\Mvc\User\Plugin;
+use Phalcon\Mvc\Dispatcher;
+use Phalcon\Acl;
 
 class Security extends Plugin
 {

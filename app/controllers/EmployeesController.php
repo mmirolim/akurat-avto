@@ -55,8 +55,8 @@ class EmployeesController extends ControllerBase
         }
         $parameters["order"] = "id";
 
-        $users = Employees::find($parameters);
-        if (count($users) == 0) {
+        $employees = Employees::find($parameters);
+        if (count($employees) == 0) {
             $this->flash->notice("The search did not find any employees");
             return $this->dispatcher->forward(array(
                 "controller" => "employees",
@@ -65,7 +65,7 @@ class EmployeesController extends ControllerBase
         }
 
         $paginator = new Paginator(array(
-            "data" => $users,
+            "data" => $employees,
             "limit"=> 10,
             "page" => $numberPage
         ));
@@ -93,7 +93,7 @@ class EmployeesController extends ControllerBase
 
             $employee = Employees::findFirstByid($id);
             if (!$employee) {
-                $this->flash->error("employee was not found");
+                $this->flash->error("An Employee was not found");
                 return $this->dispatcher->forward(array(
                     "controller" => "employees",
                     "action" => "index"
@@ -104,12 +104,12 @@ class EmployeesController extends ControllerBase
             $this->tag->setDefault("id", $employee->id);
             $this->tag->setDefault("username", $employee->username);
             $this->tag->setDefault("password", $employee->password);
-            $this->tag->setDefault("role_id", $employee->role_id);
+            $this->tag->setDefault("role_id", $employee->roleId);
             $this->tag->setDefault("fullname", $employee->fullname);
             $this->tag->setDefault("job", $employee->job);
             $this->tag->setDefault("contacts", $employee->contacts);
-            $this->tag->setDefault("moreinfo", $employee->moreinfo);
-            $this->tag->setDefault("date", $employee->date);
+            $this->tag->setDefault("more_info", $employee->moreInfo);
+            $this->tag->setDefault("works_since", $employee->worksSince);
 
         }
     }
@@ -130,14 +130,26 @@ class EmployeesController extends ControllerBase
         $employee = new Employees();
 
         $employee->id = $this->request->getPost("id");
-        $employee->username = $this->request->getPost("username");
+        $username = $this->request->getPost("username");
+        //Check if this username is already in use as client username
+        $checkUsername = Clients::findFirst(array(
+            'username = ?0',
+            'bind' => $username
+        ));
+        if ($checkUsername != false) {
+            $this->flash->error("This username is already taken");
+            return $this->dispatcher->forward(array(
+                "controller" => "employees",
+                "action" => "new"
+            ));
+        }
         $employee->password = $this->security->hash($this->request->getPost("password"));
-        $employee->role_id = $this->request->getPost("role_id");
+        $employee->roleId = $this->request->getPost("role_id");
         $employee->fullname = $this->request->getPost("fullname");
         $employee->job = $this->request->getPost("job");
         $employee->contacts = $this->request->getPost("contacts");
-        $employee->moreinfo = $this->request->getPost("moreinfo");
-        $employee->date = $this->request->getPost("date");
+        $employee->moreInfo = $this->request->getPost("more_info");
+        $employee->worksSince = $this->request->getPost("works_since");
 
 
         if (!$employee->save()) {
@@ -150,7 +162,7 @@ class EmployeesController extends ControllerBase
             ));
         }
 
-        $this->flash->success("employee was created successfully");
+        $this->flash->success("The Employee was created successfully");
         return $this->dispatcher->forward(array(
             "controller" => "employees",
             "action" => "index"
@@ -176,7 +188,7 @@ class EmployeesController extends ControllerBase
 
         $employee = Employees::findFirstByid($id);
         if (!$employee) {
-            $this->flash->error("employee does not exist " . $id);
+            $this->flash->error("An employee does not exist " . $id);
             return $this->dispatcher->forward(array(
                 "controller" => "employees",
                 "action" => "index"
@@ -188,12 +200,12 @@ class EmployeesController extends ControllerBase
         if($employee->password != $this->request->getPost("password")) {
             $employee->password = $this->security->hash($this->request->getPost("password"));
         }
-        $employee->role_id = $this->request->getPost("role_id");
+        $employee->roleId = $this->request->getPost("role_id");
         $employee->fullname = $this->request->getPost("fullname");
         $employee->job = $this->request->getPost("job");
         $employee->contacts = $this->request->getPost("contacts");
-        $employee->moreinfo = $this->request->getPost("moreinfo");
-        $employee->date = $this->request->getPost("date");
+        $employee->moreInfo = $this->request->getPost("more_info");
+        $employee->worksSince = $this->request->getPost("works_since");
 
          if (!$employee->save()) {
 
@@ -208,7 +220,7 @@ class EmployeesController extends ControllerBase
             ));
         }
 
-        $this->flash->success("employee was updated successfully");
+        $this->flash->success("The Employee's info was updated successfully");
         return $this->dispatcher->forward(array(
             "controller" => "employees",
             "action" => "index"
@@ -226,7 +238,7 @@ class EmployeesController extends ControllerBase
 
         $employee = Employees::findFirstByid($id);
         if (!$employee) {
-            $this->flash->error("employee was not found");
+            $this->flash->error("An Employee was not found");
             return $this->dispatcher->forward(array(
                 "controller" => "employees",
                 "action" => "index"
@@ -245,7 +257,7 @@ class EmployeesController extends ControllerBase
             ));
         }
 
-        $this->flash->success("employee was deleted successfully");
+        $this->flash->success("The Employee was deleted successfully");
         return $this->dispatcher->forward(array(
             "controller" => "employees",
             "action" => "index"

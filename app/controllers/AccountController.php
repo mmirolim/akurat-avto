@@ -49,8 +49,8 @@ class AccountController extends ControllerBase
         ));
 
         //Get all services and cache it
-        $this->view->carservices = Carservices::find( array(
-            "cache" => array("key" => "carservices-list", "lifetime" => 300)
+        $this->view->carServices = CarServices::find( array(
+            "cache" => array("key" => "car-services-list", "lifetime" => 300)
         ));
 
         //Get appropriate data according to users role
@@ -92,8 +92,8 @@ class AccountController extends ControllerBase
             //HYDRATE provided services as stDClass objects just to read data not to edit
             //TODO order by startdate by default
             //cache by username
-            $car->providedServices = $car->getProvidedservices(array(
-                "cache" => array("key" => "providedServices-list-".$username, "lifetime" => 300)
+            $car->providedServices = $car->getProvidedServices(array(
+                "cache" => array("key" => "provided-services-list-".$username, "lifetime" => 300)
             ))->setHydrateMode(Resultset::HYDRATE_OBJECTS);
         }
         $client->cars = $cars;

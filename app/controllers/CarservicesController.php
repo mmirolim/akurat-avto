@@ -3,7 +3,7 @@
 use Phalcon\Mvc\Model\Criteria,
     Phalcon\Paginator\Adapter\Model as Paginator;
 
-class CarservicesController extends ControllerBase
+class CarServicesController extends ControllerBase
 {
 
     /**
@@ -20,13 +20,13 @@ class CarservicesController extends ControllerBase
         }
         $parameters["order"] = "carservice";
 
-        $carservices = Carservices::find($parameters);
-        if (count($carservices) == 0) {
+        $carServices = Carservices::find($parameters);
+        if (count($carServices) == 0) {
             $this->flash->notice("<h1>There is no carservices</h1>");
         }
 
         $paginator = new Paginator(array(
-            "data" => $carservices,
+            "data" => $carServices,
             "limit"=> 100,
             "page" => $numberPage
         ));
@@ -34,7 +34,7 @@ class CarservicesController extends ControllerBase
         $this->view->page = $paginator->getPaginate();
     }
     /**
-     * List all carservices
+     * List all carServices
      */
     public function listAction()
     {
@@ -47,13 +47,13 @@ class CarservicesController extends ControllerBase
         }
         $parameters["order"] = "carservice";
 
-        $carservices = Carservices::find($parameters);
-        if (count($carservices) == 0) {
-            $this->flash->notice("There is no carservices");
+        $carServices = Carservices::find($parameters);
+        if (count($carServices) == 0) {
+            $this->flash->notice("There is no car services");
         }
 
         $paginator = new Paginator(array(
-            "data" => $carservices,
+            "data" => $carServices,
             "limit"=> 100,
             "page" => $numberPage
         ));
@@ -61,14 +61,14 @@ class CarservicesController extends ControllerBase
         $this->view->page = $paginator->getPaginate();
     }
     /**
-     * Searches for carservices
+     * Searches for carServices
      */
     public function searchAction()
     {
 
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, "Carservices", $_POST);
+            $query = Criteria::fromInput($this->di, "CarServices", $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -80,9 +80,9 @@ class CarservicesController extends ControllerBase
         }
         $parameters["order"] = "id";
 
-        $carservices = Carservices::find($parameters);
-        if (count($carservices) == 0) {
-            $this->flash->notice("The search did not find any carservices");
+        $carServices = CarServices::find($parameters);
+        if (count($carServices) == 0) {
+            $this->flash->notice("The search did not find any car services");
             return $this->dispatcher->forward(array(
                 "controller" => "carservices",
                 "action" => "index"
@@ -90,7 +90,7 @@ class CarservicesController extends ControllerBase
         }
 
         $paginator = new Paginator(array(
-            "data" => $carservices,
+            "data" => $carServices,
             "limit"=> 10,
             "page" => $numberPage
         ));
@@ -107,7 +107,7 @@ class CarservicesController extends ControllerBase
     }
 
     /**
-     * Edits a carservice
+     * Edits a carService
      *
      * @param string $id
      */
@@ -116,8 +116,8 @@ class CarservicesController extends ControllerBase
 
         if (!$this->request->isPost()) {
 
-            $carservice = Carservices::findFirstByid($id);
-            if (!$carservice) {
+            $carService = Carservices::findFirstByid($id);
+            if (!$carService) {
                 $this->flash->error("carservice was not found");
                 return $this->dispatcher->forward(array(
                     "controller" => "carservices",
@@ -125,17 +125,17 @@ class CarservicesController extends ControllerBase
                 ));
             }
 
-            $this->view->id = $carservice->id;
+            $this->view->id = $carService->id;
 
-            $this->tag->setDefault("id", $carservice->id);
-            $this->tag->setDefault("carservice", $carservice->carservice);
-            $this->tag->setDefault("moreinfo", $carservice->moreinfo);
+            $this->tag->setDefault("id", $carService->id);
+            $this->tag->setDefault("service", $carService->service);
+            $this->tag->setDefault("more_info", $carService->moreInfo);
             
         }
     }
 
     /**
-     * Creates a new carservice
+     * Creates a new carService
      */
     public function createAction()
     {
@@ -147,15 +147,15 @@ class CarservicesController extends ControllerBase
             ));
         }
 
-        $carservice = new Carservices();
+        $carService = new CarServices();
 
-        $carservice->id = $this->request->getPost("id");
-        $carservice->carservice = $this->request->getPost("carservice");
-        $carservice->moreinfo = $this->request->getPost("moreinfo");
+        $carService->id = $this->request->getPost("id");
+        $carService->service = $this->request->getPost("service");
+        $carService->moreInfo = $this->request->getPost("more_info");
         
 
-        if (!$carservice->save()) {
-            foreach ($carservice->getMessages() as $message) {
+        if (!$carService->save()) {
+            foreach ($carService->getMessages() as $message) {
                 $this->flash->error($message);
             }
             return $this->dispatcher->forward(array(
@@ -164,7 +164,7 @@ class CarservicesController extends ControllerBase
             ));
         }
 
-        $this->flash->success("carservice was created successfully");
+        $this->flash->success("Car service was created successfully");
         return $this->dispatcher->forward(array(
             "controller" => "carservices",
             "action" => "index"
@@ -173,7 +173,7 @@ class CarservicesController extends ControllerBase
     }
 
     /**
-     * Saves a carservice edited
+     * Saves a carService edited
      *
      */
     public function saveAction()
@@ -188,34 +188,34 @@ class CarservicesController extends ControllerBase
 
         $id = $this->request->getPost("id");
 
-        $carservice = Carservices::findFirstByid($id);
-        if (!$carservice) {
-            $this->flash->error("carservice does not exist " . $id);
+        $carService = CarServices::findFirstByid($id);
+        if (!$carService) {
+            $this->flash->error("Car service does not exist " . $id);
             return $this->dispatcher->forward(array(
                 "controller" => "carservices",
                 "action" => "index"
             ));
         }
 
-        $carservice->id = $this->request->getPost("id");
-        $carservice->carservice = $this->request->getPost("carservice");
-        $carservice->moreinfo = $this->request->getPost("moreinfo");
+        $carService->id = $this->request->getPost("id");
+        $carService->service = $this->request->getPost("service");
+        $carService->moreInfo = $this->request->getPost("more_info");
         
 
-        if (!$carservice->save()) {
+        if (!$carService->save()) {
 
-            foreach ($carservice->getMessages() as $message) {
+            foreach ($carService->getMessages() as $message) {
                 $this->flash->error($message);
             }
 
             return $this->dispatcher->forward(array(
                 "controller" => "carservices",
                 "action" => "edit",
-                "params" => array($carservice->id)
+                "params" => array($carService->id)
             ));
         }
 
-        $this->flash->success("carservice was updated successfully");
+        $this->flash->success("Car service was updated successfully");
         return $this->dispatcher->forward(array(
             "controller" => "carservices",
             "action" => "index"
@@ -231,18 +231,18 @@ class CarservicesController extends ControllerBase
     public function deleteAction($id)
     {
 
-        $carservice = Carservices::findFirstByid($id);
-        if (!$carservice) {
-            $this->flash->error("carservice was not found");
+        $carService = CarServices::findFirstByid($id);
+        if (!$carService) {
+            $this->flash->error("Car service was not found");
             return $this->dispatcher->forward(array(
                 "controller" => "carservices",
                 "action" => "index"
             ));
         }
 
-        if (!$carservice->delete()) {
+        if (!$carService->delete()) {
 
-            foreach ($carservice->getMessages() as $message){
+            foreach ($carService->getMessages() as $message){
                 $this->flash->error($message);
             }
 
@@ -252,7 +252,7 @@ class CarservicesController extends ControllerBase
             ));
         }
 
-        $this->flash->success("carservice was deleted successfully");
+        $this->flash->success("Car service was deleted successfully");
         return $this->dispatcher->forward(array(
             "controller" => "carservices",
             "action" => "index"

@@ -303,15 +303,15 @@ position: relative;
 top: 0.5em;
 }
 
-label[for="currentpass"] {
+label[for="current_pass"] {
   font-weight: bold;
   font-size: small;
   margin: 0em;
 }
-#currentpass {
+#current_pass {
 width: 50%;
 }
-#newpass {
+#new_pass {
 width: 50%;
 display: block;
 margin-top: 0.5em;

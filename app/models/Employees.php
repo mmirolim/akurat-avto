@@ -26,7 +26,7 @@ class Employees extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    public $role_id;
+    public $roleId;
      
     /**
      *
@@ -50,25 +50,43 @@ class Employees extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $moreinfo;
+    public $moreInfo;
      
     /**
      *
      * @var string
      */
-    public $date;
+    public $worksSince;
 
     /**
      * current timestamp on each update
      * @var timestamp
      */
-    public $when_updated;
-     
+    public $whenUpdated;
+
+    public function columnMap()
+    {
+        //Keys are the real names in the table and
+        //the values their names in the application
+        return array(
+            'id' => 'id',
+            'username' => 'username',
+            'password' => 'password',
+            'role_id' => 'roleId',
+            'fullname' => 'fullname',
+            'job' => 'job',
+            'contacts' => 'contacts',
+            'registered_date' =>  'regDate',
+            'more_info'=>'moreInfo',
+            'works_since' => 'worksSince',
+            'when_updated'=> 'whenUpdated'
+        );
+    }
 
     public function initialize()
     {
         //Skips fields/columns on both INSERT/UPDATE operations
-        $this->skipAttributes(array('when_updated'));
+        $this->skipAttributes(array('whenUpdated'));
 
         //Use dynamic update to improve performance
         $this->useDynamicUpdate(true);

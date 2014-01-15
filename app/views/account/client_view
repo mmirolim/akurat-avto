@@ -6,9 +6,8 @@
             <th width="85" data-tooltip class="has-tip prs-th" title="Номер Машины">#</th>
             <th width="100" data-tooltip class="has-tip prs-th" title="Дата проведения тех. обслуживания">Когда</th>
             <th data-tooltip class="has-tip prs-th" title="Тип технического облуживания">Tex. услуга</th>
-            <th data-tooltip class="has-tip prs-th" title="Стоимость тех. облуживания">$</th>
             <th data-tooltip class="has-tip prs-th" title="Пробег машины в километрах на момент тех. обслуживания">Пробег</th>
-            <th data-tooltip class="has-tip prs-th" title="Мастер выполнявший тех. обслуживани">Мастер</th>
+            <th width="100" data-tooltip class="has-tip prs-th" title="Мастер выполнявший тех. обслуживани">Мастер</th>
             <th data-tooltip class="has-tip prs-th" title="Дополнительная информация">Заметка</th>
             <th data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после КМ">КМ</th>
             <th width="120" data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после Даты">Дата</th>
@@ -20,51 +19,50 @@
             //Create associative car array to store some analytic data
             $cars = array();
             foreach ($client->cars as $car) {
-                $cars[$car->regnum] = new stdClass();
+                $cars[$car->regNumber] = new stdClass();
                 //Collect Active reminders by date and km to compare and use it for health, issue etc
-                $cars[$car->regnum]->remindKmAlert = 0;
-                $cars[$car->regnum]->remindKmOK = 0;
-                $cars[$car->regnum]->remindDateAlert = 0;
-                $cars[$car->regnum]->remindDateOK = 0;
+                $cars[$car->regNumber]->remindKmAlert = 0;
+                $cars[$car->regNumber]->remindKmOK = 0;
+                $cars[$car->regNumber]->remindDateAlert = 0;
+                $cars[$car->regNumber]->remindDateOK = 0;
                 foreach ($car->providedServices as $providedService) {
                     echo '<tr>';
                     echo '<td>'.$providedService->id.'</td>';
-                    echo '<td>'.$car->regnum.'</td>';
-                    echo '<td class="date-when">'.$providedService->startdate.'</td>';
-                    foreach($carservices as $carservice) {
-                        if($providedService->work_id == $carservice->id) {
-                            echo '<td>'.$carservice->carservice.'</td>';
+                    echo '<td>'.$car->regNumber.'</td>';
+                    echo '<td class="date-when">'.$providedService->startDate.'</td>';
+                    foreach($carServices as $carService) {
+                        if($providedService->serviceId == $carService->id) {
+                            echo '<td>'.$carService->service.'</td>';
                         }
                     }
-                    echo '<td>'.$providedService->cost.'</td>';
                     echo '<td>'.$providedService->milage.'</td>';
                     foreach($employees as $employee) {
-                        if($providedService->master_id == $employee->id) {
+                        if($providedService->masterId == $employee->id) {
                             echo '<td>'.$employee->fullname.'</td>';
                         }
                     }
-                    echo '<td>'.$providedService->moreinfo.'</td>';
+                    echo '<td>'.$providedService->moreInfo.'</td>';
 
                     //If remindKm set estimate status of alert according to milage, milage date update and daily milage
                     /**
                      * TODO test what will be if remindkm or/and reminddate missing
                      * Fix when same number of alert km and date but in different services
-                     * currently only number of KMalert will be shown
+                     * currently only number of KM alert will be shown
                      **/
-                    $milageRemind = $providedService->remindkm + $providedService->milage;
-                    if($providedService->remind > 0) {
-                        if(isset($car->mlgdate) && isset($car->dailymilage)) {
-                            if ($car->mlgdate > 0 && $car->dailymilage > 0) {
+                    $milageRemind = $providedService->remindKm + $providedService->milage;
+                    if($providedService->remindStatus > 0) {
+                        if(isset($car->milageDate) && isset($car->dailyMilage)) {
+                            if ($car->milageDate > 0 && $car->dailyMilage > 0) {
                                 //Get number of days between now and last milage updated
-                                $days = round((time() - strtotime($car->mlgdate))/86400);
+                                $days = round((time() - strtotime($car->milageDate))/86400);
                                 //Get estimated km after last milage data update
-                                $kmSince = $days*$car->dailymilage;
-                                if ($providedService->remindkm > 0 && ($milageRemind  - ($car->milage + $kmSince)) < 0) {
+                                $kmSince = $days*$car->dailyMilage;
+                                if ($providedService->remindKm > 0 && ($milageRemind  - ($car->milage + $kmSince)) < 0) {
                                     $kmRemindStatus = "alert";
-                                    $cars[$car->regnum]->remindKmAlert++;
+                                    $cars[$car->regNumber]->remindKmAlert++;
                                 } else {
                                     $kmRemindStatus = "success";
-                                    $cars[$car->regnum]->remindKmOK++;
+                                    $cars[$car->regNumber]->remindKmOK++;
                                 }
                             }
                         }
@@ -72,26 +70,27 @@
                         $kmRemindStatus = 'secondary';
                     }
                     echo '<td class="km-'.$kmRemindStatus.'">'.$milageRemind.'</td>';
-                    if($providedService->remind > 0) {
-                        if (time() - strtotime($providedService->reminddate) > 0) {
+                    if($providedService->remindStatus > 0) {
+                        if (time() - strtotime($providedService->remindDate) > 0) {
                             $remindDateStatus = "alert";
                             if ( $kmRemindStatus == "success") {
-                                $cars[$car->regnum]->remindDateAlert++;
+                                $cars[$car->regNumber]->remindDateAlert++;
                             }
                         } else {
                             $remindDateStatus = "success";
                             if ( $kmRemindStatus == "success") {
-                                $cars[$car->regnum]->remindDateOK++;
+                                $cars[$car->regNumber]->remindDateOK++;
                             }
                         }
                     } else {
                         $remindDateStatus = 'secondary';
                     }
                     echo '<td class="date-'.$remindDateStatus.'">';
-                    echo $providedService->reminddate.'</td>';
-                    echo '<td class="remind-status">'.$providedService->remind.'</td>';
+                    echo $providedService->remindDate.'</td>';
+                    echo '<td class="remind-status">'.$providedService->remindStatus.'</td>';
                     echo '</tr>';
                 }
+
             }
             ?>
         </tbody>
@@ -103,37 +102,32 @@
         foreach ($client->cars as $key =>$car) {
             //Create div block per car
             echo '<div class="analytic-data">';
-            $car->totalExpenses = 0;
             $car->daysInMaintenance = 0;
             //Calculate total expenses per car
             foreach ($car->providedServices as $providedService) {
-                $car->totalExpenses += $providedService->cost;
                 //Calculate days in maintenance per car
                 //TODO exclude services accomplished same day (filter,oil,check all same time period)
-                if(isset($providedService->finishdate)) {
+                if(isset($providedService->finishDate)) {
                     //Check if finishdate not same date of startdate
-                    if(strtotime($providedService->finishdate) - strtotime($providedService->startdate) > 0){
-                        $car->daysInMaintenance = strtotime($providedService->finishdate) - strtotime($providedService->startdate);
+                    if(strtotime($providedService->finishDate) - strtotime($providedService->startDate) > 0){
+                        $car->daysInMaintenance = strtotime($providedService->finishDate) - strtotime($providedService->startDate);
                     }
                 }
             }
-            echo '<h5 class="label radius secondary car-regnum">'.$car->regnum.' - '.$car->model.'</h5>';
-            echo '<div class="total-expenses">';
-            echo '<h5>Total Expenses</h5><span id="total-cost" class="label radius">'.$car->totalExpenses.' cум</span>';
+            echo '<h5 class="label radius secondary car-regnum">'.$car->regNumber.' - '.$car->model.'</h5>';
         ?>
-            </div>
         <div class="total-health"><h5>Total Health</h5><span id="car-health" class="label radius success">
                 <?php
                 //Get health estimation for car according to non accomplished reminders by KM(priority) or date
                 //TODO health estimation should be done according to pending service types by their weight
                 //ex change filter priority 2 but check engine priority is 4
                 //Calculate health by counting all active services by km+date and dividing 100*(kmOK+dateOK)/(km+date)
-                $totalReminderNumber = $cars[$car->regnum]->remindKmOK + $cars[$car->regnum]->remindKmAlert + $cars[$car->regnum]->remindDateOK + $cars[$car->regnum]->remindDateAlert;
-                    echo round(100*($cars[$car->regnum]->remindKmOK + $cars[$car->regnum]->remindDateOK)/$totalReminderNumber).'%';
+                $totalReminderNumber = $cars[$car->regNumber]->remindKmOK + $cars[$car->regNumber]->remindKmAlert + $cars[$car->regNumber]->remindDateOK + $cars[$car->regNumber]->remindDateAlert;
+                    echo round(100*($cars[$car->regNumber]->remindKmOK + $cars[$car->regNumber]->remindDateOK)/$totalReminderNumber).'%';
 
                 ?></span></div>
         <div class="show-issues"><h5>Issues</h5><span id="issue-status" class="label radius <?php
-            if($cars[$car->regnum]->remindKmAlert == 0 && $cars[$car->regnum]->remindDateAlert == 0) {
+            if($cars[$car->regNumber]->remindKmAlert == 0 && $cars[$car->regNumber]->remindDateAlert == 0) {
                 echo 'secondary';
             } else {
                 echo 'alert';
@@ -141,7 +135,7 @@
             ?>">
                 <?php
                 //Get issues estimation for car according to non accomplished reminders by KM(priority) and date
-                        echo $cars[$car->regnum]->remindKmAlert + $cars[$car->regnum]->remindDateAlert;
+                        echo $cars[$car->regNumber]->remindKmAlert + $cars[$car->regNumber]->remindDateAlert;
                 ?></span></div>
         <div class="days-in-maintenance"><h5>Days in Maintenance</h5><span id="days-in-maintenance" class="label radius secondary"><?php echo ($car->daysInMaintenance/86400);?></span></div>
         <?php
@@ -154,13 +148,13 @@
             <li><h5 class="label radius secondary"><?php echo $client->info->fullname;?></h5></li>
             <li><?php
                 $labelInfoClass = 'label-info';
-                echo '<span class="'.$labelInfoClass.'">Phone:</span><span class="contactphone">'.$client->info->contactphone;?></span></li>
-            <li><?php echo '<span class="'.$labelInfoClass.'">Email:</span><span class="contactemail">'.$client->info->contactemail;?></span></li>
-            <li><?php echo '<span class="'.$labelInfoClass.'">Signup date:</span><span class="date-reg">'.$client->info->regdate;?></span></li>
-            <li><?php echo '<span class="'.$labelInfoClass.'">Add info:</span><span class="moreinfo">'.$client->info->moreinfo;?></span></li>
+                echo '<span class="'.$labelInfoClass.'">Phone:</span><span class="contact_phone">'.$client->info->contactPhone;?></span></li>
+            <li><?php echo '<span class="'.$labelInfoClass.'">Email:</span><span class="contact_email">'.$client->info->contactEmail;?></span></li>
+            <li><?php echo '<span class="'.$labelInfoClass.'">Signup date:</span><span class="date-registration">'.$client->info->regDate;?></span></li>
+            <li><?php echo '<span class="'.$labelInfoClass.'">Add info:</span><span class="more_info">'.$client->info->moreInfo;?></span></li>
             <li><?php echo '<span class="'.$labelInfoClass.'">Username:</span>'.$client->info->username;?></li>
-            <li><?php echo '<span class="'.$labelInfoClass.'">Notify me :</span><span class="remind">';
-                 if ($client->info->remind > 0) {echo 'Yes';} else {echo 'No';};?></span></li>
+            <li><?php echo '<span class="'.$labelInfoClass.'">Notify me :</span><span class="notify">';
+                 if ($client->info->notify > 0) {echo 'Yes';} else {echo 'No';};?></span></li>
             <li><span class="password">Change password</span></li>
         </ul>
     </div>
@@ -170,14 +164,13 @@
         foreach ($client->cars as $car) {
             echo ' <ul class="car-info" data-id="'.$car->id.'" data-update-url="/cars/updateOwn">';
             echo '<li><h5 class="label radius secondary">'.$car->model.'</h5></li>';
-            echo '<li><span class="'.$labelInfoClass.'">Reg. number:</span>'.$car->regnum.'</li>';
+            echo '<li><span class="'.$labelInfoClass.'">Reg. number:</span>'.$car->regNumber.'</li>';
             echo '<li><span class="'.$labelInfoClass.'">Year:</span>'.$car->year.'</li>';
-            echo '<li><span class="'.$labelInfoClass.'">First service date:</span>'.$car->regdate.'</li>';
-            echo '<li><span class="'.$labelInfoClass.'">Current KM:</span><span class="milage" data-mlgdate="'.$car->mlgdate.'">'.$car->milage.'</span></li>';
-            echo '<li><span class="'.$labelInfoClass.'">Milage KM/day:</span><span class="dailymilage">'.$car->dailymilage.'</span></li>';
-            echo '<li><span class="'.$labelInfoClass.'">Body number:</span>'.$car->bodynumber.'</li>';
-            echo '<li><span class="'.$labelInfoClass.'">Engine number:</span>'.$car->enginenumber.'</li>';
-            echo '<li><span class="'.$labelInfoClass.'">Add info:</span>'.$car->moreinfo.'</li>';
+            echo '<li><span class="'.$labelInfoClass.'">First service date:</span>'.$car->regDate.'</li>';
+            echo '<li><span class="'.$labelInfoClass.'">Current KM:</span><span class="milage" data-milage_date="'.$car->milageDate.'">'.$car->milage.'</span></li>';
+            echo '<li><span class="'.$labelInfoClass.'">Milage KM/day:</span><span class="daily_milage">'.$car->dailyMilage.'</span></li>';
+            echo '<li><span class="'.$labelInfoClass.'">Car VIN:</span>'.$car->vin.'</li>';
+            echo '<li><span class="'.$labelInfoClass.'">Add info:</span>'.$car->moreInfo.'</li>';
             echo '</ul>';
         }
 

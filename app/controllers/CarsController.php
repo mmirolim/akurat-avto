@@ -84,16 +84,16 @@ class CarsController extends ControllerBase
             $this->view->id = $car->id;
 
             $this->tag->setDefault("id", $car->id);
-            $this->tag->setDefault("regnum", $car->regnum);
-            $this->tag->setDefault("owner_id", $car->owner_id);
+            $this->tag->setDefault("vin", $car->vin);
+            $this->tag->setDefault("registration_number", $car->regNumber);
+            $this->tag->setDefault("owner_id", $car->ownerId);
             $this->tag->setDefault("model", $car->model);
-            $this->tag->setDefault("bodynumber", $car->bodynumber);
-            $this->tag->setDefault("enginenumber", $car->enginenumber);
-            $this->tag->setDefault("regdate", $car->regdate);
+            $this->tag->setDefault("registered_date", $car->regDate);
             $this->tag->setDefault("year", $car->year);
             $this->tag->setDefault("milage", $car->milage);
-            $this->tag->setDefault("dailymilage", $car->dailymilage);
-            $this->tag->setDefault("moreinfo", $car->moreinfo);
+            $this->tag->setDefault("daily_milage", $car->dailyMilage);
+            $this->tag->setDefault("more_info", $car->moreInfo);
+            $this->tag->setDefault("when_updated", $car->whenUpdated);
             
         }
     }
@@ -115,16 +115,20 @@ class CarsController extends ControllerBase
         $this->view->clients = Clients::find();
 
         $car->id = $this->request->getPost("id");
-        $car->regnum = $this->request->getPost("regnum");
-        $car->owner_id = $this->request->getPost("owner_id");
+        $car->vin = $this->request->getPost("vin");
+        $car->regNumber = $this->request->getPost("registration_number");
+        $car->ownerId = $this->request->getPost("owner_id");
         $car->model = $this->request->getPost("model");
-        $car->bodynumber = $this->request->getPost("bodynumber");
-        $car->enginenumber = $this->request->getPost("enginenumber");
-        $car->regdate = $this->request->getPost("regdate");
+        //Set registration date as creation date
+        $car->regDate = date('Y-m-d');
         $car->year = $this->request->getPost("year");
         $car->milage = $this->request->getPost("milage");
-        $car->dailymilage = $this->request->getPost("dailymilage");
-        $car->moreinfo = $this->request->getPost("moreinfo");
+        $car->dailyMilage = $this->request->getPost("daily_milage");
+        $car->moreInfo = $this->request->getPost("more_info");
+        //Set milage date if milage isset
+        if(isset($car->milage)) {
+            $car->milageDate = date('Y-m-d');
+        }
         
 
         if (!$car->save()) {
@@ -171,17 +175,19 @@ class CarsController extends ControllerBase
         }
 
         $car->id = $this->request->getPost("id");
-        $car->regnum = $this->request->getPost("regnum");
-        $car->owner_id = $this->request->getPost("owner_id");
+        $car->vin = $this->request->getPost("vin");
+        $car->regNumber = $this->request->getPost("registration_number");
+        $car->ownerId = $this->request->getPost("owner_id");
         $car->model = $this->request->getPost("model");
-        $car->bodynumber = $this->request->getPost("bodynumber");
-        $car->enginenumber = $this->request->getPost("enginenumber");
-        $car->regdate = $this->request->getPost("regdate");
         $car->year = $this->request->getPost("year");
         $car->milage = $this->request->getPost("milage");
-        $car->dailymilage = $this->request->getPost("dailymilage");
-        $car->moreinfo = $this->request->getPost("moreinfo");
-        
+        $car->dailyMilage = $this->request->getPost("daily_milage");
+        $car->moreInfo = $this->request->getPost("more_info");
+        //Set new milage date if changed
+        if($car->milage != $this->request->getPost("milage") ) {
+            $car->milageDate = date('Y-m-d');
+        }
+
 
         if (!$car->save()) {
 
@@ -256,7 +262,7 @@ class CarsController extends ControllerBase
             $clientId = $this->session->get("auth")["id"];
             $clientUsername = $this->session->get("auth")["username"];
         } else {
-            $this->flashSession->error("Your should be Client to edit that data");
+            $this->flashSession->error("You should be a Client to edit that data");
             return $this->response->redirect("/account/".$clientUsername."/view");
         }
         //Get car id for update
@@ -264,7 +270,7 @@ class CarsController extends ControllerBase
 
         //Get all client cars ids
         $cars = Cars::find(array(
-            'owner_id = :client_id:',
+            'ownerId = :client_id:',
             'bind' => array("client_id" => $clientId),
             'columns' => "id"
         ));
@@ -276,26 +282,23 @@ class CarsController extends ControllerBase
             }
         }
         if (!$isOwnCar) {
-            //Dispatch if not own car
+            //Redirect if not own car
             $this->flashSession->error("Only own car can be edited");
             return $this->response->redirect("/account/".$clientUsername."/view");
         }
 
         $car = Cars::findFirstByid($carId);
-        if (!$car) {
-            $this->flash->error("Car does not exist");
-            return $this->response->redirect("/account/".$clientUsername."/view");
-        }
 
         if($this->request->getPost("milage")) {
             $car->milage = $this->request->getPost("milage");
-            $car->mlgdate = date('Y-m-d');
+            //Update milage date
+            $car->milageDate = date('Y-m-d');
         }
-        if($this->request->getPost("dailymilage")) {
-            $car->dailymilage = $this->request->getPost("dailymilage");
+        if($this->request->getPost("daily_milage")) {
+            $car->dailyMilage = $this->request->getPost("daily_milage");
         }
-        if($this->request->getPost("moreinfo")) {
-            $car->moreinfo = $this->request->getPost("moreinfo");
+        if($this->request->getPost("more_info")) {
+            $car->moreInfo = $this->request->getPost("more_info");
         }
 
 
@@ -351,7 +354,7 @@ class CarsController extends ControllerBase
 
             if ($car != '') {
 
-                $providedServices = $car->getProvidedservices(array(
+                $providedServices = $car->getProvidedServices(array(
                     "cache" => array("key" => "providedServices-list-".$car->id, "lifetime" => 300)
                 ))->setHydrateMode(Resultset::HYDRATE_OBJECTS);
 
@@ -366,8 +369,8 @@ class CarsController extends ControllerBase
                 ));
 
                 //Get all services and cache it
-                $this->view->carservices = Carservices::find( array(
-                    "cache" => array("key" => "carservices-list", "lifetime" => 300)
+                $this->view->carServices = CarServices::find( array(
+                    "cache" => array("key" => "car-services-list", "lifetime" => 300)
                 ));
             }  else {
                 $this->flash->error("The search by Vin did not find any cars");

@@ -86,10 +86,10 @@ class ClientsController extends ControllerBase
             $this->tag->setDefault("username", $client->username);
             $this->tag->setDefault("password", $client->password);
             $this->tag->setDefault("fullname", $client->fullname);
-            $this->tag->setDefault("contactemail", $client->contactemail);
-            $this->tag->setDefault("contactphone", $client->contactphone);
-            $this->tag->setDefault("regdate", $client->regdate);
-            $this->tag->setDefault("moreinfo", $client->moreinfo);
+            $this->tag->setDefault("contact_email", $client->contactEmail);
+            $this->tag->setDefault("contact_phone", $client->contactPhone);
+            $this->tag->setDefault("notify", $client->notify);
+            $this->tag->setDefault("more_info", $client->moreInfo);
             
         }
     }
@@ -110,13 +110,28 @@ class ClientsController extends ControllerBase
         $client = new Clients();
 
         $client->id = $this->request->getPost("id");
-        $client->username = $this->request->getPost("username");
+        $username = $this->request->getPost("username");
+        //Check if same username is already in use as employee's username
+        $checkUsername = Employees::findFirst(array(
+            'username = ?0',
+            'bind' => $username
+        ));
+        if ($checkUsername != false) {
+            $this->flash->error("This username already taken");
+            return $this->dispatcher->forward(array(
+                "controller" => "clients",
+                "action" => "new"
+            ));
+        } else {
+            $client->username = $username;
+        }
         $client->password = $this->security->hash($this->request->getPost("password"));
         $client->fullname = $this->request->getPost("fullname");
-        $client->contactemail = $this->request->getPost("contactemail");
-        $client->contactphone = $this->request->getPost("contactphone");
-        $client->regdate = $this->request->getPost("regdate");
-        $client->moreinfo = $this->request->getPost("moreinfo");
+        $client->contactEmail = $this->request->getPost("contact_email");
+        $client->contactPhone = $this->request->getPost("contact_phone");
+        //Set registration date as creation date
+        $client->regDate = date("Y-m-d");
+        $client->moreInfo = $this->request->getPost("more_info");
         
 
         if (!$client->save()) {
@@ -129,7 +144,7 @@ class ClientsController extends ControllerBase
             ));
         }
 
-        $this->flash->success("client was created successfully");
+        $this->flash->success("Client was created successfully");
         return $this->dispatcher->forward(array(
             "controller" => "clients",
             "action" => "index"
@@ -168,10 +183,10 @@ class ClientsController extends ControllerBase
             $client->password = $this->security->hash($this->request->getPost("password"));
         }
         $client->fullname = $this->request->getPost("fullname");
-        $client->contactemail = $this->request->getPost("contactemail");
-        $client->contactphone = $this->request->getPost("contactphone");
-        $client->regdate = $this->request->getPost("regdate");
-        $client->moreinfo = $this->request->getPost("moreinfo");
+        $client->contactEmail = $this->request->getPost("contact_email");
+        $client->contactPhone = $this->request->getPost("contact_phone");
+        $client->moreInfo = $this->request->getPost("more_info");
+        $client->notify = $this->request->getPost("notify");
         
 
         if (!$client->save()) {
@@ -187,7 +202,7 @@ class ClientsController extends ControllerBase
             ));
         }
 
-        $this->flash->success("client was updated successfully");
+        $this->flash->success("Client was updated successfully");
         return $this->dispatcher->forward(array(
             "controller" => "clients",
             "action" => "index"
@@ -205,7 +220,7 @@ class ClientsController extends ControllerBase
 
         $client = Clients::findFirstByid($id);
         if (!$client) {
-            $this->flash->error("client was not found");
+            $this->flash->error("Client was not found");
             return $this->dispatcher->forward(array(
                 "controller" => "clients",
                 "action" => "index"
@@ -224,7 +239,7 @@ class ClientsController extends ControllerBase
             ));
         }
 
-        $this->flash->success("client was deleted successfully");
+        $this->flash->success("Client was deleted successfully");
         return $this->dispatcher->forward(array(
             "controller" => "clients",
             "action" => "index"
@@ -274,36 +289,36 @@ class ClientsController extends ControllerBase
             return $this->response->redirect("/account/".$clientUsername."/view");
         }
 
-        if($this->request->getPost("contactphone")) {
-            $client->contactphone = $this->request->getPost("contactphone");
+        if($this->request->getPost("contact_phone")) {
+            $client->contactPhone = $this->request->getPost("contact_phone");
         }
-        if($this->request->getPost("contactemail")) {
-            $client->contactemail = $this->request->getPost("contactemail");
+        if($this->request->getPost("contact_email")) {
+            $client->contactEmail = $this->request->getPost("contact_email");
         }
-        if($this->request->getPost("moreinfo")) {
-            $client->moreinfo = $this->request->getPost("moreinfo");
+        if($this->request->getPost("more_info")) {
+            $client->moreInfo = $this->request->getPost("more_info");
         }
         $passwordChangeText = 'Secret';
-        if ($this->request->getPost("newpass") && $this->request->getPost("currentpass")) {
-                if ($this->security->checkHash($this->request->getPost("currentpass"), $client->password)) {
-                    $client->password = $this->security->hash($this->request->getPost("newpass"));
+        if ($this->request->getPost("new_pass") && $this->request->getPost("current_pass")) {
+                if ($this->security->checkHash($this->request->getPost("current_pass"), $client->password)) {
+                    $client->password = $this->security->hash($this->request->getPost("new_pass"));
                     $passwordChangeText = "Success";
                 } else {
                     $passwordChangeText = "Current password wrong";
                 }
         } else {
-            if ($this->request->getPost("newpass") == '' || $this->request->getPost("currentpass") == '') {
-                $passwordChangeText = "Current and New password should not be empty";
+            if ($this->request->getPost("new_pass") == '' || $this->request->getPost("current_pass") == '') {
+                $passwordChangeText = "Current and/or New password should not be empty";
             }
         }
 
         $notifyStatus = '';
         if ($this->request->getPost("notify")) {
             if ($this->request->getPost("notify") == "Yes") {
-                $client->remind = 1;
+                $client->notify = 1;
                 $notifyStatus = "Yes";
             } else {
-                $client->remind = 0;
+                $client->notify = 0;
                 $notifyStatus = "No";
             }
         }
@@ -322,9 +337,10 @@ class ClientsController extends ControllerBase
         $client->id = '';
         $client->username = '';
         //Send notify status
-        $client->remind =  $notifyStatus;
+        $client->notify =  $notifyStatus;
 
-        echo json_encode($client);
+        //Json encode and don't escape UTF8 (only for 5.4)
+        echo json_encode($client,JSON_UNESCAPED_UNICODE);
         $this->view->disable();
 
     }

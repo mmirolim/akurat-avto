@@ -1,13 +1,27 @@
 //Namespace js functions
+//TODO Move all js messages to AK obj, to simplify management
 AK = {
-    lang : 'ru'
+    lang : 'ru',
+    targets : [
+        { modelProp : 'dailyMilage', htmlClass : 'daily_milage', text : 'Daily milage'},
+        { modelProp : 'milage', htmlClass : 'milage', text : 'Milage'},
+        { modelProp : 'contactPhone', htmlClass : 'contact_phone', text : 'Contact phone'},
+        { modelProp : 'contactEmail', htmlClass : 'contact_email', text : 'Contact Email'},
+        { modelProp : 'moreInfo', htmlClass : 'more_info', text : 'Personal information'},
+        { modelProp : 'notify', htmlClass : 'notify', text : 'Notification status'},
+        { modelProp : 'password', htmlClass : 'password', text : 'Your password'}
+    ],
 }
 
 //Update client's own data like personal info and car milage and daily milage
 AK.updateOwnData = function() {
 
-    //Prepare array with target elements
-    var targets = ['dailymilage','milage','contactphone','contactemail','moreinfo','remind','password'];
+    //Get elements to bind inline ajax update from AK.targets
+    var targets = [];
+    for (key in AK.targets) {
+        //Get all targets by their class names
+        targets.push(AK.targets[key]["htmlClass"]);
+    }
     for (var i = 0; i < targets.length; i++) {
         var els = document.getElementsByClassName(targets[i]);
         //Check if elements present
@@ -35,11 +49,11 @@ AK.updateOwnData = function() {
                     //TODO change to textarea for moreinfo data
                     switch (param) {
                         case 'password':
-                            form +='<label for="currentpass">Your current password</label>';
-                            form +='<input name="currentpass" id="currentpass" type="password">';
-                            form +='<input name="newpass" id="newpass" type="text" autocomplete="off" placeholder="type your new password">';
+                            form +='<label for="current_pass">Your current password</label>';
+                            form +='<input name="current_pass" id="current_pass" type="password">';
+                            form +='<input name="new_pass" id="new_pass" type="text" autocomplete="off" placeholder="type your new password">';
                             break;
-                        case 'remind':
+                        case 'notify':
                             if(data == 'Yes') {
                                 var checked = 'checked';
                             } else {
@@ -99,16 +113,18 @@ AK.inlineFormSendData = function(event) {
             var obj = JSON.parse(xmlhttp.response);
             //Get original element of inline update, previous sibling of current target's parent
             var siblingParent = event.target.parentNode.parentNode.previousSibling;
-            for (key in obj){
+            for (key in AK.targets){
                 //Find which parameter changed in obj
-                if (key == siblingParent.getAttribute("class")){
-                    var statusMessage = '<div class="alert-box success">'+key+' updated to '+obj[key]+'</div>';
-                    if (key == 'password') {
+                if (AK.targets[key]['htmlClass'] == siblingParent.getAttribute("class")){
+                    //Set model updated property text
+                    var text = AK.targets[key]['text'];
+                    var statusMessage = '<div class="alert-box success">'+text+' updated to '+obj[AK.targets[key]["modelProp"]]+'</div>';
+                    if (AK.targets[key]["modelProp"] == 'password') {
                         //Show message for password update status
-                        if (obj[key] == 'Success') {
-                            statusMessage = '<div class="alert-box success">'+key+' updated Successfully </div>';
+                        if (obj['password'] == 'Success') {
+                            statusMessage = '<div class="alert-box success">'+text+' updated Successfully </div>';
                         } else {
-                            statusMessage = '<div class="alert-box alert">'+key+' update problem '+obj[key]+'</div>';
+                            statusMessage = '<div class="alert-box alert">'+obj['password']+', please verify your current password</div>';
                         }
                     }
 
@@ -117,10 +133,10 @@ AK.inlineFormSendData = function(event) {
                     //Set message block display to initial if it was toggled
                     document.getElementById('message-block').style.display = 'initial';
                     //Update text in original element of inline update
-                    siblingParent.textContent = obj[key];
+                    siblingParent.textContent = obj[AK.targets[key]["modelProp"]];
                     //If milage updated, update data-mlgdate of original element of editing
-                    if (key == 'milage') {
-                        siblingParent.setAttribute("data-mlgdate",obj["mlgdate"]);
+                    if (AK.targets[key]["modelProp"] == 'milage') {
+                        siblingParent.setAttribute("data-milage_date",obj['milageDate']);
                         }
                     }
                 }
@@ -156,8 +172,8 @@ AK.getProvidedServiceAttr = function(el) {
     var obj = {
         statusOfPrs : el.getAttribute('status-of-prs'),
         id : el.childNodes[0].textContent,
-        remindKmStatus : el.childNodes[8].getAttribute("class"),
-        remindDateStatus : el.childNodes[9].getAttribute("class")
+        remindKmStatus : el.childNodes[7].getAttribute("class"),
+        remindDateStatus : el.childNodes[8].getAttribute("class")
     }
     //Return obj to store
     return obj
@@ -168,8 +184,8 @@ AK.setProvidedServiceAttr = function(el,obj){
     if (obj.statusOfPrs) {
         el.setAttribute('status-of-prs', obj.statusOfPrs);
     }
-    el.childNodes[8].setAttribute("class",obj.remindKmStatus);
-    el.childNodes[9].setAttribute("class",obj.remindDateStatus);
+    el.childNodes[7].setAttribute("class",obj.remindKmStatus);
+    el.childNodes[8].setAttribute("class",obj.remindDateStatus);
 }
 
 //Store all provided services as obj in array

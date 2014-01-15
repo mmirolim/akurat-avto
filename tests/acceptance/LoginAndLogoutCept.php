@@ -8,7 +8,7 @@ $I->click("Login");
 $I->amGoingTo("To login page");
 $I->amOnPage("/login");
 $I->fillField('Username','valentin');
-$I->fillField('Password','1234');
+$I->fillField('Password','123');
 $I->seeElement('input[type=submit]');
 $I->doubleClick('input[type=submit]');
 $I->see("Welcome Валентин Ан");

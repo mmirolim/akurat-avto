@@ -11,8 +11,8 @@ class LoginController extends ControllerBase
 {
     private function _registerSession($user)
     {
-        if (isset($user->role_id)) {
-            $role = Roles::findFirst($user->role_id);
+        if (isset($user->roleId)) {
+            $role = Roles::findFirst($user->roleId);
             $role = $role->role;
         } else {
             $role = 'Client';
@@ -33,17 +33,20 @@ class LoginController extends ControllerBase
             $password = $this->request->getPost('password');
             //Should be not empty
             if($username && $password) {
-                //Find the user in the database
-                $user = Clients::findFirst(array(
-                    "username = :username:",
-                    "bind" => array('username' => $username)
-                ));
-                if($user == false) {
-                    $user = Employees::findFirst(array(
+                //First check if username belongs to employee
+                $user = Employees::findFirst(array(
+                        "username = :username:",
+                        "bind" => array('username' => $username)
+                    ));
+                //If false check username in Clients table
+                If ($user == false) {
+                    //Find the client in the database
+                    $user = Clients::findFirst(array(
                         "username = :username:",
                         "bind" => array('username' => $username)
                     ));
                 }
+
                 if ($user != false) {
                     //Check password hash
                     if ($this->security->checkHash($password, $user->password)) {

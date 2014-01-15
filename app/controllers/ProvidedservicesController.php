@@ -1,7 +1,7 @@
 <?php
 
-use Phalcon\Mvc\Model\Criteria,
-    Phalcon\Paginator\Adapter\Model as Paginator;
+use Phalcon\Mvc\Model\Criteria;
+use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class ProvidedservicesController extends ControllerBase
 {
@@ -15,14 +15,14 @@ class ProvidedservicesController extends ControllerBase
     }
 
     /**
-     * Searches for providedservices
+     * Searches for ProvidedServices
      */
     public function searchAction()
     {
 
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, "Providedservices", $_POST);
+            $query = Criteria::fromInput($this->di, "ProvidedServices", $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -34,9 +34,9 @@ class ProvidedservicesController extends ControllerBase
         }
         $parameters["order"] = "id";
 
-        $providedservices = Providedservices::find($parameters);
-        if (count($providedservices) == 0) {
-            $this->flash->notice("The search did not find any providedservices");
+        $providedServices = ProvidedServices::find($parameters);
+        if (count($providedServices) == 0) {
+            $this->flash->notice("The search did not find any provided services");
             return $this->dispatcher->forward(array(
                 "controller" => "providedservices",
                 "action" => "index"
@@ -44,7 +44,7 @@ class ProvidedservicesController extends ControllerBase
         }
 
         $paginator = new Paginator(array(
-            "data" => $providedservices,
+            "data" => $providedServices,
             "limit"=> 10,
             "page" => $numberPage
         ));
@@ -57,12 +57,12 @@ class ProvidedservicesController extends ControllerBase
      */
     public function newAction()
     {
-        $this->view->services = Carservices::find();
+        $this->view->services = CarServices::find();
         $this->view->employees = Employees::find();
     }
 
     /**
-     * Edits a providedservice
+     * Edits a ProvidedService
      *
      * @param string $id
      */
@@ -71,34 +71,34 @@ class ProvidedservicesController extends ControllerBase
 
         if (!$this->request->isPost() && $this->request->getPost("id") > 0) {
 
-            $providedservice = Providedservices::findFirstByid($id);
-            if (!$providedservice) {
-                $this->flash->error("providedservice was not found");
+            $providedService = ProvidedServices::findFirstByid($id);
+            if (!$providedService) {
+                $this->flash->error("A provided service was not found");
                 return $this->dispatcher->forward(array(
                     "controller" => "providedservices",
                     "action" => "index"
                 ));
             }
 
-            $this->view->id = $providedservice->id;
+            $this->view->id = $providedService->id;
 
-            $this->tag->setDefault("id", $providedservice->id);
-            $this->tag->setDefault("car_id", $providedservice->car_id);
-            $this->tag->setDefault("work_id", $providedservice->work_id);
-            $this->tag->setDefault("master_id", $providedservice->master_id);
-            $this->tag->setDefault("cost", $providedservice->cost);
-            $this->tag->setDefault("startdate", $providedservice->startdate);
-            $this->tag->setDefault("finishdate", $providedservice->finishdate);
-            $this->tag->setDefault("milage", $providedservice->milage);
-            $this->tag->setDefault("reminddate", $providedservice->reminddate);
-            $this->tag->setDefault("remindkm", $providedservice->remindkm);
-            $this->tag->setDefault("moreinfo", $providedservice->moreinfo);
-            $this->tag->setDefault("remind", $providedservice->remind);
+            $this->tag->setDefault("id", $providedService->id);
+            $this->tag->setDefault("car_id", $providedService->carId);
+            $this->tag->setDefault("service_id", $providedService->serviceId);
+            $this->tag->setDefault("master_id", $providedService->masterId);
+            $this->tag->setDefault("start_date", $providedService->startDate);
+            $this->tag->setDefault("finish_date", $providedService->finishDate);
+            $this->tag->setDefault("milage", $providedService->milage);
+            $this->tag->setDefault("remind_date", $providedService->remindDate);
+            $this->tag->setDefault("remind_km", $providedService->remindKm);
+            $this->tag->setDefault("remind_status", $providedService->remindStatus);
+            $this->tag->setDefault("more_info", $providedService->moreInfo);
+
         }
     }
 
     /**
-     * Creates a new providedservice
+     * Creates a new ProvidedService
      */
     public function createAction()
     {
@@ -110,25 +110,24 @@ class ProvidedservicesController extends ControllerBase
             ));
         }
 
-        $providedservice = new Providedservices();
+        $providedService = new Providedservices();
 
-        $providedservice->id = $this->request->getPost("id");
-        $providedservice->car_id = $this->request->getPost("car_id");
-        $providedservice->work_id = $this->request->getPost("work_id");
-        $providedservice->master_id = $this->request->getPost("master_id");
-        $providedservice->cost = $this->request->getPost("cost");
-        $providedservice->startdate = $this->request->getPost("startdate");
-        $providedservice->finishdate = $this->request->getPost("finishdate");
-        $providedservice->milage = $this->request->getPost("milage");
-        $providedservice->reminddate = $this->request->getPost("reminddate");
-        $providedservice->remindkm = $this->request->getPost("remindkm");
-        $providedservice->moreinfo = $this->request->getPost("moreinfo");
+        $providedService->id = $this->request->getPost("id");
+        $providedService->carId = $this->request->getPost("car_id");
+        $providedService->serviceId = $this->request->getPost("service_id");
+        $providedService->masterId = $this->request->getPost("master_id");
+        $providedService->startDate = $this->request->getPost("start_date");
+        $providedService->finishDate = $this->request->getPost("finish_date");
+        $providedService->milage = $this->request->getPost("milage");
+        $providedService->remindDate = $this->request->getPost("remind_date");
+        $providedService->remindKm = $this->request->getPost("remind_km");
+        $providedService->moreInfo = $this->request->getPost("more_info");
         //TODO make it recieve checkbox value
-        $providedservice->remind = $this->request->getPost("remind");
+        $providedService->remindStatus = $this->request->getPost("remind_status");
         
 
-        if (!$providedservice->save()) {
-            foreach ($providedservice->getMessages() as $message) {
+        if (!$providedService->save()) {
+            foreach ($providedService->getMessages() as $message) {
                 $this->flash->error($message);
             }
             return $this->dispatcher->forward(array(
@@ -137,7 +136,7 @@ class ProvidedservicesController extends ControllerBase
             ));
         }
 
-        $this->flash->success("providedservice was created successfully");
+        $this->flash->success("The provided service was created successfully");
         return $this->dispatcher->forward(array(
             "controller" => "providedservices",
             "action" => "index"
@@ -146,7 +145,7 @@ class ProvidedservicesController extends ControllerBase
     }
 
     /**
-     * Saves a providedservice edited
+     * Saves a ProvidedService edited
      *
      */
     public function saveAction()
@@ -161,42 +160,42 @@ class ProvidedservicesController extends ControllerBase
 
         $id = $this->request->getPost("id");
 
-        $providedservice = Providedservices::findFirstByid($id);
-        if (!$providedservice) {
-            $this->flash->error("providedservice does not exist " . $id);
+        $providedService = ProvidedServices::findFirstByid($id);
+        if (!$providedService) {
+            $this->flash->error("A provided service does not exist " . $id);
             return $this->dispatcher->forward(array(
                 "controller" => "providedservices",
                 "action" => "index"
             ));
         }
 
-        $providedservice->id = $this->request->getPost("id");
-        $providedservice->car_id = $this->request->getPost("car_id");
-        $providedservice->work_id = $this->request->getPost("work_id");
-        $providedservice->master_id = $this->request->getPost("master_id");
-        $providedservice->cost = $this->request->getPost("cost");
-        $providedservice->startdate = $this->request->getPost("startdate");
-        $providedservice->finishdate = $this->request->getPost("finishdate");
-        $providedservice->milage = $this->request->getPost("milage");
-        $providedservice->reminddate = $this->request->getPost("reminddate");
-        $providedservice->remindkm = $this->request->getPost("remindkm");
-        $providedservice->moreinfo = $this->request->getPost("moreinfo");
+        $providedService->id = $this->request->getPost("id");
+        $providedService->carId = $this->request->getPost("car_id");
+        $providedService->serviceId = $this->request->getPost("service_id");
+        $providedService->masterId = $this->request->getPost("master_id");
+        $providedService->startDate = $this->request->getPost("start_date");
+        $providedService->finishDate = $this->request->getPost("finish_date");
+        $providedService->milage = $this->request->getPost("milage");
+        $providedService->remindDate = $this->request->getPost("remind_date");
+        $providedService->remindKm = $this->request->getPost("remind_km");
+        $providedService->more_info = $this->request->getPost("more_info");
+        $providedService->remindStatus = $this->request->getPost("remind_status");
         
 
-        if (!$providedservice->save()) {
+        if (!$providedService->save()) {
 
-            foreach ($providedservice->getMessages() as $message) {
+            foreach ($providedService->getMessages() as $message) {
                 $this->flash->error($message);
             }
 
             return $this->dispatcher->forward(array(
                 "controller" => "providedservices",
                 "action" => "edit",
-                "params" => array($providedservice->id)
+                "params" => array($providedService->id)
             ));
         }
 
-        $this->flash->success("providedservice was updated successfully");
+        $this->flash->success("The provided service was updated successfully");
         return $this->dispatcher->forward(array(
             "controller" => "providedservices",
             "action" => "index"
@@ -205,25 +204,25 @@ class ProvidedservicesController extends ControllerBase
     }
 
     /**
-     * Deletes a providedservice
+     * Deletes a ProvidedService
      *
      * @param string $id
      */
     public function deleteAction($id)
     {
 
-        $providedservice = Providedservices::findFirstByid($id);
-        if (!$providedservice) {
-            $this->flash->error("providedservice was not found");
+        $providedService = ProvidedServices::findFirstByid($id);
+        if (!$providedService) {
+            $this->flash->error("A provided service was not found");
             return $this->dispatcher->forward(array(
                 "controller" => "providedservices",
                 "action" => "index"
             ));
         }
 
-        if (!$providedservice->delete()) {
+        if (!$providedService->delete()) {
 
-            foreach ($providedservice->getMessages() as $message){
+            foreach ($providedService->getMessages() as $message){
                 $this->flash->error($message);
             }
 
@@ -233,7 +232,7 @@ class ProvidedservicesController extends ControllerBase
             ));
         }
 
-        $this->flash->success("providedservice was deleted successfully");
+        $this->flash->success("The provided service was deleted successfully");
         return $this->dispatcher->forward(array(
             "controller" => "providedservices",
             "action" => "index"
