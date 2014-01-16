@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Янв 15 2014 г., 14:37
+-- Время создания: Янв 16 2014 г., 18:05
 -- Версия сервера: 5.5.24-log
 -- Версия PHP: 5.4.3
 
@@ -33,9 +33,9 @@ CREATE TABLE IF NOT EXISTS `cars` (
   `vin` varchar(100) NOT NULL COMMENT 'vin of a car',
   `registration_number` varchar(100) NOT NULL COMMENT 'car registration number',
   `owner_id` mediumint(9) unsigned NOT NULL COMMENT 'owner id',
-  `model` varchar(255) NOT NULL COMMENT 'car model',
+  `model_id` smallint(5) unsigned NOT NULL COMMENT 'car model id',
   `registered_date` date NOT NULL COMMENT 'registration date',
-  `year` year(4) NOT NULL COMMENT 'year in xx or xxxx format',
+  `year` date NOT NULL COMMENT 'format Y-m-d',
   `milage` mediumint(9) NOT NULL COMMENT 'integer number total milage in km',
   `daily_milage` smallint(6) NOT NULL COMMENT 'integer number of daily milage in km',
   `more_info` text NOT NULL COMMENT 'more info',
@@ -44,20 +44,65 @@ CREATE TABLE IF NOT EXISTS `cars` (
   UNIQUE KEY `regnum` (`registration_number`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `vin` (`vin`),
-  KEY `model` (`model`),
   KEY `owner_id` (`owner_id`),
-  KEY `when_updated` (`when_updated`)
+  KEY `when_updated` (`when_updated`),
+  KEY `model_id` (`model_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Дамп данных таблицы `cars`
 --
 
-INSERT INTO `cars` (`id`, `vin`, `registration_number`, `owner_id`, `model`, `registered_date`, `year`, `milage`, `daily_milage`, `more_info`, `milage_date`, `when_updated`) VALUES
-(8, 'KLAF69ZEV012345', 'F121XA', 2, 'Lacetti', '2013-12-10', 2013, 3001, 14, 'Новенькая', '2014-01-15', '2014-01-15 13:33:29'),
-(6, 'AZAF69ZEV016666', 'F312TA', 2, 'Нексия', '2013-12-13', 2007, 50204, 15, 'Белая, двигатель изношен', '2014-01-15', '2014-01-15 13:33:41'),
-(5, 'FGFF69ZEV017877', 'F321BA', 3, 'Skoda', '2013-10-24', 2009, 20000, 10, 'Красного цвета в хорошем состоянии', '0000-00-00', '2014-01-13 03:19:10'),
-(7, 'WZAF69ZEV012567', 'X820BA', 1, 'Матиз', '2013-12-12', 2011, 10000, 10, 'Цвет салатовый, в хорошем состоянии', '0000-00-00', '2014-01-13 03:19:10');
+INSERT INTO `cars` (`id`, `vin`, `registration_number`, `owner_id`, `model_id`, `registered_date`, `year`, `milage`, `daily_milage`, `more_info`, `milage_date`, `when_updated`) VALUES
+(8, 'KLAF69ZEV012345', 'F121XA', 2, 1, '2013-12-10', '2013-08-10', 3001, 14, 'Новенькая', '2014-01-15', '2014-01-16 18:00:53'),
+(6, 'AZAF69ZEV016666', 'F312TA', 2, 2, '2013-12-13', '2010-01-12', 50204, 15, 'Белая, двигатель изношен', '2014-01-15', '2014-01-16 18:00:53'),
+(5, 'FGFF69ZEV017877', 'F321BA', 3, 4, '2013-10-24', '2011-12-01', 20000, 10, 'Красного цвета в хорошем состоянии', '2013-10-24', '2014-01-16 18:03:34'),
+(7, 'WZAF69ZEV012567', 'X820BA', 1, 3, '2013-12-12', '2013-04-21', 10000, 10, 'Цвет салатовый, в хорошем состоянии', '2013-12-12', '2014-01-16 18:03:34');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `car_brands`
+--
+
+CREATE TABLE IF NOT EXISTS `car_brands` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(30) NOT NULL COMMENT 'Brand name',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Дамп данных таблицы `car_brands`
+--
+
+INSERT INTO `car_brands` (`id`, `name`) VALUES
+(1, 'Chevrolet');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `car_models`
+--
+
+CREATE TABLE IF NOT EXISTS `car_models` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `brand_id` tinyint(3) unsigned NOT NULL COMMENT 'Brand id',
+  `name` varchar(50) NOT NULL COMMENT 'Model-MYYYY format',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `brand_id` (`brand_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Дамп данных таблицы `car_models`
+--
+
+INSERT INTO `car_models` (`id`, `brand_id`, `name`) VALUES
+(1, 1, 'Lacetti седан 2013'),
+(2, 1, 'Nexia 2009'),
+(3, 1, 'Spark 2013'),
+(4, 1, 'Matiz Best 2011');
 
 -- --------------------------------------------------------
 
@@ -235,7 +280,14 @@ INSERT INTO `roles` (`id`, `role`, `more_info`) VALUES
 -- Ограничения внешнего ключа таблицы `cars`
 --
 ALTER TABLE `cars`
+  ADD CONSTRAINT `cars_ibfk_3` FOREIGN KEY (`model_id`) REFERENCES `car_models` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `cars_ibfk_2` FOREIGN KEY (`owner_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `car_models`
+--
+ALTER TABLE `car_models`
+  ADD CONSTRAINT `car_models_ibfk_1` FOREIGN KEY (`brand_id`) REFERENCES `car_brands` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `employees`

@@ -31,9 +31,9 @@ class Cars extends \Phalcon\Mvc\Model
      
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $model;
+    public $modelId;
 
     /**
      *
@@ -86,7 +86,7 @@ class Cars extends \Phalcon\Mvc\Model
             'vin' => 'vin',
             'registration_number' => 'regNumber',
             'owner_id' => 'ownerId',
-            'model' => 'model',
+            'model_id' => 'modelId',
             'registered_date' => 'regDate',
             'year' => 'year',
             'milage' => 'milage',

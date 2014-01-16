@@ -87,7 +87,7 @@ class CarsController extends ControllerBase
             $this->tag->setDefault("vin", $car->vin);
             $this->tag->setDefault("registration_number", $car->regNumber);
             $this->tag->setDefault("owner_id", $car->ownerId);
-            $this->tag->setDefault("model", $car->model);
+            $this->tag->setDefault("model_id", $car->modelId);
             $this->tag->setDefault("registered_date", $car->regDate);
             $this->tag->setDefault("year", $car->year);
             $this->tag->setDefault("milage", $car->milage);
@@ -118,7 +118,7 @@ class CarsController extends ControllerBase
         $car->vin = $this->request->getPost("vin");
         $car->regNumber = $this->request->getPost("registration_number");
         $car->ownerId = $this->request->getPost("owner_id");
-        $car->model = $this->request->getPost("model");
+        $car->modelId = $this->request->getPost("model_id");
         //Set registration date as creation date
         $car->regDate = date('Y-m-d');
         $car->year = $this->request->getPost("year");
@@ -178,7 +178,7 @@ class CarsController extends ControllerBase
         $car->vin = $this->request->getPost("vin");
         $car->regNumber = $this->request->getPost("registration_number");
         $car->ownerId = $this->request->getPost("owner_id");
-        $car->model = $this->request->getPost("model");
+        $car->modelId = $this->request->getPost("model_id");
         $car->year = $this->request->getPost("year");
         $car->milage = $this->request->getPost("milage");
         $car->dailyMilage = $this->request->getPost("daily_milage");

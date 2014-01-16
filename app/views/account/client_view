@@ -114,7 +114,7 @@
                     }
                 }
             }
-            echo '<h5 class="label radius secondary car-regnum">'.$car->regNumber.' - '.$car->model.'</h5>';
+            echo '<h5 class="label radius secondary car-regnum">'.$car->regNumber.' - '.$car->modelId.'</h5>';
         ?>
         <div class="total-health"><h5>Total Health</h5><span id="car-health" class="label radius success">
                 <?php
@@ -163,7 +163,7 @@
         //Same header car info label class
         foreach ($client->cars as $car) {
             echo ' <ul class="car-info" data-id="'.$car->id.'" data-update-url="/cars/updateOwn">';
-            echo '<li><h5 class="label radius secondary">'.$car->model.'</h5></li>';
+            echo '<li><h5 class="label radius secondary">'.$car->modelId.'</h5></li>';
             echo '<li><span class="'.$labelInfoClass.'">Reg. number:</span>'.$car->regNumber.'</li>';
             echo '<li><span class="'.$labelInfoClass.'">Year:</span>'.$car->year.'</li>';
             echo '<li><span class="'.$labelInfoClass.'">First service date:</span>'.$car->regDate.'</li>';
