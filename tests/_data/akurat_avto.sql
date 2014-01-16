@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Янв 16 2014 г., 18:05
+-- Время создания: Янв 16 2014 г., 18:51
 -- Версия сервера: 5.5.24-log
 -- Версия PHP: 5.4.3
 
@@ -199,6 +199,20 @@ INSERT INTO `employees` (`id`, `username`, `password`, `role_id`, `fullname`, `j
 (10, 'dima', '$2a$08$fUnEBwUBR6rUrrajyBvIuu8rbdjlYCkxHc/glyIUBMXOFtjvoLGRe', 3, 'Дима Д', 'Механик', '(99893) 125-54-12', 'Доп. информация', '2013-07-30', '0000-00-00 00:00:00'),
 (11, 'mahmud', '$2a$08$JsOaRYJ6nTXBrkbrCShgiO0uLBs1n1/rJU05CZ3w1.Ymux3Om.hke', 4, 'Махмуд М', 'Механик', '(99890) 125-95-47', 'Доп. информация', '2013-07-30', '0000-00-00 00:00:00'),
 (13, 'iamadmin', '$2a$08$nEXNW2UOq7qP88kKkc2xCOwG3SSBqHQZQevOaScguWTWa200QiBJK', 1, 'Incognito', 'Admin', 'ss@ss.ss', 'Some data', '2014-01-08', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `maintenance_schedule`
+--
+
+CREATE TABLE IF NOT EXISTS `maintenance_schedule` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `model_id` smallint(5) unsigned NOT NULL COMMENT 'model it related to',
+  `configuration` varchar(7000) NOT NULL COMMENT 'Serialized php array of schedule',
+  PRIMARY KEY (`id`),
+  KEY `model_id` (`model_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
