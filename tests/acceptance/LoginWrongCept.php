@@ -14,5 +14,8 @@ $I->see("Wrong username or/and password");
 $I->wantToTest("correct username and wrong password");
 $I->login('valentin', '123sdfsdfds');
 $I->see("Wrong username or/and password");
+//Check for php errors
+$I = new WebGuy\SeeTextsSteps($scenario);
+$I->dontSeeTexts(array('Notice', 'Warning', 'Error'));
 
 

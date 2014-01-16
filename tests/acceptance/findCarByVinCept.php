@@ -13,4 +13,7 @@ $I->see("Find car by QR Code");
 //Let assume button clicked, it stated qr scanner app which set correct url in browser
 $I->amOnPage("/cars/findByVin/VIN-AZAF69ZEV016666-VIN");
 $I->see("VIN AZAF69ZEV016666");
+//Check for php errors
+$I = new WebGuy\SeeTextsSteps($scenario);
+$I->dontSeeTexts(array('Notice', 'Warning', 'Error'));
 

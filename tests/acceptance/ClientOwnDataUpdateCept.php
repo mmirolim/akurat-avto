@@ -67,6 +67,9 @@ $I->doubleClick(".inline-update-button");
 //Add wait to process ajax response
 $I->wait(50);
 $I->see("Your password updated Successfully");
+//Check for php errors
+$I = new WebGuy\SeeTextsSteps($scenario);
+$I->dontSeeTexts(array('Notice', 'Warning', 'Error'));
 
 
 
