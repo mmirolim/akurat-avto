@@ -1,16 +1,12 @@
 <?php
-$I = new WebGuy($scenario);
+$I = new WebGuy\MemberSteps($scenario);
 $I->am('Client');
 $I->wantTo('See and click login link');
 $I->amOnPage('/');
 $I->seeLink("Login");
 $I->click("Login");
 $I->amGoingTo("To login page");
-$I->amOnPage("/login");
-$I->fillField('Username','valentin');
-$I->fillField('Password','123');
-$I->seeElement('input[type=submit]');
-$I->doubleClick('input[type=submit]');
+$I->login('valentin', '123');
 $I->see("Welcome Валентин Ан");
 $I->seeLink('Account');
 $I->wantTo("Logout");
