@@ -40,7 +40,8 @@ class Security extends Plugin
                 'clients' => array('index','search','create','new','edit','save','delete','updateOwn'),
                 'cars' => array('index','search','create','new','edit','save','delete','updateOwn','findByVin'),
                 'carservices' => array('index','search','create','new','edit','save','delete'),
-                'account' => array('index','view','search','create','new','edit','save','delete')
+                'account' => array('index','view','search','create','new','edit','save','delete'),
+                'maintenanceschedule' => array('index','view','search','create','new','edit','save','delete')
             );
             foreach ($privateResources as $resource=>$action) {
                 $acl->addResource(new Phalcon\Acl\Resource($resource), $action);

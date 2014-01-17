@@ -9,3 +9,9 @@ $router->add("/account/:params/:action", array(
     "params" => 1
     )
 );
+//Define a maintenance schedule controller route
+$router->add("/maintenance-schedule/:action", array(
+        "controller" => "maintenanceschedule",
+        "action" => 1
+    )
+);
