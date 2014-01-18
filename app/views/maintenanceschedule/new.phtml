@@ -1,6 +1,10 @@
-
-<?php echo $this->tag->form(array("/maintenance-schedule/create", 'class' => 'form-basic')); ?>
-
+<?php
+//Prevent form submit when enter pressed
+    echo $this->tag->form(array(
+    "/maintenance-schedule/create",
+    'class' => 'form-maintenance-schedule',
+    'onsubmit' => 'javascript:return false;')
+); ?>
 
 <?php echo $this->getContent(); ?>
 
@@ -11,18 +15,10 @@
 <table>
     <tr>
         <td align="right">
-            <label for="username">Username</label>
+            <label for="username">Model</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("username", "size" => 30)) ?>
-        </td>
-    </tr>
-    <tr>
-        <td align="right">
-            <label for="password">Password</label>
-        </td>
-        <td align="left">
-            <?php echo $this->tag->textField(array("password", "size" => 30)) ?>
+            <?php echo $this->tag->select(array("model_id",$carModels, "using" => array("id", "name"))); ?>
         </td>
     </tr>
     <tr>
@@ -31,4 +27,40 @@
     </tr>
 </table>
 
+<table class="table-schedule-controls">
+    <thead>
+        <tr>
+            <th>Периодичность обслуживания определяется пробегом автомобиля или же сроком службы, в зависимости от того что наступит раньше</th>
+            <th>Пробег, км (Х 1000); Срок службы, месяцы</th>
+        </tr>
+        <tr>
+            <th>
+                <span class="button small" id="add-service-button">Add Service</span>
+                <span class="button small" id="add-service-button">Add Service with custom interval</span>
+            </th>
+            <th>
+                <label for="interval-km">Интервал обслуживания в км</label>
+                <input type="text" name="interval-km" id="interval-km" size="2" />
+                <label for="interval-month">Интервал обслуживания в мес</label>
+                <input type="text" name="interval-month" id="interval-month" size="2" />
+                <label for="interval-number">Количество интервалов</label>
+                <input type="text" name="interval-number" id="interval-number" size="2" />
+                <span class="button small" id="generate-intervals">Generate Intervals</span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<table class="table-schedule">
+    <thead class="thead-table-schedule">
+    <tr id="interval-row">
+    </tr>
+    </thead>
+</table>
+
 </form>
+<script type="application/javascript" defer="">
+        var carServices = <?php echo $carServices.';'; ?>
+</script>
+<script type="application/javascript" src="/../js/dev/schedule-generator.js" async="async" defer=""></script>

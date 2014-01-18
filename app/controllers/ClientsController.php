@@ -1,8 +1,8 @@
 <?php
 
-use Phalcon\Mvc\Model\Criteria,
-    Phalcon\Mvc\Model\Resultset,
-    Phalcon\Paginator\Adapter\Model as Paginator;
+use Phalcon\Mvc\Model\Criteria;
+use Phalcon\Mvc\Model\Resultset;
+use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class ClientsController extends ControllerBase
 {

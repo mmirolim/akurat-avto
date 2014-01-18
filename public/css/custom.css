@@ -197,7 +197,9 @@ table {
 width: 30em;
 margin: 0 auto;
 }
-
+.table-schedule th, table-schedule td {
+border: 1px solid silver;
+}
 #table-provided-services tr:hover {
   background: rgb(231, 233, 232) !important;
 }
