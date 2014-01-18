@@ -30,7 +30,7 @@ genIntervals = function () {
     //Check input type should be integers
     intervalKm = parseInt(intervalKm);
     intervalMonth = parseInt(intervalMonth);
-    intervalNumber = parseInt(intervalNumber)
+    intervalNumber = parseInt(intervalNumber);
     var km = intervalKm;
     var mon = intervalMonth;
     var $thService = document.createElement('th');
@@ -63,7 +63,6 @@ genIntervals = function () {
 
 }
 addService = function () {
-    console.log('Clicked');
     var table = document.getElementsByClassName('table-schedule')[0];
     var tr = document.getElementById('interval-row');
     var count = tr.childElementCount - 1;
@@ -85,9 +84,64 @@ addService = function () {
         $td.innerHTML = selectTask;
         $tr.appendChild($td);
     }
+    var number = table.childElementCount - 1;
+    $tr.setAttribute('data-row-number',number);
     table.appendChild($tr);
+}
+addServiceCustom = function () {
+    var table = document.getElementsByClassName('table-schedule')[0];
+    var $span = document.createElement('span');
+    $span.setAttribute('class','remove-row');
+    $span.addEventListener('click', function (event) {
+        event.target.parentNode.parentNode.remove();
+    });
+    $span.textContent = 'Del';
+    var $select = getServices();
+    var $td = document.createElement('td');
+    var $tr = document.createElement('tr');
+    $td.appendChild($span);
+    $td.appendChild($select);
+    $tr.appendChild($td);
+    $td = document.createElement('td');
+    $input = document.createElement('input');
+    $input.setAttribute('type','text');
+    $input.setAttribute('placeholder','x1000 км');
+    $td.appendChild($input);
+    $tr.appendChild($td);
+    $td = document.createElement('td');
+    var selectTask = '<select><option value="N"></option><option value="I">I</option><option value="R">R</option></select>';
+    $td.innerHTML = selectTask;
+    $tr.appendChild($td);
+    var number = table.childElementCount - 1;
+    $tr.setAttribute('data-row-number',number);
+    table.appendChild($tr);
+}
+var intervals = [];
+addIntervals = function () {
+    var el = document.getElementById('interval-row');
+    var children = el.childNodes;
+    for (var i = 1; i < children.length; i++) {
+        var interval = children[i].getAttribute('class').replace('interval-','');
+        intervals.push(interval);
+    }
+}
+var services = [];
+getRowData = function () {
+    var table = document.getElementsByClassName('table-schedule')[0];
+    var count = table.childElementCount - 1;
+    for (var j = 0; j < count; j++) {
+        var selects = document.querySelectorAll('[data-row-number="'+j+'"] select');
+        var service = {};
+        service.id = selects[0].value;
+        for (var i = 1; i < selects.length; i++) {
+            service[intervals[i-1]] = selects[i].value;
+        }
+        services.push(service);
+    }
 }
 var addServiceBtn = document.getElementById('add-service-button');
 addServiceBtn.addEventListener('click',addService);
+var addServiceCustomBtn = document.getElementById('add-service-custom-button');
+addServiceCustomBtn.addEventListener('click', addServiceCustom);
 var el = document.getElementById('generate-intervals');
 el.addEventListener('click', genIntervals);
