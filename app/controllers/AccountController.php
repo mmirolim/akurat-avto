@@ -88,6 +88,7 @@ class AccountController extends ControllerBase
         //HYDRATE client cars as Cars object so we can get related provided services for each car
         $cars = $client->info->getCars()->setHydrateMode(Resultset::HYDRATE_RECORDS);
         //Get all provided services to client
+        //TODO refactor implement get all provided services in model
         foreach($cars as $car) {
             //HYDRATE provided services as stDClass objects just to read data not to edit
             //TODO order by startdate by default

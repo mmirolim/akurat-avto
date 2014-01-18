@@ -38,7 +38,7 @@ genIntervals = function () {
     $thService.textContent = 'Services';
     var $th = document.createElement('th');
     $th.setAttribute('id','first-interval');
-    var input = document.createElement('input');
+    var $input = document.createElement('input');
     /* function setAttributes(el, attrs) {
         for(var key in attrs) {
         el.setAttribute(key, attrs[key]);
@@ -46,9 +46,10 @@ genIntervals = function () {
     }
     setAttributes(elem, {"src": "http://example.com/something.jpeg", "height": "100%", ...});
     */
-    input.setAttribute('type','text');
-    input.setAttribute('id', 'first-interval-value');
-    $th.appendChild(input);
+    $input.setAttribute('type','text');
+    $input.setAttribute('id', 'first-interval-value');
+    $input.setAttribute('placeholder','км/мес пример 2/3');
+    $th.appendChild($input);
     el.appendChild($thService);
     el.appendChild($th);
     for (var i = 0; i < intervalNumber; i++) {
@@ -109,11 +110,11 @@ addServiceCustom = function () {
     $td.appendChild($input);
     $tr.appendChild($td);
     $td = document.createElement('td');
-    var selectTask = '<select><option value="N"></option><option value="I">I</option><option value="R">R</option></select>';
-    $td.innerHTML = selectTask;
+    $td.innerHTML = '<select><option value="N"></option><option value="I">I</option><option value="R">R</option></select>';
     $tr.appendChild($td);
     var number = table.childElementCount - 1;
     $tr.setAttribute('data-row-number',number);
+    $tr.setAttribute('data-service-custom','true');
     table.appendChild($tr);
 }
 var intervals = [];
@@ -130,11 +131,19 @@ getRowData = function () {
     var table = document.getElementsByClassName('table-schedule')[0];
     var count = table.childElementCount - 1;
     for (var j = 0; j < count; j++) {
-        var selects = document.querySelectorAll('[data-row-number="'+j+'"] select');
+        var el = document.querySelector('[data-row-number="'+j+'"]');
+        var custom = el.getAttribute('data-service-custom');
         var service = {};
-        service.id = selects[0].value;
-        for (var i = 1; i < selects.length; i++) {
-            service[intervals[i-1]] = selects[i].value;
+        var selects = document.querySelectorAll('[data-row-number="'+j+'"] select');
+        if (custom != 'true') {
+            service.id = selects[0].value;
+            for (var i = 1; i < selects.length; i++) {
+                service[intervals[i-1]] = selects[i].value;
+            }
+        } else {
+            var interval = document.querySelectorAll('[data-row-number="'+j+'"] input');
+            service.id = selects[0].value;
+            service[interval[0].value] = selects[1].value;
         }
         services.push(service);
     }
