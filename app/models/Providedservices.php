@@ -96,6 +96,12 @@ class ProvidedServices extends \Phalcon\Mvc\Model
         );
     }
 
+    /*
+     * Return return status of reminder by km
+     * @var string
+     */
+    public $remindDateStatus;
+
     public function initialize()
     {
         //Skips fields/columns on both INSERT/UPDATE operations
@@ -106,6 +112,21 @@ class ProvidedServices extends \Phalcon\Mvc\Model
 
         //Log model events
         $this->addBehavior(new Blamable());
+    }
+
+    public function getRemindDateStatus()
+    {
+        if($this->remindStatus > 0) {
+            if (time() - strtotime($this->remindDate) > 0) {
+                $status = "alert";
+            } else {
+                $status = "ok";
+            }
+        } else {
+            $status = 'disabled';
+        }
+
+        return $status;
     }
      
 }

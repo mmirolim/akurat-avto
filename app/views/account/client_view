@@ -70,22 +70,8 @@
                         $kmRemindStatus = 'secondary';
                     }
                     echo '<td class="km-'.$kmRemindStatus.'">'.$milageRemind.'</td>';
-                    if($providedService->remindStatus > 0) {
-                        if (time() - strtotime($providedService->remindDate) > 0) {
-                            $remindDateStatus = "alert";
-                            if ( $kmRemindStatus == "success") {
-                                $cars[$car->regNumber]->remindDateAlert++;
-                            }
-                        } else {
-                            $remindDateStatus = "success";
-                            if ( $kmRemindStatus == "success") {
-                                $cars[$car->regNumber]->remindDateOK++;
-                            }
-                        }
-                    } else {
-                        $remindDateStatus = 'secondary';
-                    }
-                    echo '<td class="date-'.$remindDateStatus.'">';
+
+                    echo '<td class="date-'.$providedService->getRemindDateStatus().'">';
                     echo $providedService->remindDate.'</td>';
                     echo '<td class="remind-status">'.$providedService->remindStatus.'</td>';
                     echo '</tr>';
