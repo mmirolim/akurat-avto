@@ -193,10 +193,13 @@ border-bottom: none;
 table {
   width: 100%;
 }
-.basic-form {
+.form-basic {
 width: 30em;
+margin: 0 auto;
 }
-
+.table-schedule th, table-schedule td {
+border: 1px solid silver;
+}
 #table-provided-services tr:hover {
   background: rgb(231, 233, 232) !important;
 }
@@ -363,4 +366,24 @@ ul.car-info, ul.client-info {
   display: none;
   width: 19em;
   position: absolute;
+}
+/* Maintenance generator styling */
+.table-schedule .fi-trash {
+  cursor: pointer;
+  border: 1px solid white;
+  padding: 0.5em;
+}
+.table-schedule .fi-trash:hover {
+  color: #008cba;
+  border: 1px solid silver;
+  padding: 0.5em;
+  border-radius: 0.3em;
+  transition: all 0.3s;
+}
+.car-services {
+  width: 50%;
+  margin-left: 1em;
+}
+.action-type {
+  max-width: 5em;
 }

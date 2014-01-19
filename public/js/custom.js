@@ -1,6 +1,6 @@
 //Namespace js functions
 //TODO Move all js messages to AK obj, to simplify management
-AK = {
+var AK = AK || {
     lang : 'ru',
     targets : [
         { modelProp : 'dailyMilage', htmlClass : 'daily_milage', text : 'Daily milage'},
@@ -11,7 +11,8 @@ AK = {
         { modelProp : 'notify', htmlClass : 'notify', text : 'Notification status'},
         { modelProp : 'password', htmlClass : 'password', text : 'Your password'}
     ],
-}
+    carServices : ''
+};
 
 //Update client's own data like personal info and car milage and daily milage
 AK.updateOwnData = function() {

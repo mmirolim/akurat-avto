@@ -141,7 +141,7 @@ class CarsController extends ControllerBase
             ));
         }
 
-        $this->flash->success("car was created successfully");
+        $this->flash->success("Car was created successfully");
         return $this->dispatcher->forward(array(
             "controller" => "cars",
             "action" => "index"

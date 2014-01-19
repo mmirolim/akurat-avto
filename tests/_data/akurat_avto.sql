@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Янв 16 2014 г., 18:05
+-- Время создания: Янв 19 2014 г., 21:16
 -- Версия сервера: 5.5.24-log
 -- Версия PHP: 5.4.3
 
@@ -203,6 +203,27 @@ INSERT INTO `employees` (`id`, `username`, `password`, `role_id`, `fullname`, `j
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `maintenance_schedule`
+--
+
+CREATE TABLE IF NOT EXISTS `maintenance_schedule` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `model_id` smallint(5) unsigned NOT NULL COMMENT 'Model id',
+  `configuration` varchar(7000) NOT NULL COMMENT 'Configuration in serialized form',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `model_id` (`model_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Дамп данных таблицы `maintenance_schedule`
+--
+
+INSERT INTO `maintenance_schedule` (`id`, `model_id`, `configuration`) VALUES
+(1, 1, '[{"id":"19","2-3":"N","10-6":"N","20-12":"R","30-18":"I"},{"id":"20","2-3":"N","10-6":"N","20-12":"I","30-18":"R"},{"30":"R","id":"22"}]');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `provided_services`
 --
 
@@ -294,6 +315,12 @@ ALTER TABLE `car_models`
 --
 ALTER TABLE `employees`
   ADD CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `maintenance_schedule`
+--
+ALTER TABLE `maintenance_schedule`
+  ADD CONSTRAINT `maintenance_schedule_ibfk_1` FOREIGN KEY (`model_id`) REFERENCES `car_models` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `provided_services`
