@@ -114,25 +114,40 @@ class ProvidedServices extends \Phalcon\Mvc\Model
         $this->addBehavior(new Blamable());
     }
 
-    //Get related Car
+    /**
+     * Return the related "car"
+     * @param null $parameters
+     * @return \Cars[]
+     */
     public function getCar($parameters=null)
     {
         return  $this->getRelated('Cars', $parameters);
     }
 
-    //Get related Master
+    /**
+     * Return the related "employee"
+     * @param null $parameters
+     * @return \Employees[]
+     */
     public function getEmployee($parameters=null)
     {
         return  $this->getRelated('Employees', $parameters);
     }
 
-    //Get related Service
+    /**
+     * Return the related "car service"
+     * @param null $parameters
+     * @return \CarServices[]
+     */
     public function getService($parameters=null)
     {
         return  $this->getRelated('CarServices', $parameters);
     }
 
-    //Get status for date reminder set in service
+    /**
+     * Return status for date reminder set in
+     * @return string
+     */
     public function getRemindDateStatus()
     {
         if($this->remindStatus > 0) {
@@ -147,7 +162,12 @@ class ProvidedServices extends \Phalcon\Mvc\Model
 
         return $status;
     }
-    //Get status for milage reminder set in service
+
+    /**
+     * Return status for milage reminder set in service
+     * according to related car milage and daily milage properties
+     * @return string
+     */
     public function getRemindKmStatus()
     {
         if($this->remindStatus > 0) {
@@ -175,6 +195,10 @@ class ProvidedServices extends \Phalcon\Mvc\Model
         return $status;
     }
 
+    /**
+     * Return milage reminder according to odometer
+     * @return string
+     */
     public function getMilageRemind()
     {
         return $this->remindKm + $this->milage;

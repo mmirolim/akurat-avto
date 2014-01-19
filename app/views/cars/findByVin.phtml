@@ -35,38 +35,8 @@
                     }
                 }
                 echo '<td>'.$providedService->moreInfo.'</td>';
-
-                //If remindKm set estimate status of alert according to milage, milage date update and daily milage
-                $milageRemind = $providedService->remindKm + $providedService->milage;
-                if($providedService->remindStatus > 0) {
-                    $kmRemindStatus = 'none';
-                    if(isset($car->milageDate) && isset($car->dailyMilage)) {
-                        if ($car->milageDate > 0 && $car->dailyMilage > 0) {
-                            //Get number of days between now and last milage updated
-                            $days = round((time() - strtotime($car->milageDate))/86400);
-                            //Get estimated km after last milage data update
-                            $kmSince = $days*$car->dailyMilage;
-                            if ($providedService->remindKm > 0 && ($milageRemind  - ($car->milage + $kmSince)) < 0) {
-                                $kmRemindStatus = "alert";
-                            } else {
-                                $kmRemindStatus = "success";
-                            }
-                        }
-                    }
-                } else {
-                    $kmRemindStatus = 'secondary';
-                }
-                echo '<td class="km-'.$kmRemindStatus.'">'.$milageRemind.'</td>';
-                if($providedService->remindStatus > 0) {
-                    if (time() - strtotime($providedService->remindDate) > 0) {
-                        $remindDateStatus = "alert";
-                        } else {
-                        $remindDateStatus = "success";
-                        }
-                } else {
-                    $remindDateStatus = 'secondary';
-                }
-                echo '<td class="date-'.$remindDateStatus.'">';
+                echo '<td class="km-'.$providedService->getRemindKmStatus().'">'.$providedService->getMilageRemind().'</td>';
+                echo '<td class="date-'.$providedService->getRemindDateStatus().'">';
                 echo $providedService->remindDate.'</td>';
                 echo '<td class="remind-status">'.$providedService->remindStatus.'</td>';
                 echo '</tr>';
