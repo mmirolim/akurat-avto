@@ -356,7 +356,7 @@ class CarsController extends ControllerBase
 
                 $providedServices = $car->getProvidedServices(array(
                     "cache" => array("key" => "providedServices-list-".$car->id, "lifetime" => 300)
-                ))->setHydrateMode(Resultset::HYDRATE_OBJECTS);
+                ))->setHydrateMode(Resultset::HYDRATE_RECORDS);
 
                 //Make resultset available in view
                 $this->view->car = $car;
