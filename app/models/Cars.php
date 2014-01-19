@@ -31,9 +31,9 @@ class Cars extends \Phalcon\Mvc\Model
      
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $model;
+    public $modelId;
 
     /**
      *
@@ -86,7 +86,7 @@ class Cars extends \Phalcon\Mvc\Model
             'vin' => 'vin',
             'registration_number' => 'regNumber',
             'owner_id' => 'ownerId',
-            'model' => 'model',
+            'model_id' => 'modelId',
             'registered_date' => 'regDate',
             'year' => 'year',
             'milage' => 'milage',
@@ -131,4 +131,77 @@ class Cars extends \Phalcon\Mvc\Model
         return $this->getRelated("ProvidedServices", $parameters);
     }
 
+    /**
+     * Return the number of days a car was in maintenance
+     * @return string
+     */
+    public function getMaintenanceDays()
+    {
+        $providedServices = $this->getProvidedServices();
+        $daysInMaintenance = 0;
+        foreach ($providedServices as $providedService) {
+            //Calculate days in maintenance per car
+            //TODO exclude services accomplished same day (filter,oil,check all same time period)
+            if(isset($providedService->finishDate)) {
+                //Check if finishdate not same date of startdate
+                if(strtotime($providedService->finishDate) - strtotime($providedService->startDate) > 0){
+                    $daysInMaintenance += strtotime($providedService->finishDate) - strtotime($providedService->startDate);
+                }
+            }
+        }
+        //Return number of days not seconds
+        return $daysInMaintenance/86400;
+
+    }
+
+    /**
+     * Return health according to provided services status
+     * @return string
+     */
+    public function getHealth()
+    {
+        //TODO refactor health estimation should be done according to pending service types by their weight
+        $providedServices = $this->getProvidedServices();
+        $disabled = 0;
+        $dateOk = 0;
+        $kmOk = 0;
+        foreach ($providedServices as $providedService) {
+
+            if ($providedService->remindStatus == 0) {
+                $disabled++;
+            } else {
+                if ($providedService->getRemindDateStatus() == 'ok') {
+                    $dateOk++;
+                }
+                if ($providedService->getRemindKmStatus() == 'ok') {
+                    $kmOk++;
+                }
+            }
+        }
+
+        $health = 100*($kmOk + $dateOk)/(2*(count($providedServices) - $disabled));
+
+        return $health;
+
+    }
+
+    /**
+     * Return number of issues according to provided status
+     * @return string
+     */
+    public function countIssues()
+    {
+        $providedServices = $this->getProvidedServices();
+        $countIssues = 0;
+
+        foreach ($providedServices as $providedService) {
+            if ($providedService->remindStatus != 0) {
+                if ($providedService->getRemindDateStatus() == 'alert' || $providedService->getRemindKmStatus() == 'alert') {
+                    $countIssues++;
+                }
+            }
+        }
+
+        return $countIssues;
+    }
 }

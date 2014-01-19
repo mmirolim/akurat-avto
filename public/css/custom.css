@@ -215,10 +215,10 @@ tr[status-of-prs="0"]:hover td{
 tr[status-of-prs="0"] td {
 color: rgb(156, 156, 156);
 }
-.date-secondary, .km-secondary {
+.date-disabled, .km-disabled {
 background-color: #e7e7e7;
 }
-.date-success, .km-success {
+.date-ok, .km-ok {
   background-color: #71AF5A;
   color: #fff;
 }
