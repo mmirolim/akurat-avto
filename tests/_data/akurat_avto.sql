@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Янв 19 2014 г., 18:11
+-- Время создания: Янв 19 2014 г., 21:16
 -- Версия сервера: 5.5.24-log
 -- Версия PHP: 5.4.3
 
@@ -211,8 +211,15 @@ CREATE TABLE IF NOT EXISTS `maintenance_schedule` (
   `model_id` smallint(5) unsigned NOT NULL COMMENT 'Model id',
   `configuration` varchar(7000) NOT NULL COMMENT 'Configuration in serialized form',
   PRIMARY KEY (`id`),
-  KEY `model_id` (`model_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `model_id` (`model_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Дамп данных таблицы `maintenance_schedule`
+--
+
+INSERT INTO `maintenance_schedule` (`id`, `model_id`, `configuration`) VALUES
+(1, 1, '[{"id":"19","2-3":"N","10-6":"N","20-12":"R","30-18":"I"},{"id":"20","2-3":"N","10-6":"N","20-12":"I","30-18":"R"},{"30":"R","id":"22"}]');
 
 -- --------------------------------------------------------
 

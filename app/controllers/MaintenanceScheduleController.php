@@ -37,6 +37,47 @@ class MaintenanceScheduleController extends \Phalcon\Mvc\Controller
      */
     public function createAction()
     {
+        $clientUsername = $this->session->get("auth")["username"];
+        if (!$this->request->isPost()) {
+            $this->flashSession->error("Should be post to save configuration");
+        }
+        //Check that user is a client
+        if($this->session->get("auth")["role"] == 'Admin') {
+            $clientId = $this->session->get("auth")["id"];
+            $clientUsername = $this->session->get("auth")["username"];
+        } else {
+            $this->flashSession->error("You should be an Admin");
+            return $this->response->redirect("/account/".$clientUsername."/view");
+        }
+        //Get model id
+        $modelId = $this->request->getPost("model_id");
+        $conf = $this->request->getPost("conf");
+
+        $schedule = new MaintenanceSchedule();
+        $schedule->modelId = $modelId;
+        $schedule->conf = $conf;
+        $status = '';
+        if (!$schedule->save()) {
+
+            foreach ($schedule->getMessages() as $message) {
+                $status .= $message;
+            }
+        } else {
+            $status = "Car was created successfully";
+        }
+
+        echo $status;
+
+        $this->view->disable();
+    }
+
+    public function saveAction()
+    {
+
+    }
+
+    public function editAction()
+    {
 
     }
 }

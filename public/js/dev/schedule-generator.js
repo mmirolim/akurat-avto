@@ -1,5 +1,6 @@
 getServices = function () {
     $select = document.createElement('select');
+    $select.setAttribute('class','car-services');
     for (var i = 0; i < carServices.length; i++) {
         var option = document.createElement('option');
         option.setAttribute('value',carServices[i].id);
@@ -60,26 +61,25 @@ genIntervals = function () {
         mon += intervalMonth;
         el.appendChild($th);
     }
-    input.setAttribute('onChange',"this.parentNode.setAttribute('class','interval-'+this.value.split('/')[0]+'-'+this.value.split('/')[1]);");
+    $input.setAttribute('onChange',"this.parentNode.setAttribute('class','interval-'+this.value.split('/')[0]+'-'+this.value.split('/')[1]);");
 
 }
 addService = function () {
     var table = document.getElementsByClassName('table-schedule')[0];
     var tr = document.getElementById('interval-row');
     var count = tr.childElementCount - 1;
-    var $span = document.createElement('span');
-    $span.setAttribute('class','remove-row');
-    $span.addEventListener('click', function (event) {
+    var $i = document.createElement('i');
+    $i.setAttribute('class','fi-trash');
+    $i.addEventListener('click', function (event) {
         event.target.parentNode.parentNode.remove();
     });
-    $span.textContent = 'Del';
     var $select = getServices();
     var $td = document.createElement('td');
     var $tr = document.createElement('tr');
-    $td.appendChild($span);
+    $td.appendChild($i);
     $td.appendChild($select);
     $tr.appendChild($td);
-    var selectTask = '<select><option value="N"></option><option value="I">I</option><option value="R">R</option></select>';
+    var selectTask = '<select class="action-type"><option value="N"></option><option value="I">I</option><option value="R">R</option></select>';
     for (var i = 0; i < count; i++) {
         $td = document.createElement('td');
         $td.innerHTML = selectTask;
@@ -92,15 +92,15 @@ addService = function () {
 addServiceCustom = function () {
     var table = document.getElementsByClassName('table-schedule')[0];
     var $span = document.createElement('span');
-    $span.setAttribute('class','remove-row');
-    $span.addEventListener('click', function (event) {
+    var $i = document.createElement('i');
+    $i.setAttribute('class','fi-trash');
+    $i.addEventListener('click', function (event) {
         event.target.parentNode.parentNode.remove();
     });
-    $span.textContent = 'Del';
     var $select = getServices();
     var $td = document.createElement('td');
     var $tr = document.createElement('tr');
-    $td.appendChild($span);
+    $td.appendChild($i);
     $td.appendChild($select);
     $tr.appendChild($td);
     $td = document.createElement('td');
@@ -110,7 +110,7 @@ addServiceCustom = function () {
     $td.appendChild($input);
     $tr.appendChild($td);
     $td = document.createElement('td');
-    $td.innerHTML = '<select><option value="N"></option><option value="I">I</option><option value="R">R</option></select>';
+    $td.innerHTML = '<select class="action-type"><option value="N"></option><option value="I">I</option><option value="R">R</option></select>';
     $tr.appendChild($td);
     var number = table.childElementCount - 1;
     $tr.setAttribute('data-row-number',number);
@@ -146,6 +146,35 @@ getRowData = function () {
             service[interval[0].value] = selects[1].value;
         }
         services.push(service);
+    }
+}
+//Send configuration via ajax
+sendConfiguration = function() {
+    //Prepare data
+    var modelId = document.getElementById('model_id');
+    if(typeof modelId === "undefined") {
+            return
+    }
+    var id = modelId.value;
+    var url = document.getElementsByClassName('form-maintenance-schedule')[0].getAttribute('action');
+    addIntervals();
+    getRowData();
+    var configuration = JSON.stringify(services);
+    var data = 'model_id='+id+'&conf='+configuration;
+    //Create xmlhttp
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST",url,true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send(data);
+    //Empty arrays
+    services = [];
+    intervals = [];
+    xmlhttp.onreadystatechange = function(){
+        //If status OK
+        if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+            //Show response data in message block
+            document.getElementById('message-block').innerHTML = xmlhttp.response;
+        }
     }
 }
 var addServiceBtn = document.getElementById('add-service-button');

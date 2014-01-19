@@ -22,7 +22,7 @@ class MaintenanceSchedule extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $configuration;
+    public $conf;
      
     /**
      * Independent Column Mapping.
