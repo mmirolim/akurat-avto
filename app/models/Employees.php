@@ -94,4 +94,22 @@ class Employees extends \Phalcon\Mvc\Model
         //Log model events
         $this->addBehavior(new Blamable());
     }
+
+    /**
+     * Return "employees" in array by id
+     * @param null $parameters
+     * @return \Employees[]
+     */
+    public static function inArrayById($parameters=null)
+    {
+        $employees = Employees::find($parameters)->toArray();
+
+        //Create array with keys from employees ids
+        $employeesById = array();
+        foreach ($employees as $employee) {
+            $employeesById[$employee['id']] = $employee;
+        }
+
+        return $employeesById;
+    }
 }

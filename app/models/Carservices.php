@@ -51,5 +51,23 @@ class CarServices extends \Phalcon\Mvc\Model
         //Log model events
         $this->addBehavior(new Blamable());
     }
+
+    /**
+     * Return "car services" in array by id
+     * @param null $parameters
+     * @return \CarServices[]
+     */
+    public static function inArrayById($parameters=null)
+    {
+        $services = CarServices::find($parameters)->toArray();
+
+        //Create array with keys from employees ids
+        $servicesById = array();
+        foreach ($services as $service) {
+            $servicesById[$service['id']] = $service;
+        }
+
+        return $servicesById;
+    }
      
 }

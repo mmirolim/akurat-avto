@@ -38,10 +38,12 @@ class Security extends Plugin
                 'providedservices' => array('index','search','create','new','edit','save','delete'),
                 'employees' => array('index','search','create','new','edit','save','delete'),
                 'clients' => array('index','search','create','new','edit','save','delete','updateOwn'),
-                'cars' => array('index','search','create','new','edit','save','delete','updateOwn','findByVin'),
+                'cars' => array('index','search','create','new','edit','save','delete','updateOwn','vin'),
                 'carservices' => array('index','search','create','new','edit','save','delete'),
                 'account' => array('index','view','search','create','new','edit','save','delete'),
-                'maintenanceschedule' => array('index','view','search','create','new','edit','save','delete')
+                'maintenanceschedule' => array('index','view','search','create','new','edit','save','delete'),
+                'profiler' => array('index')
+
             );
             foreach ($privateResources as $resource=>$action) {
                 $acl->addResource(new Phalcon\Acl\Resource($resource), $action);
@@ -62,7 +64,7 @@ class Security extends Plugin
                 'providedservices' => array('index','search','create','new','edit','save','delete'),
                 'employees' => array('index','search','create','new','edit','save','delete'),
                 'clients' => array('index','search','create','new','edit','save','delete'),
-                'cars' => array('index','search','create','new','edit','save','delete','findByVin'),
+                'cars' => array('index','search','create','new','edit','save','delete','vin'),
                 'carservices' => array('index','search','create','new','edit','save','delete'),
                 'account' => array('index','view'),
             );
@@ -71,7 +73,7 @@ class Security extends Plugin
             $masterResources = array(
                 'providedservices' => array('index','search','create','new','edit','save'),
                 'clients' => array('index','search','create','new','edit','save'),
-                'cars' => array('index','search','create','new','edit','save','findByVin'),
+                'cars' => array('index','search','create','new','edit','save','vin'),
                 'account' => array('index','view'),
             );
 
@@ -79,14 +81,14 @@ class Security extends Plugin
             $employeeResources = array(
                 'providedservices' => array('index','search'),
                 'clients' => array('index','search'),
-                'cars' => array('index','search','findByVin'),
+                'cars' => array('index','search','vin'),
                 'account' => array('index','view'),
             );
             //Define array of resources and action accessible by Client
             $clientResources = array(
                 'account' => array('index','view'),
                 'clients' => array('updateOwn'),
-                'cars' => array('updateOwn','findByVin')
+                'cars' => array('updateOwn','vin')
             );
 
             //Grant access to Admin
