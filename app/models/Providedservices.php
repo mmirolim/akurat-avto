@@ -166,28 +166,35 @@ class ProvidedServices extends \Phalcon\Mvc\Model
     /**
      * Return status for milage reminder set in service
      * according to related car milage and daily milage properties
+     * @param null $milage related car milage
+     * @param null $dailyMilage related car daily milage
+     * @param null $milageDate related car last milage updated date
      * @return string
      */
-    public function getRemindKmStatus()
+    public function getRemindKmStatus($milage=null, $dailyMilage=null, $milageDate=null)
     {
-        if($this->remindStatus > 0) {
-
-            $car = $this->getCar();
-
-            if (!is_null($car->milage) && !is_null($car->dailyMilage)) {
-                if ($car->milageDate > 0 && $car->dailyMilage > 0) {
-                    //Get number of days between now and last milage updated
-                    $days = round((time() - strtotime($car->milageDate))/86400);
-                    //Get estimated km after last milage data update
-                    $kmSince = $days*$car->dailyMilage;
-
-                    if ($this->remindKm > 0 && ($this->getMilageRemind()  - ($car->milage + $kmSince)) < 0) {
-                        $status = "alert";
-                    } else {
-                        $status = "ok";
-                    }
-                }
+        //Set status as undefined if you don't have enough data
+        $status = 'undefined';
+        //If remind status false then status disabled
+        if ($this->remindStatus > 0) {
+            //If null get from related model
+            if (is_null($milage) || is_null($dailyMilage) ||is_null($milageDate)) {
+                $car = $this->getCar();
+                $milage = $car->milage;
+                $dailyMilage = $car->dailyMilage;
+                $milageDate = $car->milageDate;
             }
+             //Get number of days between now and last milage updated
+            $days = round((time() - strtotime($milageDate))/86400);
+            //Get estimated km after last milage data update
+            $kmSince = $days*$dailyMilage;
+
+            if ($this->remindKm > 0 && ($this->getMilageRemind()  - ($milage + $kmSince)) < 0) {
+                $status = "alert";
+            } else {
+                $status = "ok";
+            }
+
         } else {
             $status = 'disabled';
         }
@@ -201,6 +208,7 @@ class ProvidedServices extends \Phalcon\Mvc\Model
      */
     public function getMilageRemind()
     {
+        //Show total milage as reminder
         return $this->remindKm + $this->milage;
     }
      

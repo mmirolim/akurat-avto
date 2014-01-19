@@ -35,7 +35,8 @@
                     }
                 }
                 echo '<td>'.$providedService->moreInfo.'</td>';
-                echo '<td class="km-'.$providedService->getRemindKmStatus().'">'.$providedService->getMilageRemind().'</td>';
+                //Get remind km status by current car
+                echo '<td class="km-'.$providedService->getRemindKmStatus($car->milage, $car->dailyMilage, $car->milageDate).'">'.$providedService->getMilageRemind().'</td>';
                 echo '<td class="date-'.$providedService->getRemindDateStatus().'">';
                 echo $providedService->remindDate.'</td>';
                 echo '<td class="remind-status">'.$providedService->remindStatus.'</td>';
