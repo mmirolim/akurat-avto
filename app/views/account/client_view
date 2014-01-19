@@ -17,22 +17,19 @@
         <tbody>
             <?php
             foreach ($client->cars as $car) {
-                foreach ($car->providedServices as $providedService) {
+                //Get all provided services by car ordered by start date
+                $providedServices = $car->getProvidedServices(array(
+                    "order" => "startDate ASC",
+                    //"cache" => array("key" => "services-by-car-".$car->id, "lifetime" => 300),
+                ));
+                foreach ($providedServices as $providedService) {
                     echo '<tr>';
                     echo '<td>'.$providedService->id.'</td>';
                     echo '<td>'.$car->regNumber.'</td>';
                     echo '<td class="date-when">'.$providedService->startDate.'</td>';
-                    foreach($carServices as $carService) {
-                        if($providedService->serviceId == $carService->id) {
-                            echo '<td>'.$carService->service.'</td>';
-                        }
-                    }
+                    echo '<td>'.$carServices[$providedService->serviceId]['service'].'</td>';
                     echo '<td>'.$providedService->milage.'</td>';
-                    foreach($employees as $employee) {
-                        if($providedService->masterId == $employee->id) {
-                            echo '<td>'.$employee->fullname.'</td>';
-                        }
-                    }
+                    echo '<td>'.$employees[$providedService->masterId]['fullname'].'</td>';
                     echo '<td>'.$providedService->moreInfo.'</td>';
                     echo '<td class="km-'.$providedService->getRemindKmStatus($car->milage, $car->dailyMilage, $car->milageDate).'">'.$providedService->getMilageRemind().'</td>';
                     echo '<td class="date-'.$providedService->getRemindDateStatus().'">';
@@ -71,17 +68,17 @@
         } ?>
     </div>
     <div class="client-data">
-        <ul class="client-info" data-id="<?php echo $client->info->id;?>" data-update-url="/clients/updateOwn">
-            <li><h5 class="label radius secondary"><?php echo $client->info->fullname;?></h5></li>
+        <ul class="client-info" data-id="<?php echo $client->id;?>" data-update-url="/clients/updateOwn">
+            <li><h5 class="label radius secondary"><?php echo $client->fullname;?></h5></li>
             <li><?php
                 $labelInfoClass = 'label-info';
-                echo '<span class="'.$labelInfoClass.'">Phone:</span><span class="contact_phone">'.$client->info->contactPhone;?></span></li>
-            <li><?php echo '<span class="'.$labelInfoClass.'">Email:</span><span class="contact_email">'.$client->info->contactEmail;?></span></li>
-            <li><?php echo '<span class="'.$labelInfoClass.'">Signup date:</span><span class="date-registration">'.$client->info->regDate;?></span></li>
-            <li><?php echo '<span class="'.$labelInfoClass.'">Add info:</span><span class="more_info">'.$client->info->moreInfo;?></span></li>
-            <li><?php echo '<span class="'.$labelInfoClass.'">Username:</span>'.$client->info->username;?></li>
+                echo '<span class="'.$labelInfoClass.'">Phone:</span><span class="contact_phone">'.$client->contactPhone;?></span></li>
+            <li><?php echo '<span class="'.$labelInfoClass.'">Email:</span><span class="contact_email">'.$client->contactEmail;?></span></li>
+            <li><?php echo '<span class="'.$labelInfoClass.'">Signup date:</span><span class="date-registration">'.$client->regDate;?></span></li>
+            <li><?php echo '<span class="'.$labelInfoClass.'">Add info:</span><span class="more_info">'.$client->moreInfo;?></span></li>
+            <li><?php echo '<span class="'.$labelInfoClass.'">Username:</span>'.$client->username;?></li>
             <li><?php echo '<span class="'.$labelInfoClass.'">Notify me :</span><span class="notify">';
-                 if ($client->info->notify > 0) {echo 'Yes';} else {echo 'No';};?></span></li>
+                 if ($client->notify > 0) {echo 'Yes';} else {echo 'No';};?></span></li>
             <li><span class="password">Change password</span></li>
         </ul>
     </div>

@@ -11,7 +11,7 @@ $I->login('mahmud', '123');
 $I->see("Welcome Махмуд М");
 $I->see("Find car by QR Code");
 //Let assume button clicked, it stated qr scanner app which set correct url in browser
-$I->amOnPage("/cars/findByVin/VIN-AZAF69ZEV016666-VIN");
+$I->amOnPage("/cars/vin/AZAF69ZEV016666");
 $I->see("VIN AZAF69ZEV016666");
 //Check for php errors
 $I = new WebGuy\SeeTextsSteps($scenario);

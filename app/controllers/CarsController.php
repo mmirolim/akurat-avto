@@ -319,71 +319,39 @@ class CarsController extends ControllerBase
 
     /**
      * Find Car by VIN
+     * @param null $vin
      */
-    //Set default to null if user try to access url without params
-    //TODO refactor
-    public function findByVinAction($vin = null)
+
+    public function vinAction($vin = null)
     {
-        //Check if $vin isset
-        if (!isset($vin)) {
+        //Check if $vin null
+        if (is_null($vin)) {
             $this->flashSession->error("The VIN should be not empty");
-            return $this->dispatcher->forward(array(
-                "controller" => "cars",
-                "action" => "findByVin",
-                "params" => array("0")
-            ));
-        }
-        //TODO check correctness of VIN number by regex
-        if($vin == null || $vin == "0") {
-            $this->flashSession->error("Wrong VIN number");
-            //TODO render to some extent
             $this->view->disable();
-            //$this->view->disableLevel('View::LEVEL_ACTION_VIEW');
-        } else {
-            //Prepare to sanitize
-            $vin = urldecode($vin);
-            //Get VIN
-            $vin = explode('-',$vin)[1];
-            //Sanitize VIN
-            $vin = $this->filter->sanitize($vin,"trim");
-            $vin = $this->filter->sanitize($vin,"striptags");
-            $vin = $this->filter->sanitize($vin,"alphanum");
-
+        }
             //Get car and related services by vin
-            $car = Cars::findFirst("vin ='".$vin."'");
-
+            $car = Cars::findFirst(array(
+                'vin = :vin:',
+                'bind' => array('vin' => $vin)
+            ));
             if ($car != '') {
-
-                $providedServices = $car->getProvidedServices(array(
-                    "cache" => array("key" => "providedServices-list-".$car->id, "lifetime" => 300)
-                ))->setHydrateMode(Resultset::HYDRATE_RECORDS);
-
                 //Make resultset available in view
-                $this->view->car = $car;
-                $this->view->providedServices = $providedServices;
-
                 //Get all employees and cache it
-                $this->view->employees = Employees::find(array(
+                $this->view->employees = Employees::inArrayById(array(
                     "columns" => "id, fullname, job, contacts",
-                    "cache" => array("key" => "employees-list", "lifetime" => 300)
+                    //"cache" => array("key" => "employees-list", "lifetime" => 300),
                 ));
 
                 //Get all services and cache it
-                $this->view->carServices = CarServices::find( array(
-                    "cache" => array("key" => "car-services-list", "lifetime" => 300)
+                $this->view->carServices = CarServices::inArrayById( array(
+                    //"cache" => array("key" => "car-services-list", "lifetime" => 300),
                 ));
+
+                $this->view->car = $car;
             }  else {
                 $this->flash->error("The search by Vin did not find any cars");
-                return $this->dispatcher->forward(array(
-                    "controller" => "cars",
-                    "action" => "findByVin",
-                    "params" => array("0")
-                ));
-                //TODO render to some extent
-                $this->view->disable();
-                //$this->view->disableLevel('View::LEVEL_ACTION_VIEW');
             }
-        }
+
 
     }
 }

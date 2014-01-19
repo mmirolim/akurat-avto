@@ -33,21 +33,17 @@ class ProfilerController extends ControllerBase
         $this->db->setEventsManager($eventsManager);
 
         echo 'RUN QUERIES<br/>';
-        echo '<code>ProvidedServices::find()</code><br/>';
-        $pS = ProvidedServices::find(array('order' =>'startDate DESC'));
-        echo 'Results: '. count($pS) .'<br/>';
+
 
         //Get the generated profiles from the profiler
         $profiles = $profiler->getProfiles();
 
-        foreach ($profiles as $profile) {
+       /*foreach ($profiles as $profile) {
             echo "SQL Statement: <code>", $profile->getSQLStatement(), "</code><br/>";
             echo "Start Time: <code>", $profile->getInitialTime(), "</code><br/>";
             echo "Final Time: <code>", $profile->getFinalTime(), "</code><br/>";
             echo "Total Elapsed Time: <code>", $profile->getTotalElapsedSeconds(), "</code><br/>";
-        }
-        foreach ($pS as $s) {
-            echo $s->startDate.'<br/>';
-        }
+        }*/
+
     }
 }
