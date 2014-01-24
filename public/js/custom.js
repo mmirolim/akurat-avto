@@ -82,7 +82,7 @@ AK.updateOwnData = function() {
     }
 }
 AK.inlineFormRemove = function(event) {
-    event.target.parentNode.parentNode.previousSibling.style.display = 'initial';
+    event.target.parentNode.parentNode.previousElementSibling.style.display = 'initial';
     event.target.parentNode.parentNode.remove();
 }
 
@@ -113,7 +113,7 @@ AK.inlineFormSendData = function(event) {
         if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
             var obj = JSON.parse(xmlhttp.response);
             //Get original element of inline update, previous sibling of current target's parent
-            var siblingParent = event.target.parentNode.parentNode.previousSibling;
+            var siblingParent = event.target.parentNode.parentNode.previousElementSibling;
             for (key in AK.targets){
                 //Find which parameter changed in obj
                 if (AK.targets[key]['htmlClass'] == siblingParent.getAttribute("class")){

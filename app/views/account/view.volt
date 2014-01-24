@@ -39,7 +39,6 @@
     </div>
     <div class="large-4 columns analytics-block">
         <div class="analytics-board">
-            
             {% for key, car in client.cars %}
                 {# Create div block per car #}
                 <div class="analytic-data">
