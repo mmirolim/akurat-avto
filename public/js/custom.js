@@ -93,7 +93,7 @@ AK.inlineFormSendData = function(event) {
     var parent = el.parentNode;
     //Get update url for model
     var url = parent.parentNode.parentNode.parentNode.getAttribute("data-update-url");
-    var siblings = parent.childNodes;
+    var siblings = parent.children;
     var data = '';
     //Prepare data to send
     for (var i = 0; i < (siblings.length - 2); i++) {
@@ -159,7 +159,7 @@ AK.checkRemindStatus = function() {
     var el = document.getElementsByClassName('remind-status');
     for (var i=0; i < el.length; i++){
         if (el[i].textContent == '0') {
-            var siblings = el[i].parentNode.childNodes;
+            var siblings = el[i].parentNode.children;
             for(var j = 0; j < siblings.length; j++) {
                 siblings[j].parentNode.setAttribute("status-of-prs","0");
             }
@@ -172,9 +172,9 @@ AK.getProvidedServiceAttr = function(el) {
     //Prepare obj from attributes of child elements in provided service row
     var obj = {
         statusOfPrs : el.getAttribute('status-of-prs'),
-        id : el.childNodes[0].textContent,
-        remindKmStatus : el.childNodes[7].getAttribute("class"),
-        remindDateStatus : el.childNodes[8].getAttribute("class")
+        id : el.children[0].textContent,
+        remindKmStatus : el.children[7].getAttribute("class"),
+        remindDateStatus : el.children[8].getAttribute("class")
     }
     //Return obj to store
     return obj
@@ -185,8 +185,8 @@ AK.setProvidedServiceAttr = function(el,obj){
     if (obj.statusOfPrs) {
         el.setAttribute('status-of-prs', obj.statusOfPrs);
     }
-    el.childNodes[7].setAttribute("class",obj.remindKmStatus);
-    el.childNodes[8].setAttribute("class",obj.remindDateStatus);
+    el.children[7].setAttribute("class",obj.remindKmStatus);
+    el.children[8].setAttribute("class",obj.remindDateStatus);
 }
 
 //Store all provided services as obj in array
@@ -203,7 +203,7 @@ AK.backUpServiceAttr = function () {
     for(var i = 0; i < rowsLength; i++) {
         //Get obj from row children attributes
         var providedService = AK.getProvidedServiceAttr(rows[i]);
-        AK.providedServices[rows[i].childNodes[0].textContent] = providedService;
+        AK.providedServices[rows[i].children[0].textContent] = providedService;
     }
 }
 //Callback function to restore attributes in provided services row
@@ -216,7 +216,7 @@ AK.restoreServicesAttr = function(){
     for(var i = 0; i < rowsLength; i++) {
         var el = rows[i];
         //Get appropriate stored service attributes as obj according to key
-        var obj = AK.providedServices[el.childNodes[0].textContent];
+        var obj = AK.providedServices[el.children[0].textContent];
         //Restore service attributes
         AK.setProvidedServiceAttr(el,obj);
     }
