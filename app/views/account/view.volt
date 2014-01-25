@@ -18,8 +18,7 @@
             <tbody>
             {% for car in client.cars %}
             {# Get all provided services by car ordered by start date #}
-            {% set providedServices = car.getProvidedServices() %}
-                {% for providedService in providedServices %}
+                {% for providedService in car.getProvidedServices() %}
                     <tr>
                         <td>{{ providedService.id }}</td>
                         <td>{{ car.regNumber }}</td>
