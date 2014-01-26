@@ -3,9 +3,8 @@
 $router = new \Phalcon\Mvc\Router();
 
 //Define a "/account" route
-$router->add("/account/:params/:action", array(
+$router->add("/account/:params", array(
     "controller" => "account",
-    "action" => 2,
     "params" => 1
     )
 );

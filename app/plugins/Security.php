@@ -40,8 +40,8 @@ class Security extends Plugin
                 'clients' => array('index','search','create','new','edit','save','delete','updateOwn'),
                 'cars' => array('index','search','create','new','edit','save','delete','updateOwn','vin'),
                 'carservices' => array('index','search','create','new','edit','save','delete'),
-                'account' => array('index','view','search','create','new','edit','save','delete'),
-                'maintenanceschedule' => array('index','view','search','create','new','edit','save','delete'),
+                'account' => array('index','client','employee','boss','admin','search','create','new','edit','save','delete'),
+                'maintenanceschedule' => array('index','search','create','new','edit','save','delete'),
                 'profiler' => array('index')
 
             );
@@ -66,7 +66,7 @@ class Security extends Plugin
                 'clients' => array('index','search','create','new','edit','save','delete'),
                 'cars' => array('index','search','create','new','edit','save','delete','vin'),
                 'carservices' => array('index','search','create','new','edit','save','delete'),
-                'account' => array('index','view'),
+                'account' => array('index'),
             );
 
             //Define array of resources and action accessible by Master
@@ -74,7 +74,7 @@ class Security extends Plugin
                 'providedservices' => array('index','search','create','new','edit','save'),
                 'clients' => array('index','search','create','new','edit','save'),
                 'cars' => array('index','search','create','new','edit','save','vin'),
-                'account' => array('index','view'),
+                'account' => array('index'),
             );
 
             //Define array of resources and action accessible by Employee
@@ -82,11 +82,11 @@ class Security extends Plugin
                 'providedservices' => array('index','search'),
                 'clients' => array('index','search'),
                 'cars' => array('index','search','vin'),
-                'account' => array('index','view'),
+                'account' => array('index'),
             );
             //Define array of resources and action accessible by Client
             $clientResources = array(
-                'account' => array('index','view'),
+                'account' => array('index'),
                 'clients' => array('updateOwn'),
                 'cars' => array('updateOwn','vin')
             );

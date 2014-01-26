@@ -14,46 +14,27 @@ class AccountController extends ControllerBase
 {
     public function indexAction()
     {
+        //TODO harden security
+        $this->persistent->username = $this->session->get("auth")["username"];
 
-    }
+        //Get all employees
+        $this->view->employees = Employees::inArrayById();
 
-    public function viewAction()
-    {
-        //Get username
-        $username = $this->router->getParams()[0];
-
-        //Restrict viewing account to owner
-        $usernameInSession = $this->session->get("auth")["username"];
-        if ($username !== $usernameInSession) {
-            $this->flashSession->error("Wrong Account");
-            return $this->response->redirect("/");
-        }
-
-        //Get role and use appropriate action
-        $role = $this->session->get("auth")["role"];
-        $this->view->currentUserRole = $role;
-
-        //Get all employees and cache it
-        $this->view->employees = Employees::inArrayById(array(
-            "columns" => "id, fullname, job, contacts",
-            "hydration" => Resultset::HYDRATE_OBJECTS,
-            //"cache" => array("key" => "employees-list", "lifetime" => 300),
-        ));
-
-        //Get all services and cache it
-        $this->view->carServices = CarServices::inArrayById( array(
-            "hydration" => Resultset::HYDRATE_OBJECTS,
-            //"cache" => array("key" => "car-services-list", "lifetime" => 300),
-        ));
+        //Get all services
+        $this->view->carServices = CarServices::inArrayById();
 
         //Get appropriate data according to users role
-        switch($role)
+        switch($this->session->get("auth")["role"])
         {
             case 'Client':
-                $this->_getClientData($username);
+                //Call clientAction
+                $this->clientAction();
+                //Show view of clientAction
+                $this->view->pick("account/client");
                 break;
             case 'Employee':
-                $this->_getEmployeeData($username);
+                $this->employeeAction();
+                $this->view->pick("account/employee");
                 break;
             case 'Master':
                 break;
@@ -62,44 +43,61 @@ class AccountController extends ControllerBase
             case 'Admin':
                 break;
             default:
-                $this->flashSession->error("Wrong Role");
+                $this->flash->error("Wrong Role");
                 return $this->response->redirect("/");
         }
     }
 
-    protected function _getClientData($username)
+    /**
+     * Shows View for client role
+     *
+     */
+    protected function clientAction()
     {
-        $client = Clients::findFirst(array(
-            "username = :user:",
-            'bind' => array("user" => $username),
-        ));
-        $this->view->client = $client;
+        //Get client info
+        $this->view->client= Clients::findFirstByUsername($this->persistent->username);
 
     }
 
-    protected function _getEmployeeData($username)
+    /**
+     * Shows View for employee role
+     *
+     */
+    protected function employeeAction()
     {
         //Get employee info
-        $employee = Employees::findFirst(array(
-            "username = :user:",
-            'bind' => array("user" => $username)
-        ));
-        $this->view->employee = $employee;
+        $this->view->employee = Employees::findFirstByUsername($this->persistent->username);
     }
 
-    protected function _getMasterData($username)
+    /**
+     * Shows View for master role
+     *
+     */
+    protected function masterAction()
     {
-
+        //Get employee info
+        $this->view->employee = Employees::findFirstByUsername($this->persistent->username);
     }
 
-    protected function _getBossData($username)
+    /**
+     * Shows View for boss role
+     *
+     */
+    protected function bossAction()
     {
-
+        //Get employee info
+        $this->view->employee = Employees::findFirstByUsername($this->persistent->username);
     }
 
-    protected function _getAdminData($username)
+    /**
+     * Shows View for admin role
+     *
+     */
+    protected function adminAction()
     {
-
+        //Get employee info
+        $this->view->employee = Employees::findFirstByUsername($this->persistent->username);
     }
+
 
 }

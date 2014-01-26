@@ -106,6 +106,9 @@ class Cars extends \Phalcon\Mvc\Model
         //Set has-many cars relationship
         $this->hasMany("id", "ProvidedServices", "carId");
 
+        //Set belongs to model relationship
+        $this->belongsTo("modelId", "CarModels", "id");
+
         //Insert date on creation for milage date
         //TODO test Behavior
         $this->addBehavior(new Timestampable(array(
