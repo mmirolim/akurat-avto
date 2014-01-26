@@ -36,11 +36,13 @@ class AccountController extends ControllerBase
         //Get all employees and cache it
         $this->view->employees = Employees::inArrayById(array(
             "columns" => "id, fullname, job, contacts",
+            "hydration" => Resultset::HYDRATE_OBJECTS,
             //"cache" => array("key" => "employees-list", "lifetime" => 300),
         ));
 
         //Get all services and cache it
         $this->view->carServices = CarServices::inArrayById( array(
+            "hydration" => Resultset::HYDRATE_OBJECTS,
             //"cache" => array("key" => "car-services-list", "lifetime" => 300),
         ));
 
@@ -68,14 +70,9 @@ class AccountController extends ControllerBase
     protected function _getClientData($username)
     {
         $client = Clients::findFirst(array(
-            "username = '".$username."'",
-            'hydration' => Resultset::HYDRATE_OBJECTS
+            "username = :user:",
+            'bind' => array("user" => $username),
         ));
-
-        $cars = $client->getCars()->setHydrateMode(Resultset::HYDRATE_RECORDS);
-
-        $client->cars = $cars;
-        //Make available in views
         $this->view->client = $client;
 
     }
@@ -83,7 +80,10 @@ class AccountController extends ControllerBase
     protected function _getEmployeeData($username)
     {
         //Get employee info
-        $employee = Employees::findFirst("username = '".$username."'");
+        $employee = Employees::findFirst(array(
+            "username = :user:",
+            'bind' => array("user" => $username)
+        ));
         $this->view->employee = $employee;
     }
 

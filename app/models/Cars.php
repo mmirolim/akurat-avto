@@ -128,6 +128,10 @@ class Cars extends \Phalcon\Mvc\Model
      */
     public function getProvidedServices($parameters = null)
     {
+        //If $params null order by star date
+        if (is_null($parameters)) {
+            $parameters = array("order" => "startDate ASC" );
+        }
         return $this->getRelated("ProvidedServices", $parameters);
     }
 
