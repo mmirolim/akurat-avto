@@ -59,7 +59,7 @@
             {% endfor %}
             </div>
             <div class="client-data">
-                <ul class="client-info" data-id=" echo client.id?>" data-update-url="/clients/updateOwn">
+                <ul class="client-info" data-id="{{ client.id }}" data-update-url="/clients/updateOwn">
                     <li><h5 class="label radius secondary">{{ client.fullname }}</h5></li>
                     <li><span >Phone:</span><span class="contact_phone">{{ client.contactPhone }}</span></li>
                     <li> <span >Email:</span><span class="contact_email">{{ client.contactEmail }}</span></li>
