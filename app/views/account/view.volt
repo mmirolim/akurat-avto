@@ -61,13 +61,13 @@
             <div class="client-data">
                 <ul class="client-info" data-id=" echo client.id?>" data-update-url="/clients/updateOwn">
                     <li><h5 class="label radius secondary">{{ client.fullname }}</h5></li>
-                    <li><span class="label-info">Phone:</span><span class="contact_phone">{{ client.contactPhone }}</span></li>
-                    <li> <span class="label-info">Email:</span><span class="contact_email">{{ client.contactEmail }}</span></li>
-                    <li> <span class="label-info">Signup date:</span><span class="date-registration">{{ client.regDate }}</span></li>
-                    <li> <span class="label-info">Add info:</span><span class="more_info">{{ client.moreInfo }}</span></li>
-                    <li> <span class="label-info">Username:</span>{{ client.username }}</li>
+                    <li><span >Phone:</span><span class="contact_phone">{{ client.contactPhone }}</span></li>
+                    <li> <span >Email:</span><span class="contact_email">{{ client.contactEmail }}</span></li>
+                    <li> <span >Signup date:</span><span class="date-registration">{{ client.regDate }}</span></li>
+                    <li> <span >Add info:</span><span class="more_info">{{ client.moreInfo }}</span></li>
+                    <li> <span >Username:</span>{{ client.username }}</li>
                     <li>
-                        <span class="label-info">Notify me :</span>
+                        <span >Notify me :</span>
                         <span class="notify"><?= $client->notify ? 'Yes' : 'No'?></span>
                     </li>
                     <li><span class="password">Change password</span></li>
@@ -77,13 +77,13 @@
             {% for car in client.cars %}
                 <ul class="car-info" data-id="{{ car.id }}" data-update-url="/cars/updateOwn">
                 <li><h5 class="label radius secondary">{{ car.modelId }}</h5></li>
-                <li><span class="label-info">Reg. number:</span>{{ car.regNumber }}</li>
-                <li><span class="label-info">Year:</span>{{ car.year }}</li>
-                <li><span class="label-info">First service date:</span>{{ car.regDate }}</li>
-                <li><span class="label-info">Current KM:</span><span class="milage" data-milage_date="{{ car.milageDate }}">{{ car.milage }}</span></li>
-                <li><span class="label-info">Milage KM/day:</span><span class="daily_milage">{{ car.dailyMilage }}</span></li>
-                <li><span class="label-info">Car VIN:</span>{{ car.vin }}</li>
-                <li><span class="label-info">Add info:</span>{{ car.moreInfo }}</li>
+                <li><span >Reg. number:</span>{{ car.regNumber }}</li>
+                <li><span >Year:</span>{{ car.year }}</li>
+                <li><span >First service date:</span>{{ car.regDate }}</li>
+                <li><span >Current KM:</span><span class="milage" data-milage_date="{{ car.milageDate }}">{{ car.milage }}</span></li>
+                <li><span >Milage KM/day:</span><span class="daily_milage">{{ car.dailyMilage }}</span></li>
+                <li><span >Car VIN:</span>{{ car.vin }}</li>
+                <li><span >Add info:</span>{{ car.moreInfo }}</li>
                 </ul>
             {% endfor %}
             </div>
