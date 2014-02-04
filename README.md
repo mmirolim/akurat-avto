@@ -1,6 +1,6 @@
 akurat-avto
 ===========
 
-Simple app to track maintained cars
+Simple website to track maintained cars.
 
-Example app created with Phalcon framework phalconphp.com.
+Website created with Phalcon framework phalconphp.com.
