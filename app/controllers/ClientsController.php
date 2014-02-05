@@ -37,11 +37,7 @@ class ClientsController extends ControllerBase
 
         $clients = Clients::find($parameters);
         if (count($clients) == 0) {
-            $this->flash->notice("The search did not find any clients");
-            return $this->dispatcher->forward(array(
-                "controller" => "clients",
-                "action" => "index"
-            ));
+            $this->flashSession->notice("The search did not find any clients");
         }
 
         $paginator = new Paginator(array(
