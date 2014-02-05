@@ -40,7 +40,7 @@ class Security extends Plugin
                 'clients' => array('index','search','create','new','edit','save','delete','updateOwn'),
                 'cars' => array('index','search','create','new','edit','save','delete','updateOwn','vin'),
                 'carservices' => array('index','search','create','new','edit','save','delete'),
-                'account' => array('index','client','employee','boss','admin','search','create','new','edit','save','delete'),
+                'account' => array('index','client','employee','master','boss','admin','search','create','new','edit','save','delete'),
                 'maintenanceschedule' => array('index','search','create','new','edit','save','delete'),
                 'profiler' => array('index')
 
@@ -66,7 +66,7 @@ class Security extends Plugin
                 'clients' => array('index','search','create','new','edit','save','delete'),
                 'cars' => array('index','search','create','new','edit','save','delete','vin'),
                 'carservices' => array('index','search','create','new','edit','save','delete'),
-                'account' => array('index'),
+                'account' => array('index','boss'),
             );
 
             //Define array of resources and action accessible by Master
@@ -74,7 +74,7 @@ class Security extends Plugin
                 'providedservices' => array('index','search','create','new','edit','save'),
                 'clients' => array('index','search','create','new','edit','save'),
                 'cars' => array('index','search','create','new','edit','save','vin'),
-                'account' => array('index'),
+                'account' => array('index','master'),
             );
 
             //Define array of resources and action accessible by Employee
@@ -82,11 +82,11 @@ class Security extends Plugin
                 'providedservices' => array('index','search'),
                 'clients' => array('index','search'),
                 'cars' => array('index','search','vin'),
-                'account' => array('index'),
+                'account' => array('index','employee'),
             );
             //Define array of resources and action accessible by Client
             $clientResources = array(
-                'account' => array('index'),
+                'account' => array('index','client'),
                 'clients' => array('updateOwn'),
                 'cars' => array('updateOwn','vin')
             );
@@ -158,7 +158,7 @@ class Security extends Plugin
         $allowed = $acl->isAllowed($role, $controller, $action);
         if($allowed != Acl::ALLOW) {
             //If he doesn't have access forward him to the index controller
-            $this->flashSession->error("You don't have access to ".$controller." page");
+            $this->flashSession->error("You don't have access to ".$action." page");
 
             // forward user to frontpage via $this->dispatcher using $dispatcher will create infinite loop
             $this->response->redirect('/');
