@@ -318,39 +318,44 @@ class CarsController extends ControllerBase
     }
 
     /**
-     * Find Car by VIN
-     * @param null $vin
+     * Find Car by VIN or registration number
+     * @param null $identity
      */
 
-    public function vinAction($vin = null)
+    public function vinAction($identity = null)
     {
-        //Check if $vin null
-        if (is_null($vin)) {
-            $this->flashSession->error("The VIN should be not empty");
-            $this->view->disable();
+        //Check if $identity is null
+        if (is_null($identity) && !$this->request->isPost()) {
+            $this->flashSession->error("The VIN should be not empty and should be POST");
         }
-            //Get car and related services by vin
-            $car = Cars::findFirst(array(
-                'vin = :vin:',
-                'bind' => array('vin' => $vin)
+        if(is_null($identity)) {
+            $identity = $this->request->getPost("car-identity");
+        }
+        //Get car and related services by vin or registration number
+        $car = Cars::findFirst(array(
+            'vin = :identity: OR regNumber = :identity:',
+            'bind' => array('identity' => $identity)
+        ));
+
+        if ($car != '') {
+            //Make resultset available in view
+            //Get all employees and cache it
+            $this->view->employees = Employees::inArrayById(array(
+                "columns" => "id, fullname, job, contacts",
+                //"cache" => array("key" => "employees-list", "lifetime" => 300),
             ));
-            if ($car != '') {
-                //Make resultset available in view
-                //Get all employees and cache it
-                $this->view->employees = Employees::inArrayById(array(
-                    "columns" => "id, fullname, job, contacts",
-                    //"cache" => array("key" => "employees-list", "lifetime" => 300),
-                ));
 
-                //Get all services and cache it
-                $this->view->carServices = CarServices::inArrayById( array(
-                    //"cache" => array("key" => "car-services-list", "lifetime" => 300),
-                ));
+            //Get all services and cache it
+            $this->view->carServices = CarServices::inArrayById( array(
+                //"cache" => array("key" => "car-services-list", "lifetime" => 300),
+            ));
 
-                $this->view->car = $car;
-            }  else {
-                $this->flash->error("The search by Vin did not find any cars");
-            }
+            $this->view->client = Clients::findFirst($car->ownerId);
+
+            $this->view->car = $car;
+        }  else {
+            $this->flashSession->error("The search by Vin did not find any cars");
+        }
 
 
     }

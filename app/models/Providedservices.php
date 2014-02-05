@@ -22,6 +22,12 @@ class ProvidedServices extends \Phalcon\Mvc\Model
      * @var integer
      */
     public $serviceId;
+
+    /**
+     *
+     * @var integer
+     */
+    public $inMs;
      
     /**
      *
@@ -85,6 +91,7 @@ class ProvidedServices extends \Phalcon\Mvc\Model
             'id' => 'id',
             'car_id' => 'carId',
             'service_id' => 'serviceId',
+            'in_ms' => 'inMs',
             'master_id' => 'masterId',
             'start_date' => 'startDate',
             'finish_date' => 'finishDate',
