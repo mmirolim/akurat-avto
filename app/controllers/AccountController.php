@@ -22,7 +22,7 @@ class AccountController extends ControllerBase
      */
     protected function setCommonVars() {
         $this->view->setVars(array(
-            'username' => $this->session->get("auth")["username"],
+            'employee' => Employees::findFirstByUsername($this->session->get("auth")["username"]),
             'employees' => Employees::inArrayById(),
             'carServices' => CarServices::inArrayById()
         ));

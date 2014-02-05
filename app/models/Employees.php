@@ -88,6 +88,9 @@ class Employees extends \Phalcon\Mvc\Model
         //Skips fields/columns on both INSERT/UPDATE operations
         $this->skipAttributes(array('whenUpdated'));
 
+        //Set has-many cars relationship
+        $this->hasMany("id", "ProvidedServices", "masterId");
+
         //Use dynamic update to improve performance
         $this->useDynamicUpdate(true);
 

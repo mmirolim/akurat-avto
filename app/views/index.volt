@@ -3,7 +3,13 @@
 	<head>
         <meta charset='utf-8'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-		<title>Akurat Avto Service</title>
+		<title>
+            {% if title is defined %}
+                {{ title }} - Akurat Avto Service
+            {% else %}
+                Akurat Avto Service
+            {% endif %}
+        </title>
         {{ stylesheet_link('/../css/foundation.css')}}
         {{ stylesheet_link('/../css/foundation-icons/foundation-icons.css')}}
         {{ stylesheet_link('/../libraries/flexslider/flexslider.css')}}
@@ -14,11 +20,11 @@
 	<body>
          <div id="container">
             <div id="header">
-                    <?php echo $this->elements->getTopBarMenu(); ?>
+                    {{ this.elements.getTopBarMenu() }}
             </div>
             <div id="main">
                 <div id="message-block" onclick="$(this).toggle();">
-                    <?php  echo $this->flashSession->output(); ?>
+                    {{ this.flashSession.output() }}
                 </div>
 		        {{ content() }}
             </div>

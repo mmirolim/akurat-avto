@@ -39,4 +39,9 @@ class Elements extends Component
         $html = $navLeft.$navRight;
         return $html;
     }
+
+    public function getBarcodeLink()
+    {
+        return '<a class="button" href="zxing://scan/?ret=http%3A%2F%2Fakurat.auto:8080%2Fcars%2Fvin%2F%7BCODE%7D%2F">Find car by QR Code</a>';
+    }
 }
