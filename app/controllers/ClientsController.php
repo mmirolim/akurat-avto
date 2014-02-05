@@ -51,6 +51,18 @@ class ClientsController extends ControllerBase
         ));
 
         $this->view->page = $paginator->getPaginate();
+
+        $this->view->editAllowed = Security::isActionAllowed(array(
+            'controller' => $this->dispatcher->getControllerName(),
+            'action' => 'edit',
+            'role' => $this->session->get("auth")['role']
+        ));
+        $this->view->deleteAllowed = Security::isActionAllowed(array(
+            'controller' => $this->dispatcher->getControllerName(),
+            'action' => 'delete',
+            'role' => $this->session->get("auth")['role']
+        ));
+
     }
 
     /**

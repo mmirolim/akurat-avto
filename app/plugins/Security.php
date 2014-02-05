@@ -7,7 +7,7 @@ use Phalcon\Acl;
 
 class Security extends Plugin
 {
-    private function _getAcl()
+    static  function getAcl()
     {
         // For performance store serialized acl object somewhere
         //Check whether acl data already exist
@@ -152,7 +152,7 @@ class Security extends Plugin
         $action = $dispatcher->getActionName();
 
         //Obtain the ACL list
-        $acl = $this->_getAcl();
+        $acl = self::getAcl();
 
         //Check if the role have access to the controller (resource)
         $allowed = $acl->isAllowed($role, $controller, $action);
@@ -165,7 +165,23 @@ class Security extends Plugin
             //Returning "false" we tell to the dispatcher to stop the current operation
             return false;
         }
-
     }
+
+    static function isActionAllowed(array $params)
+    {
+        //Obtain the ACL list
+        $acl = self::getAcl();
+        $controller = $params['controller'];
+        $action = $params['action'];
+        $role = $params['role'];
+        //Check if the role have access to the controller (resource)
+        $allowed = $acl->isAllowed($role, $controller, $action);
+        if ( $allowed == Acl::ALLOW ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 }
