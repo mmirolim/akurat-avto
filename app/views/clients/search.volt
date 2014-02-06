@@ -1,4 +1,4 @@
-<div class="large-9 large-centered columns">
+<div class="large-3 large-centered columns">
     {{ form('/clients/search', 'method':'post', 'class':'form-search-client') }}
     <label for="username" id="search-field-label">Search client by</label>
     <select id="search-fields" class="hide">

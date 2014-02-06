@@ -21,6 +21,19 @@ class AccountController extends ControllerBase
      * Set common variables in all actions
      */
     protected function setCommonVars() {
+        $role = $this->session->get("auth")['role'];
+        if ($role != 'Client') {
+            $this->view->editAllowed = Security::isActionAllowed(array(
+                'controller' => 'providedservices',
+                'action' => 'edit',
+                'role' => $role
+            ));
+            $this->view->deleteAllowed = Security::isActionAllowed(array(
+                'controller' => 'providedservices',
+                'action' => 'delete',
+                'role' => $role
+            ));
+        }
         $this->view->setVars(array(
             'employee' => Employees::findFirstByUsername($this->session->get("auth")["username"]),
             'employees' => Employees::inArrayById(),

@@ -367,6 +367,17 @@ class CarsController extends ControllerBase
             $this->flashSession->error("The search by Vin did not find any cars");
         }
 
+        $this->view->editAllowed = Security::isActionAllowed(array(
+            'controller' => 'providedservices',
+            'action' => 'edit',
+            'role' => $this->session->get("auth")['role']
+        ));
+        $this->view->deleteAllowed = Security::isActionAllowed(array(
+            'controller' => 'providedservices',
+            'action' => 'delete',
+            'role' => $this->session->get("auth")['role']
+        ));
+
 
     }
 }

@@ -1,5 +1,5 @@
 <div id="content" class="account-view-content row">
-    <div class="large-8 columns services-block">
+    <div class="large-9 columns services-block">
         <table id="table-provided-services">
             <thead>
             <tr>
@@ -13,6 +13,7 @@
                 <th data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после КМ">КМ</th>
                 <th width="120" data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после Даты">Дата</th>
                 <th class="remind-status-th prs-th">Статус напоминания</th>
+                <th data-tooltip class="has-tip prs-th" title="Входит в технический регламент по обслуживанию автомобиля">Тех.рег.</th>
             </tr>
             </thead>
             <tbody>
@@ -30,13 +31,14 @@
                         <td class="km-{{ providedService.getRemindKmStatus(car.milage, car.dailyMilage, car.milageDate) }}">{{ providedService.getMilageRemind() }}</td>
                         <td class="date-{{ providedService.getRemindDateStatus() }}">{{ providedService.remindDate }}</td>
                         <td class="remind-status">{{ providedService.remindStatus }}</td>
+                        <td><?= $providedService->inMs ? 'Да': '-' ?></td>
                     </tr>
                 {% endfor %}
             {% endfor %}
             </tbody>
         </table>
     </div>
-    <div class="large-4 columns analytics-block">
+    <div class="large-3 columns analytics-block">
         <div class="analytics-board">
             {% for key, car in client.cars %}
                 {# Create div block per car #}
