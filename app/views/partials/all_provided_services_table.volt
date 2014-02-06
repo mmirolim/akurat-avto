@@ -15,7 +15,7 @@
     </thead>
     <tbody>
     {# Get all provided services by car ordered by start date #}
-    {% for providedService in employee.ProvidedServices %}
+    {% for providedService in providedServices %}
         {% set car = providedService.Cars %}
         <tr>
             <td>{{ providedService.id }}</td>

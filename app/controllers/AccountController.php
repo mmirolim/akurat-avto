@@ -24,7 +24,8 @@ class AccountController extends ControllerBase
         $this->view->setVars(array(
             'employee' => Employees::findFirstByUsername($this->session->get("auth")["username"]),
             'employees' => Employees::inArrayById(),
-            'carServices' => CarServices::inArrayById()
+            'carServices' => CarServices::inArrayById(),
+            'providedServices' => ProvidedServices::find()
         ));
     }
 
