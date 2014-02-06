@@ -307,7 +307,7 @@ class ClientsController extends ControllerBase
             $this->flash->error("Client does not exist");
             return $this->response->redirect("/account/".$clientUsername."/view");
         }
-
+        //TODO use ternary if
         if($this->request->getPost("contact_phone")) {
             $client->contactPhone = $this->request->getPost("contact_phone");
         }

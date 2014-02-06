@@ -2,6 +2,7 @@
 
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
+use Phalcon\Db\RawValue as RawValue;
 
 class ProvidedservicesController extends ControllerBase
 {
@@ -57,7 +58,7 @@ class ProvidedservicesController extends ControllerBase
      */
     public function newAction()
     {
-        $this->view->services = CarServices::find();
+        $this->view->carServices = CarServices::find();
         $this->view->employees = Employees::find();
     }
 
@@ -102,7 +103,7 @@ class ProvidedservicesController extends ControllerBase
      */
     public function createAction()
     {
-
+        //TODO move integrity and validation logic to model
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(array(
                 "controller" => "providedservices",
@@ -112,23 +113,65 @@ class ProvidedservicesController extends ControllerBase
 
         $providedService = new Providedservices();
 
-        $providedService->id = $this->request->getPost("id");
-        $providedService->carId = $this->request->getPost("car_id");
+        if ($this->request->getPost("vin")) {
+            $vin = $this->request->getPost("vin");
+            $car = Cars::findFirst(array(
+                'vin = ?0',
+                'bind' => [$vin]
+            ));
+            if ($car != false) {
+                $providedService->carId = $car->id;
+            } else {
+                $this->flashSession->error("There is no car with vin equal to '$vin'");
+                return $this->dispatcher->forward(array(
+                    "controller" => "providedservices",
+                    "action" => "new"
+                ));
+            }
+        }
+        $providedService->milage = $this->request->getPost("milage");
         $providedService->serviceId = $this->request->getPost("service_id");
+        //TODO make it recieve checkbox value
+        if ($this->request->getPost("in_ms")) {
+            $providedService->inMs = $this->request->getPost("in_ms");
+        } else {
+            $providedService->inMs = new RawValue('default');
+        }
+        //TODO make it recieve checkbox value
+        if ($this->request->getPost("remind")) {
+            $providedService->remindStatus = $this->request->getPost("remind");
+        } else {
+            $providedService->remindStatus = new RawValue('default');
+        }
         $providedService->masterId = $this->request->getPost("master_id");
         $providedService->startDate = $this->request->getPost("start_date");
-        $providedService->finishDate = $this->request->getPost("finish_date");
-        $providedService->milage = $this->request->getPost("milage");
-        $providedService->remindDate = $this->request->getPost("remind_date");
-        $providedService->remindKm = $this->request->getPost("remind_km");
-        $providedService->moreInfo = $this->request->getPost("more_info");
-        //TODO make it recieve checkbox value
-        $providedService->remindStatus = $this->request->getPost("remind_status");
-        
+
+        if ($this->request->getPost("finish_date")) {
+            $providedService->finishDate = $this->request->getPost("finish_date");
+        } else {
+            $providedService->finishDate = new RawValue('default');
+        }
+
+        if ($this->request->getPost("remind_date")) {
+            $providedService->remindDate = $this->request->getPost("remind_date");
+        } else {
+            $providedService->remindDate = new RawValue('default');
+        }
+        if ($this->request->getPost("remind_km")) {
+            $providedService->remindKm = $this->request->getPost("remind_km");
+        } else {
+            $providedService->remindKm = new RawValue('default');
+        }
+        if ($this->request->getPost("more_info")) {
+            $providedService->moreInfo = $this->request->getPost("more_info");
+        } else {
+            $providedService->moreInfo = new RawValue('default');
+        }
+
 
         if (!$providedService->save()) {
             foreach ($providedService->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flashSession->error($message);
             }
             return $this->dispatcher->forward(array(
                 "controller" => "providedservices",
@@ -136,11 +179,8 @@ class ProvidedservicesController extends ControllerBase
             ));
         }
 
-        $this->flash->success("The provided service was created successfully");
-        return $this->dispatcher->forward(array(
-            "controller" => "providedservices",
-            "action" => "index"
-        ));
+        $this->flashSession->success("The provided service for car '$vin' was created successfully");
+        return $this->response->redirect("/".strtolower($this->session->get("auth")["role"])."/".strtolower($this->session->get("auth")["username"]));
 
     }
 

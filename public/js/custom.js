@@ -43,6 +43,7 @@ AK.updateOwnData = function() {
                     //Get data id
                     var dataId = el.parentNode.parentNode.getAttribute('data-id');
                     //Get current property's value
+                    //TODO escape and validate data
                     var data = el.textContent;
                     //Prepare form
                     var form = '<div class="form-inline-update">';
@@ -96,6 +97,7 @@ AK.inlineFormSendData = function(event) {
     var siblings = parent.children;
     var data = '';
     //Prepare data to send
+    //TODO escape and validate data
     for (var i = 0; i < (siblings.length - 2); i++) {
         //Get  model property name to update and id property
         var id = siblings[i].getAttribute("id");

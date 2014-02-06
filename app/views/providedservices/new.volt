@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="start_date">Start date</label>
+                    <label for="start_date">Start date*</label>
                     <input name="start_date" id="start_date" type="date" required="required">
                 </td>
             </tr>

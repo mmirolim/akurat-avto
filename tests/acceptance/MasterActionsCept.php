@@ -26,4 +26,13 @@ $I->fillField("milage", "20000");
 $I->fillField("daily_milage", "20");
 $I->doubleClick(".form-create-car input[type=submit]");
 $I->see("Car 'TESTCARVIN' was created successfully");
+$I->wantTo('add a new provided service');
+$I->seeLink("Add Provided Service");
+$I->doubleClick("a[href='/providedservices/new']");
+$I->seeElement("form.form-create-provided-service");
+$I->fillField("vin", "KLAF69ZEV012345");
+$I->fillField("milage", "20000");
+$I->fillField("start_date", "12.03.2014");
+$I->doubleClick(".form-create-provided-service input[type=submit]");
+$I->see("The provided service for car 'KLAF69ZEV012345' was created successfully");
 

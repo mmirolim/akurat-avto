@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Фев 06 2014 г., 06:25
+-- Время создания: Фев 06 2014 г., 08:50
 -- Версия сервера: 5.5.24-log
 -- Версия PHP: 5.4.3
 
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
 
 INSERT INTO `clients` (`id`, `username`, `password`, `fullname`, `contact_email`, `contact_phone`, `registered_date`, `more_info`, `notification_status`, `when_updated`) VALUES
 (1, 'anvar', '$2a$08$GXcxPDochIra7bvNvvjSYe8RnmGvGSHM0FeIFjfi4aiOD80bbpeoy', 'Анвар Анваров', 'exmpl@mail.com', '(99893) 567-12-32', '2013-12-12', 'Матиз, цвет салат "X 820 BA"', 0, '0000-00-00 00:00:00'),
-(2, 'valentin', '$2a$08$xn0TpNtbbpqNGxlnElV95emMw/DE5f7BvG/OXwlyUT4PVKXqCNhQi', 'Валентин Ан', 'mail7@gmail.ru', '(99893) 567-12-35', '2013-12-13', 'Белая', 1, '2014-01-15 14:32:46'),
+(2, 'valentin', '$2a$08$xn0TpNtbbpqNGxlnElV95emMw/DE5f7BvG/OXwlyUT4PVKXqCNhQi', 'Валентин Ан', 'mail7@gmail.ru', '(99893) 567-12-35', '2013-12-13', 'Белая', 1, '2014-02-06 08:49:09'),
 (3, 'sanjar', '$2a$08$FMa2OMhYX1e5xPyWstG1EuhxGLRwZqzcAtoME8ZO9JLSnolWMHCFm', 'Санжар Абдурахманов', 'mail@g.ru', '(99890) 124-96-01', '2013-10-24', 'Shkoda, красная "F321BA"', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
@@ -240,14 +240,14 @@ CREATE TABLE IF NOT EXISTS `provided_services` (
   `id` mediumint(9) unsigned NOT NULL AUTO_INCREMENT COMMENT 'auto increment',
   `car_id` mediumint(9) unsigned NOT NULL COMMENT 'car id',
   `service_id` tinyint(4) unsigned NOT NULL COMMENT 'work id',
-  `in_ms` tinyint(1) NOT NULL COMMENT 'Is provided service in maintenance schedule',
+  `in_ms` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Is provided service in maintenance schedule',
   `master_id` smallint(6) unsigned NOT NULL COMMENT 'master id',
   `start_date` date NOT NULL COMMENT 'date of work started',
   `finish_date` date NOT NULL COMMENT 'date of work finished',
   `milage` mediumint(9) NOT NULL COMMENT 'car milage on a date of service in km',
   `remind_date` date NOT NULL COMMENT 'remind at x date',
   `remind_km` mediumint(9) unsigned NOT NULL COMMENT 'remind after x km',
-  `remind_status` tinyint(1) NOT NULL COMMENT '1 or 0, yes or no if already reminded service provided',
+  `remind_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1 or 0, yes or no if already reminded service provided',
   `more_info` text NOT NULL COMMENT 'more info',
   `when_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
