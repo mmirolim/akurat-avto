@@ -5,36 +5,36 @@
             <tr>
                 <td>
                     <label for="username">Username*</label>
-                    {{ text_field("username", "size":30) }}
+                    {{ text_field("username", "size":30, 'required':'required') }}
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="password">Password*</label>
-                    {{ text_field("password", "size":30) }}
+                    {{ text_field("password", "size":30, 'required':'required') }}
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="fullname">Fullname*</label>
-                    {{ text_field("fullname", "size":30) }}
+                    {{ text_field("fullname", "size":30, 'required':'required') }}
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="contact_phone">Contactphone*</label>
-                    {{ text_field("contact_phone", "size":30) }}
+                    <label for="contact_phone">Contact phone*</label>
+                    <input name="contact_phone" id="contact_phone" type="tel" required="required">
                 </td>
             </tr>
             <tr class="optional-field">
                 <td>
-                    <label for="contact_email">Contactemail</label>
-                    {{ text_field("contact_email", "size":30) }}
+                    <label for="contact_email">Contact email</label>
+                    <input name="contact_email" id="contact_email" type="email">
                 </td>
             </tr>
             <tr class="optional-field">
                 <td>
-                    <label for="more_info">Moreinfo</label>
+                    <label for="more_info">More info</label>
                     {{ text_field("more_info", "size":60) }}
                 </td>
             </tr>

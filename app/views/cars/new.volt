@@ -4,44 +4,44 @@
         <table>
         <tr>
             <td >
-                <label for="vin">VIN</label>
-                {{ text_field("vin", "type":40)}}
+                <label for="vin">VIN*</label>
+                {{ text_field("vin", "type":40, 'required':'required')}}
             </td>
         </tr>
         <tr>
             <td >
-                <label for="registration_number">Registration Number</label>
-                {{ text_field("registration_number", "type":30) }}
+                <label for="registration_number">Registration Number*</label>
+                {{ text_field("registration_number", "type":30, 'required':'required') }}
             </td>
         </tr>
         <tr>
             <td >
                 <label for="username">Owner's username</label>
-                {{ text_field("username", "type":"number") }}
+                {{ text_field("username", 'required':'required') }}
             </td>
         </tr>
         <tr>
             <td >
-                <label for="model_id">Model</label>
-                {{ select("model_id",carModels, 'using':['id','name']) }}
+                <label for="model_id">Model*</label>
+                {{ select("model_id",carModels, 'using':['id','name'], 'required':'required') }}
             </td>
         </tr>
         <tr>
             <td >
-                <label for="year">Year of the car in XXXX format</label>
-                {{ text_field("year", "type":30) }}
+                <label for="year">Year of the car*</label>
+                <input name="year" id="year" type="date" required="required"/>
             </td>
         </tr>
         <tr>
             <td >
-                <label for="milage">Milage in km</label>
-                {{ text_field("milage", "type":"number") }}
+                <label for="milage">Milage in km*</label>
+                <input name="milage" id="milage" type="number" required="required"/>
             </td>
         </tr>
         <tr>
             <td >
-                <label for="daily_milage">Dailymilage in km</label>
-                {{ text_field("daily_milage", "type":"number") }}
+                <label for="daily_milage">Dailymilage in km*</label>
+                <input name="daily_milage" id="daily_milage" type="number" required="required"/>
             </td>
         </tr>
         <tr class="optional-field">

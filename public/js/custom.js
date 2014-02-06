@@ -256,7 +256,7 @@ AK.styleDynatableControls = function() {
 //Add datepicker to appropriate input tags
 //TODO use component in datepicker elements
 AK.addDatepicker = function () {
-    var els = ['#startdate','#finishdate','#reminddate'];
+    var els = ['#start_date','#finish_date','#remind_date','#year'];
     for (key in els) {
         $(els[key]).datepicker({
             format : 'yyyy-mm-dd'
