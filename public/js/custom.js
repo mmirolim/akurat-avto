@@ -43,6 +43,7 @@ AK.updateOwnData = function() {
                     //Get data id
                     var dataId = el.parentNode.parentNode.getAttribute('data-id');
                     //Get current property's value
+                    //TODO escape and validate data
                     var data = el.textContent;
                     //Prepare form
                     var form = '<div class="form-inline-update">';
@@ -96,6 +97,7 @@ AK.inlineFormSendData = function(event) {
     var siblings = parent.children;
     var data = '';
     //Prepare data to send
+    //TODO escape and validate data
     for (var i = 0; i < (siblings.length - 2); i++) {
         //Get  model property name to update and id property
         var id = siblings[i].getAttribute("id");
@@ -256,7 +258,7 @@ AK.styleDynatableControls = function() {
 //Add datepicker to appropriate input tags
 //TODO use component in datepicker elements
 AK.addDatepicker = function () {
-    var els = ['#startdate','#finishdate','#reminddate'];
+    var els = ['#start_date','#finish_date','#remind_date','#year'];
     for (key in els) {
         $(els[key]).datepicker({
             format : 'yyyy-mm-dd'
@@ -276,6 +278,29 @@ AK.formatDates = function(){
         els[i].textContent = localDate;
     }
 }
+//Set searchable field in client search
+AK.setClientSearchField = function() {
+    var form = document.getElementsByClassName('form-search-client');
+    //Check if required form exists
+    if (form.length == 0) { return }
+    //Select selector of field names
+    var select = document.getElementById('search-fields');
+    //Show selector
+    select.style.display = 'block';
+    //Select label for search input
+    var label = document.getElementById('search-field-label');
+    //Select search input
+    var searchInput = document.getElementsByClassName('search-input-field')[0];
+    select.addEventListener('change',function(){
+    //Get field name for search
+        var searchByField = event.target.value;
+    //Set appropriate label for attr
+        label.setAttribute('for', searchByField);
+    //Set appropriate id and name for search input
+        searchInput.setAttribute('id', searchByField);
+        searchInput.setAttribute('name', searchByField);
+    });
+}
 $(window).load(function(){
 
     //TODO add appropriate marks to body tag class to identify what functions to initialize
@@ -294,5 +319,8 @@ $(window).load(function(){
 
     //Call function to add datepicker
     AK.addDatepicker();
+
+    //Enable different searchable fields for client search
+    AK.setClientSearchField();
 
 });

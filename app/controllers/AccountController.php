@@ -14,48 +14,43 @@ class AccountController extends ControllerBase
 {
     public function indexAction()
     {
-        //TODO harden security
-        $this->persistent->username = $this->session->get("auth")["username"];
 
-        //Get all employees
-        $this->view->employees = Employees::inArrayById();
+    }
 
-        //Get all services
-        $this->view->carServices = CarServices::inArrayById();
-
-        //Get appropriate data according to users role
-        switch($this->session->get("auth")["role"])
-        {
-            case 'Client':
-                //Call clientAction
-                $this->clientAction();
-                //Show view of clientAction
-                $this->view->pick("account/client");
-                break;
-            case 'Employee':
-                $this->employeeAction();
-                $this->view->pick("account/employee");
-                break;
-            case 'Master':
-                break;
-            case 'Boss':
-                break;
-            case 'Admin':
-                break;
-            default:
-                $this->flash->error("Wrong Role");
-                return $this->response->redirect("/");
+    /**
+     * Set common variables in all actions
+     */
+    protected function setCommonVars() {
+        $role = $this->session->get("auth")['role'];
+        if ($role != 'Client') {
+            $this->view->editAllowed = Security::isActionAllowed(array(
+                'controller' => 'providedservices',
+                'action' => 'edit',
+                'role' => $role
+            ));
+            $this->view->deleteAllowed = Security::isActionAllowed(array(
+                'controller' => 'providedservices',
+                'action' => 'delete',
+                'role' => $role
+            ));
         }
+        $this->view->setVars(array(
+            'employee' => Employees::findFirstByUsername($this->session->get("auth")["username"]),
+            'employees' => Employees::inArrayById(),
+            'carServices' => CarServices::inArrayById(),
+            'providedServices' => ProvidedServices::find()
+        ));
     }
 
     /**
      * Shows View for client role
      *
      */
-    protected function clientAction()
+    public function clientAction()
     {
         //Get client info
-        $this->view->client= Clients::findFirstByUsername($this->persistent->username);
+        $this->view->client = Clients::findFirstByUsername($this->session->get("auth")["username"]);
+        $this->setCommonVars();
 
     }
 
@@ -63,40 +58,37 @@ class AccountController extends ControllerBase
      * Shows View for employee role
      *
      */
-    protected function employeeAction()
+    public function employeeAction()
     {
-        //Get employee info
-        $this->view->employee = Employees::findFirstByUsername($this->persistent->username);
+        $this->setCommonVars();
     }
 
     /**
      * Shows View for master role
      *
      */
-    protected function masterAction()
+    public function masterAction()
     {
-        //Get employee info
-        $this->view->employee = Employees::findFirstByUsername($this->persistent->username);
+        $this->setCommonVars();
     }
 
     /**
      * Shows View for boss role
      *
      */
-    protected function bossAction()
+    public function bossAction()
     {
-        //Get employee info
-        $this->view->employee = Employees::findFirstByUsername($this->persistent->username);
+        $this->setCommonVars();
     }
 
     /**
      * Shows View for admin role
      *
      */
-    protected function adminAction()
+    public function adminAction()
     {
-        //Get employee info
-        $this->view->employee = Employees::findFirstByUsername($this->persistent->username);
+
+        $this->setCommonVars();
     }
 
 

@@ -23,6 +23,7 @@
             <th data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после КМ">КМ</th>
             <th width="120" data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после Даты">Дата</th>
             <th class="remind-status-th prs-th">Статус напоминания</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -41,6 +42,14 @@
                     <td class="km-{{ providedService.getRemindKmStatus(car.milage, car.dailyMilage, car.milageDate) }}">{{ providedService.getMilageRemind() }}</td>
                     <td class="date-{{ providedService.getRemindDateStatus() }}">{{ providedService.remindDate }}</td>
                     <td class="remind-status">{{ providedService.remindStatus }}</td>
+                    <td>
+                        {% if editAllowed %}
+                            {{link_to("/providedservices/edit/" ~ providedService.id, "Edit") }}
+                        {% endif %}
+                        {% if deleteAllowed %}
+                            {{link_to("/providedservices/delete/" ~ providedService.id, "Delete") }}
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         {% endif %}

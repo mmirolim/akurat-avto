@@ -3,6 +3,7 @@
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Mvc\Model\Resultset;
 use Phalcon\Paginator\Adapter\Model as Paginator;
+use Phalcon\Db\RawValue as RawValue;
 
 class ClientsController extends ControllerBase
 {
@@ -37,11 +38,7 @@ class ClientsController extends ControllerBase
 
         $clients = Clients::find($parameters);
         if (count($clients) == 0) {
-            $this->flash->notice("The search did not find any clients");
-            return $this->dispatcher->forward(array(
-                "controller" => "clients",
-                "action" => "index"
-            ));
+            $this->flashSession->notice("The search did not find any clients");
         }
 
         $paginator = new Paginator(array(
@@ -51,10 +48,22 @@ class ClientsController extends ControllerBase
         ));
 
         $this->view->page = $paginator->getPaginate();
+
+        $this->view->editAllowed = Security::isActionAllowed(array(
+            'controller' => $this->dispatcher->getControllerName(),
+            'action' => 'edit',
+            'role' => $this->session->get("auth")['role']
+        ));
+        $this->view->deleteAllowed = Security::isActionAllowed(array(
+            'controller' => $this->dispatcher->getControllerName(),
+            'action' => 'delete',
+            'role' => $this->session->get("auth")['role']
+        ));
+
     }
 
     /**
-     * Displayes the creation form
+     * Displays the creation form
      */
     public function newAction()
     {
@@ -99,7 +108,7 @@ class ClientsController extends ControllerBase
      */
     public function createAction()
     {
-
+        //TODO move integrity logic to Model
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(array(
                 "controller" => "clients",
@@ -112,12 +121,16 @@ class ClientsController extends ControllerBase
         $client->id = $this->request->getPost("id");
         $username = $this->request->getPost("username");
         //Check if same username is already in use as employee's username
-        $checkUsername = Employees::findFirst(array(
+        $checkInClients = Clients::findFirst(array(
             'username = ?0',
-            'bind' => $username
+            'bind' => [$username]
         ));
-        if ($checkUsername != false) {
-            $this->flash->error("This username already taken");
+        $checkInEmployees = Employees::findFirst(array(
+            'username = ?0',
+            'bind' => [$username]
+        ));
+        if ($checkInClients != false || $checkInEmployees != false) {
+            $this->flashSession->error("This username already taken");
             return $this->dispatcher->forward(array(
                 "controller" => "clients",
                 "action" => "new"
@@ -125,18 +138,27 @@ class ClientsController extends ControllerBase
         } else {
             $client->username = $username;
         }
+
         $client->password = $this->security->hash($this->request->getPost("password"));
         $client->fullname = $this->request->getPost("fullname");
-        $client->contactEmail = $this->request->getPost("contact_email");
         $client->contactPhone = $this->request->getPost("contact_phone");
+        if ($this->request->getPost("contact_email")) {
+            $client->contactEmail = $this->request->getPost("contact_email");
+        } else {
+            $client->contactEmail = new RawValue('default');
+        }
         //Set registration date as creation date
         $client->regDate = date("Y-m-d");
-        $client->moreInfo = $this->request->getPost("more_info");
+        if ($this->request->getPost("more_info")) {
+            $client->moreInfo = $this->request->getPost("more_info");
+        } else {
+            $client->moreInfo = new RawValue('default');
+        }
         
 
         if (!$client->save()) {
             foreach ($client->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flashSession->error($message);
             }
             return $this->dispatcher->forward(array(
                 "controller" => "clients",
@@ -144,11 +166,8 @@ class ClientsController extends ControllerBase
             ));
         }
 
-        $this->flash->success("Client was created successfully");
-        return $this->dispatcher->forward(array(
-            "controller" => "clients",
-            "action" => "index"
-        ));
+        $this->flashSession->success("Client '$client->username' was created successfully");
+        return $this->response->redirect("/".strtolower($this->session->get("auth")["role"])."/".strtolower($this->session->get("auth")["username"]));
 
     }
 
@@ -288,7 +307,7 @@ class ClientsController extends ControllerBase
             $this->flash->error("Client does not exist");
             return $this->response->redirect("/account/".$clientUsername."/view");
         }
-
+        //TODO use ternary if
         if($this->request->getPost("contact_phone")) {
             $client->contactPhone = $this->request->getPost("contact_phone");
         }

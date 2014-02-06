@@ -35,15 +35,15 @@ class LoginController extends ControllerBase
             if($username && $password) {
                 //First check if username belongs to employee
                 $user = Employees::findFirst(array(
-                        "username = :username:",
-                        "bind" => array('username' => $username)
+                        "username = ?0",
+                        "bind" => [$username]
                     ));
                 //If false check username in Clients table
                 If ($user == false) {
                     //Find the client in the database
                     $user = Clients::findFirst(array(
-                        "username = :username:",
-                        "bind" => array('username' => $username)
+                        "username = ?0",
+                        "bind" => [$username]
                     ));
                 }
 
@@ -57,7 +57,7 @@ class LoginController extends ControllerBase
                         //$urlSMS = 'http://192.168.1.106:8080/send/?pass=&number=%2B998909862900&data='.urlencode('User '.$user->username.' вошел в личный кабинет '.date('Y-m-d h:i:s')).'&submit=&id=';
                         //$output = file_get_contents($urlSMS);
                         //$this->flashSession->success("Test SMS sending via SMS gateway. Result => ".$output);
-                        return $this->response->redirect("/account/".$user->username);
+                        return $this->response->redirect("/".strtolower($this->session->get("auth")["role"])."/".$user->username);
                     } else {
                         $this->flashSession->error("Wrong username or/and password");
                     }

@@ -101,7 +101,7 @@ class Cars extends \Phalcon\Mvc\Model
     public function initialize()
     {
         //Skips fields/columns on both INSERT/UPDATE operations
-        $this->skipAttributes(array('whenUpdated'));
+        $this->skipAttributes(array('when_updated'));
 
         //Set has-many cars relationship
         $this->hasMany("id", "ProvidedServices", "carId");
@@ -169,6 +169,9 @@ class Cars extends \Phalcon\Mvc\Model
     {
         //TODO refactor health estimation should be done according to pending service types by their weight
         $providedServices = $this->getProvidedServices();
+        if ($providedServices->count() == 0) {
+            return "Undefined";
+        }
         $disabled = 0;
         $dateOk = 0;
         $kmOk = 0;
@@ -185,8 +188,8 @@ class Cars extends \Phalcon\Mvc\Model
                 }
             }
         }
-
-        $health = 100*($kmOk + $dateOk)/(2*(count($providedServices) - $disabled));
+        //Health in %
+        $health = 100*($kmOk + $dateOk)/(2*(count($providedServices) - $disabled)).'%';
 
         return $health;
 

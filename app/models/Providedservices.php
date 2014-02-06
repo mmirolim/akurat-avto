@@ -112,7 +112,7 @@ class ProvidedServices extends \Phalcon\Mvc\Model
         $this->belongsTo("masterId", "Employees", "id");
 
         //Skips fields/columns on both INSERT/UPDATE operations
-        $this->skipAttributes(array('whenUpdated'));
+        $this->skipAttributes(array('when_updated'));
 
         //Use dynamic update to improve performance
         $this->useDynamicUpdate(true);
