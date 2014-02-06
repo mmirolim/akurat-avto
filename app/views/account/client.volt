@@ -20,7 +20,7 @@
             {% for car in client.cars %}
             {# Get all provided services by car ordered by start date #}
                 {% for providedService in car.getProvidedServices() %}
-                    <tr>
+                    <tr class="in-regulation-{{ providedService.inMs }}">
                         <td>{{ providedService.id }}</td>
                         <td>{{ car.regNumber }}</td>
                         <td class="date-when">{{ providedService.startDate }}</td>

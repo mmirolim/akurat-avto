@@ -35,7 +35,7 @@ class Security extends Plugin
             //Private area resources (backend)
             $privateResources = array(
                 'roles' => array('index','search','create','new','edit','save','delete'),
-                'providedservices' => array('index','search','create','new','edit','save','delete'),
+                'providedservices' => array('index','search','create','new','edit','save','delete','confirm'),
                 'employees' => array('index','search','create','new','edit','save','delete'),
                 'clients' => array('index','search','create','new','edit','save','delete','updateOwn'),
                 'cars' => array('index','search','create','new','edit','save','delete','updateOwn','vin'),
@@ -63,7 +63,7 @@ class Security extends Plugin
 
             //Define array of resources and action accessible by Boss
             $bossResources = array(
-                'providedservices' => array('index','search','create','new','edit','save','delete'),
+                'providedservices' => array('index','search','create','new','edit','save','delete','confirm'),
                 'employees' => array('index','search','create','new','edit','save','delete'),
                 'clients' => array('index','search','create','new','edit','save','delete'),
                 'cars' => array('index','search','create','new','edit','save','delete','vin'),

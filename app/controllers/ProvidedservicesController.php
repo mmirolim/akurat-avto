@@ -244,11 +244,19 @@ class ProvidedservicesController extends ControllerBase
     }
 
     /**
+     * Confirm delete action
+     */
+    public function confirmAction($id=null)
+    {
+        $this->view->id = $id;
+    }
+
+    /**
      * Deletes a ProvidedService
      *
      * @param string $id
      */
-    public function deleteAction($id)
+    public function deleteAction($id = null)
     {
 
         $providedService = ProvidedServices::findFirstByid($id);

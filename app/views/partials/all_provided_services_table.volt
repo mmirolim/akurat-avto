@@ -19,7 +19,7 @@
     {# Get all provided services by car ordered by start date #}
     {% for providedService in providedServices %}
         {% set car = providedService.Cars %}
-        <tr>
+        <tr class="in-regulation-{{ providedService.inMs }}">
             <td>{{ providedService.id }}</td>
             <td>{{ car.regNumber }}</td>
             <td class="date-when">{{ providedService.startDate }}</td>
@@ -35,7 +35,7 @@
                 <td>
                 {{link_to("/providedservices/edit/" ~ providedService.id, "Edit") }}
                 {% if deleteAllowed %}
-                    {{link_to("/providedservices/delete/" ~ providedService.id, "Delete") }}
+                    {{link_to("/providedservices/confirm/" ~ providedService.id,"Delete") }}
                 {% endif %}
                 </td>
             {% endif %}
