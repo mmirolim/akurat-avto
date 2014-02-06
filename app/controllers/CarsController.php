@@ -113,8 +113,6 @@ class CarsController extends ControllerBase
         }
 
         $car = new Cars();
-        $this->view->clients = Clients::find();
-
         $car->vin = strtoupper($this->request->getPost("vin"));
         $car->regNumber = strtoupper($this->request->getPost("registration_number"));
         if ($this->request->getPost("username")) {

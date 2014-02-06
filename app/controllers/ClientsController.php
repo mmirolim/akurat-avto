@@ -63,7 +63,7 @@ class ClientsController extends ControllerBase
     }
 
     /**
-     * Displayes the creation form
+     * Displays the creation form
      */
     public function newAction()
     {

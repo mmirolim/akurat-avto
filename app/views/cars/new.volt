@@ -5,13 +5,13 @@
         <tr>
             <td >
                 <label for="vin">VIN*</label>
-                {{ text_field("vin", "type":40, 'required':'required')}}
+                {{ text_field("vin", "size":40, 'required':'required')}}
             </td>
         </tr>
         <tr>
             <td >
                 <label for="registration_number">Registration Number*</label>
-                {{ text_field("registration_number", "type":30, 'required':'required') }}
+                {{ text_field("registration_number", "size":30, 'required':'required') }}
             </td>
         </tr>
         <tr>
@@ -48,7 +48,7 @@
         <tr class="optional-field">
             <td >
                 <label for="more_info">Moreinfo</label>
-                {{ text_field("more_info", "type":"date") }}
+                {{ text_field("more_info") }}
             </td>
         </tr>
         <tr>

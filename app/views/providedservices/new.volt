@@ -65,7 +65,7 @@
             <tr class="optional-field">
                 <td>
                     <label for="more_info">More info</label>
-                    {{  text_field("more_info", "type":"date") }}
+                    {{  text_field("more_info") }}
                 </td>
             </tr>
             <tr>

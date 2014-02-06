@@ -39,6 +39,8 @@ class Security extends Plugin
                 'employees' => array('index','search','create','new','edit','save','delete'),
                 'clients' => array('index','search','create','new','edit','save','delete','updateOwn'),
                 'cars' => array('index','search','create','new','edit','save','delete','updateOwn','vin'),
+                'carbrands' => array('index','search','create','new','edit','save','delete'),
+                'carmodels' => array('index','search','create','new','edit','save','delete'),
                 'carservices' => array('index','search','create','new','edit','save','delete'),
                 'account' => array('index','client','employee','master','boss','admin','search','create','new','edit','save','delete'),
                 'maintenanceschedule' => array('index','search','create','new','edit','save','delete'),
@@ -65,6 +67,8 @@ class Security extends Plugin
                 'employees' => array('index','search','create','new','edit','save','delete'),
                 'clients' => array('index','search','create','new','edit','save','delete'),
                 'cars' => array('index','search','create','new','edit','save','delete','vin'),
+                'carbrands' => array('index','search','create','new','edit','save','delete'),
+                'carmodels' => array('index','search','create','new','edit','save','delete'),
                 'carservices' => array('index','search','create','new','edit','save','delete'),
                 'account' => array('index','boss'),
             );
@@ -74,6 +78,8 @@ class Security extends Plugin
                 'providedservices' => array('index','search','create','new','edit','save'),
                 'clients' => array('index','search','create','new','edit','save'),
                 'cars' => array('index','search','create','new','edit','save','vin'),
+                'carbrands' => array('index','search','create','new','edit','save'),
+                'carmodels' => array('index','search','create','new','edit','save'),
                 'account' => array('index','master'),
             );
 
@@ -82,6 +88,8 @@ class Security extends Plugin
                 'providedservices' => array('index','search'),
                 'clients' => array('index','search'),
                 'cars' => array('index','search','vin'),
+                'carbrands' => array('index','search'),
+                'carmodels' => array('index','search'),
                 'account' => array('index','employee'),
             );
             //Define array of resources and action accessible by Client
