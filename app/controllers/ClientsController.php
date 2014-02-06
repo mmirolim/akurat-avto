@@ -108,7 +108,7 @@ class ClientsController extends ControllerBase
      */
     public function createAction()
     {
-
+        //TODO move integrity logic to Model
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(array(
                 "controller" => "clients",
@@ -166,7 +166,7 @@ class ClientsController extends ControllerBase
             ));
         }
 
-        $this->flashSession->success("Client '".$client->username."' was created successfully");
+        $this->flashSession->success("Client '$client->username' was created successfully");
         return $this->response->redirect("/".strtolower($this->session->get("auth")["role"])."/".strtolower($this->session->get("auth")["username"]));
 
     }

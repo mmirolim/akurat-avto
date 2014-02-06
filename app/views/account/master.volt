@@ -13,9 +13,10 @@
     </div>
     <div class="large-12 columns">
         <ul>
-        <li>{{ link_to("/clients/new","Add Client") }}</li>
-        <li>{{ link_to("/cars/new","Add Car") }}</li>
-        <li>{{ link_to("/providedservices/new","Add Provided service") }}</li>
+            <li>{{ link_to("/clients/new","Add Client") }}</li>
+            <li>{{ link_to("/cars/new","Add Car") }}</li>
+            <li>{{ link_to("/providedservices/new","Add Provided service") }}</li>
+            <li>{{ link_to("/providedservices/new","Add new Model") }}</li>
         </ul>
     </div>
 

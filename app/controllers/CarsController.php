@@ -3,6 +3,7 @@
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Mvc\Model\Resultset;
 use Phalcon\Paginator\Adapter\Model as Paginator;
+use Phalcon\Db\RawValue as RawValue;
 
 class CarsController extends ControllerBase
 {
@@ -59,7 +60,7 @@ class CarsController extends ControllerBase
      */
     public function newAction()
     {
-
+        $this->view->carModels = CarModels::find(array('hydration' => Resultset::HYDRATE_ARRAYS));
     }
 
     /**
@@ -103,7 +104,7 @@ class CarsController extends ControllerBase
      */
     public function createAction()
     {
-
+        //TODO move integrity logic to Model
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(array(
                 "controller" => "cars",
@@ -114,17 +115,31 @@ class CarsController extends ControllerBase
         $car = new Cars();
         $this->view->clients = Clients::find();
 
-        $car->id = $this->request->getPost("id");
-        $car->vin = $this->request->getPost("vin");
-        $car->regNumber = $this->request->getPost("registration_number");
-        $car->ownerId = $this->request->getPost("owner_id");
+        $car->vin = strtoupper($this->request->getPost("vin"));
+        $car->regNumber = strtoupper($this->request->getPost("registration_number"));
+        if ($this->request->getPost("username")) {
+            $username = $this->request->getPost("username");
+            $owner = Clients::findFirst(array(
+                'username = ?0',
+                'bind' => [$username]
+            ));
+            if ($owner != false) {
+                $car->ownerId = $owner->id;
+            } else {
+                $this->flashSession->error("Client '".$username."' does not exists");
+            }
+        }
         $car->modelId = $this->request->getPost("model_id");
         //Set registration date as creation date
         $car->regDate = date('Y-m-d');
         $car->year = $this->request->getPost("year");
         $car->milage = $this->request->getPost("milage");
         $car->dailyMilage = $this->request->getPost("daily_milage");
-        $car->moreInfo = $this->request->getPost("more_info");
+        if ($this->request->getPost("more_info")) {
+            $car->moreInfo = $this->request->getPost("more_info");
+        } else {
+            $car->moreInfo = new RawValue('default');
+        }
         //Set milage date if milage isset
         if(isset($car->milage)) {
             $car->milageDate = date('Y-m-d');
@@ -133,7 +148,7 @@ class CarsController extends ControllerBase
 
         if (!$car->save()) {
             foreach ($car->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flashSession->error($message);
             }
             return $this->dispatcher->forward(array(
                 "controller" => "cars",
@@ -141,11 +156,8 @@ class CarsController extends ControllerBase
             ));
         }
 
-        $this->flash->success("Car was created successfully");
-        return $this->dispatcher->forward(array(
-            "controller" => "cars",
-            "action" => "index"
-        ));
+        $this->flashSession->success("Car '$car->vin' was created successfully");
+        return $this->response->redirect("/".strtolower($this->session->get("auth")["role"])."/".strtolower($this->session->get("auth")["username"]));
 
     }
 
