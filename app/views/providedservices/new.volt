@@ -22,14 +22,14 @@
             </tr>
             <tr>
                 <td>
-                    <label for="in_ms">In tech regulation</label>
-                    {{  check_field("in_ms", 'value':1) }}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="remind">Remind</label>
-                    {{  check_field("remind", 'value':1) }}
+                    <div class="large-6 small-12 columns">
+                        <label for="in_ms">In tech regulation</label>
+                        {{  check_field("in_ms", 'value':1) }}
+                    </div>
+                    <div class="large-6 small-12 columns">
+                        <label for="remind">Remind</label>
+                        {{  check_field("remind", 'value':1) }}
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -40,26 +40,26 @@
             </tr>
             <tr>
                 <td>
-                    <label for="start_date">Start date*</label>
-                    <input name="start_date" id="start_date" type="date" required="required">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="finish_date">Finish date</label>
-                    <input name="finish_date" id="finish_date" type="date">
-                </td>
-            </tr>
-            <tr class="in_ms-dependent remind-dependent optional-field">
-                <td>
-                    <label for="remind_date">Remind after date</label>
-                    <input name="remind_date" id="remind_date" type="date">
+                    <div class="large-6 small-12 columns">
+                        <label for="start_date">Start date*</label>
+                        <input name="start_date" id="start_date" type="date" required="required">
+                    </div>
+                    <div class="large-6 small-12 columns">
+                        <label for="finish_date">Finish date</label>
+                        <input name="finish_date" id="finish_date" type="date">
+                    </div>
                 </td>
             </tr>
             <tr class="in_ms-dependent remind-dependent optional-field">
                 <td>
-                    <label for="remind_km">Remind after km</label>
-                    <input name="remind_km" id="remind_km" type="number">
+                    <div class="large-6 small-12 columns">
+                        <label for="remind_date">Remind after date</label>
+                        <input name="remind_date" id="remind_date" type="date">
+                    </div>
+                    <div class="large-6 small-12 columns">
+                        <label for="remind_km">Remind after km</label>
+                        <input name="remind_km" id="remind_km" type="number">
+                    </div>
                 </td>
             </tr>
             <tr class="optional-field">

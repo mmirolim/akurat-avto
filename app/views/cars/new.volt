@@ -22,26 +22,27 @@
         </tr>
         <tr>
             <td >
-                <label for="model_id">Model*</label>
-                {{ select("model_id",carModels, 'using':['id','name'], 'required':'required') }}
+                <div class="large-6 small-12 columns">
+                    <label for="model_id">Model*</label>
+                    {{ select("model_id",carModels, 'using':['id','name'], 'required':'required') }}
+                </div>
+                <div class="large-6 small-12 columns">
+                    <label for="year">Year of the car*</label>
+                    <input name="year" id="year" type="date" required="required"/>
+                </div>
             </td>
         </tr>
         <tr>
             <td >
-                <label for="year">Year of the car*</label>
-                <input name="year" id="year" type="date" required="required"/>
-            </td>
-        </tr>
-        <tr>
-            <td >
-                <label for="milage">Milage in km*</label>
-                <input name="milage" id="milage" type="number" required="required"/>
-            </td>
-        </tr>
-        <tr>
-            <td >
-                <label for="daily_milage">Dailymilage in km*</label>
-                <input name="daily_milage" id="daily_milage" type="number" required="required"/>
+                <div class="large-6 small-12 columns">
+                    <label for="milage">Milage in km*</label>
+                    <input name="milage" id="milage" type="number" required="required"/>
+                </div>
+                <div class="large-6 small-12 columns">
+                    <label for="daily_milage">Dailymilage in km*</label>
+                    <input name="daily_milage" id="daily_milage" type="number" required="required"/>
+                </div>
+
             </td>
         </tr>
         <tr class="optional-field">
