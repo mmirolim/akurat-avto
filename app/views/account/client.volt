@@ -44,7 +44,7 @@
                     <h5 class="label radius secondary car-regnum">{{ car.regNumber }} - {{ car.carModels.name }}</h5>
                     <div class="total-health">
                         <h5>Total Health</h5>
-                        <span id="car-health" class="label radius success">{{ car.getHealth() }}%</span>
+                        <span id="car-health" class="label radius success">{{ car.getHealth() }}</span>
                     </div>
                     <div class="show-issues">
                         <h5>Issues</h5>
@@ -77,7 +77,7 @@
             {% for car in client.cars %}
                 <ul class="car-info" data-id="{{ car.id }}" data-update-url="/cars/updateOwn">
                 <li><h5 class="label radius secondary">{{ car.carModels.name }}</h5></li>
-                <li><span>RegNumber</span>{{ car.regNumber }}</li>
+                <li><span>Number:</span>{{ car.regNumber }}</li>
                 <li><span>Year:</span>{{ car.year }}</li>
                 <li><span>First service date:</span>{{ car.regDate }}</li>
                 <li><span>Current KM:</span><span class="milage" data-milage_date="{{ car.milageDate }}">{{ car.milage }}</span></li>
