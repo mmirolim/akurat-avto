@@ -23,7 +23,7 @@
                     {{ this.elements.getTopBarMenu() }}
             </div>
             <div id="main">
-                <div id="message-block" onclick="$(this).toggle();">
+                <div id="message-block" class="large-4 small-12 large-centered columns" onclick="$(this).toggle();">
                     {{ this.flashSession.output() }}
                 </div>
 		        {{ content() }}

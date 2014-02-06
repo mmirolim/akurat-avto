@@ -67,7 +67,7 @@ class Clients extends \Phalcon\Mvc\Model
     public function columnMap()
     {
         //Keys are the real names in the table and
-        //the values their names in the application
+        //the values are their names in the application
         return array(
             'id' => 'id',
             'username' => 'username',
@@ -76,7 +76,7 @@ class Clients extends \Phalcon\Mvc\Model
             'contact_email' => 'contactEmail',
             'contact_phone' => 'contactPhone',
             'registered_date' =>  'regDate',
-            'more_info'=>'moreInfo' ,
+            'more_info'=>'moreInfo',
             'notification_status' => 'notify',
             'when_updated'=> 'whenUpdated'
         );
@@ -86,10 +86,11 @@ class Clients extends \Phalcon\Mvc\Model
     public function initialize()
     {
         //Skips fields/columns on both INSERT/UPDATE operations
-        $this->skipAttributes(array('whenUpdated'));
+        //Column names have to be exact as in db table
+        $this->skipAttributes(array('when_updated'));
 
         //Skips fields on CREATE, default is set to 1 (true)
-        $this->skipAttributesOnCreate(array('notify'));
+        $this->skipAttributesOnCreate(array('notification_status'));
 
         //Set has-many cars relationship
         $this->hasMany("id", "Cars", "ownerId");
@@ -101,14 +102,5 @@ class Clients extends \Phalcon\Mvc\Model
         $this->addBehavior(new Blamable());
     }
 
-    /**
-     * Return the related "client's cars"
-     * @param null $parameters
-     * @return \Cars[]
-     */
-    public function getCars($parameters = null)
-    {
-        return $this->getRelated("Cars", $parameters);
-    }
 
 }

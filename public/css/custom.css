@@ -99,12 +99,7 @@ label {
 }
 
 #message-block {
-  text-align: center;
-  position: fixed;
-  width: 100%;
-  z-index: 100;
   cursor: pointer;
-  top: 4em;
 }
 
 #message-block .alert-box {
@@ -200,6 +195,12 @@ table {
 .form-basic {
 width: 30em;
 margin: 0 auto;
+}
+.optional-field {
+  background: rgb(216, 216, 216) !important;
+}
+.optional-field label {
+ color: rgb(97, 97, 97);
 }
 .table-schedule th, table-schedule td {
 border: 1px solid silver;

@@ -6,5 +6,5 @@
     <option value="id">Id</option>
 </select>
 {{ text_field("username","size":32, "class":"search-input-field") }}
-        {{ submit_button('Search','class':'button small') }}
+{{ submit_button('Search','class':'button small') }}
 </form>

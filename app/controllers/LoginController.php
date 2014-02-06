@@ -35,15 +35,15 @@ class LoginController extends ControllerBase
             if($username && $password) {
                 //First check if username belongs to employee
                 $user = Employees::findFirst(array(
-                        "username = :username:",
-                        "bind" => array('username' => $username)
+                        "username = ?0",
+                        "bind" => [$username]
                     ));
                 //If false check username in Clients table
                 If ($user == false) {
                     //Find the client in the database
                     $user = Clients::findFirst(array(
-                        "username = :username:",
-                        "bind" => array('username' => $username)
+                        "username = ?0",
+                        "bind" => [$username]
                     ));
                 }
 
