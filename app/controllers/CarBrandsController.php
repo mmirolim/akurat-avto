@@ -31,10 +31,10 @@ class CarBrandsController extends \Phalcon\Mvc\Controller
         }
 
         $brand = new CarBrands();
-        $brand->name = $this->request->getPost("brand");
+        $brand->setName($this->request->getPost("brand"));
 
         if (!$brand->save()) {
-            foreach ($carModel->getMessages() as $message) {
+            foreach ($brand->getMessages() as $message) {
                 $this->flashSession->error($message);
             }
             return $this->dispatcher->forward(array(
@@ -43,7 +43,7 @@ class CarBrandsController extends \Phalcon\Mvc\Controller
             ));
         }
 
-        $this->flashSession->success("Car brand '$brand->name' was created successfully");
+        $this->flashSession->success("Car brand '".$brand->getName()."' was created successfully");
         return $this->response->redirect($this->elements->getAccountRoute());
 
     }

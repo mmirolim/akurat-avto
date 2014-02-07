@@ -24,7 +24,7 @@
             <td >
                 <div class="large-6 small-12 columns">
                     <label for="model_id">Model*</label>
-                    {{ select("model_id",carModels, 'using':['id','name'], 'required':'required') }}
+                    {{ select("model_id",carModels, 'using':['_id','_name'], 'required':'required') }}
                 </div>
                 <div class="large-6 small-12 columns">
                     <label for="year">Year of the car*</label>

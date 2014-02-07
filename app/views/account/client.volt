@@ -5,11 +5,11 @@
             <tr>
                 <th>ID</th>
                 <th width="85" data-tooltip class="has-tip prs-th" title="Номер Машины">#</th>
+                <th data-tooltip class="has-tip prs-th" title="Пробег машины в километрах на момент тех. обслуживания">Пробег</th>
                 <th width="100" data-tooltip class="has-tip prs-th" title="Дата проведения тех. обслуживания">Когда</th>
                 <th data-tooltip class="has-tip prs-th" title="Тип технического облуживания">Tex. услуга</th>
-                <th data-tooltip class="has-tip prs-th" title="Пробег машины в километрах на момент тех. обслуживания">Пробег</th>
                 <th width="100" data-tooltip class="has-tip prs-th" title="Мастер выполнявший тех. обслуживани">Мастер</th>
-                <th data-tooltip class="has-tip prs-th" title="Дополнительная информация">Заметка</th>
+                <th data-tooltip class="has-tip prs-th" title="Дополнительная информация">Доп.инф.</th>
                 <th data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после КМ">КМ</th>
                 <th width="120" data-tooltip class="has-tip prs-th" title="Напоминание о необходимости провести тех. осмотр после Даты">Дата</th>
                 <th class="remind-status-th prs-th">Статус напоминания</th>
@@ -23,9 +23,9 @@
                     <tr class="in-regulation-{{ providedService.inMs }}">
                         <td>{{ providedService.id }}</td>
                         <td>{{ car.regNumber }}</td>
+                        <td>{{ providedService.milage }}</td>
                         <td class="date-when">{{ providedService.startDate }}</td>
                         <td>{{ carServices[providedService.serviceId]['service'] }}</td>
-                        <td>{{ providedService.milage }}</td>
                         <td>{{ employees[providedService.masterId]['fullname'] }}</td>
                         <td>{{ providedService.moreInfo }}</td>
                         <td class="km-{{ providedService.getRemindKmStatus(car.milage, car.dailyMilage, car.milageDate) }}">{{ providedService.getMilageRemind() }}</td>
@@ -43,7 +43,7 @@
             {% for key, car in client.cars %}
                 {# Create div block per car #}
                 <div class="analytic-data">
-                    <h5 class="label radius secondary car-regnum">{{ car.regNumber }} - {{ car.carModels.name }}</h5>
+                    <h5 class="label radius secondary car-regnum">{{ car.regNumber }} - {{ car.carModels.getName() }}</h5>
                     <div class="total-health">
                         <h5>Total Health</h5>
                         <span id="car-health" class="label radius success">{{ car.getHealth() }}</span>
@@ -80,7 +80,7 @@
                 <div class="car-data">
                 {% for car in client.cars %}
                     <ul class="car-info" data-id="{{ car.id }}" data-update-url="/cars/updateOwn">
-                    <li><h5 class="label radius secondary">{{ car.carModels.name }}</h5></li>
+                    <li><h5 class="label radius secondary">{{ car.carModels.getName() }}</h5></li>
                     <li><span>Number:</span>{{ car.regNumber }}</li>
                     <li><span>Year:</span>{{ car.year }}</li>
                     <li><span>First service date:</span>{{ car.regDate }}</li>

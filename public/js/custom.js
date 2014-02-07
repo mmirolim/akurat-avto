@@ -269,7 +269,7 @@ AK.addDatepicker = function () {
 AK.formatDates = function(){
     moment.lang(AK.lang);
     //Select in once all date elements
-    var els = document.querySelectorAll('[class^=date-],[id=table-provided-services] td:nth-child(3)');
+    var els = document.querySelectorAll('[class^=date-]');
     var elsTotal = els.length;
     for (var i = 0; i < elsTotal; i++) {
         var date = els[i].textContent;

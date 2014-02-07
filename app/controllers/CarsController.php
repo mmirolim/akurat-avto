@@ -349,12 +349,10 @@ class CarsController extends ControllerBase
             //Get all employees and cache it
             $this->view->employees = Employees::inArrayById(array(
                 "columns" => "id, fullname, job, contacts",
-                //"cache" => array("key" => "employees-list", "lifetime" => 300),
             ));
 
             //Get all services and cache it
             $this->view->carServices = CarServices::inArrayById( array(
-                //"cache" => array("key" => "car-services-list", "lifetime" => 300),
             ));
 
             $this->view->client = Clients::findFirst($car->ownerId);
@@ -364,17 +362,6 @@ class CarsController extends ControllerBase
             $this->flashSession->error("The search by Vin did not find any cars");
         }
 
-        $this->view->editAllowed = Security::isActionAllowed(array(
-            'controller' => 'providedservices',
-            'action' => 'edit',
-            'role' => $this->session->get("auth")['role']
-        ));
-        $this->view->deleteAllowed = Security::isActionAllowed(array(
-            'controller' => 'providedservices',
-            'action' => 'delete',
-            'role' => $this->session->get("auth")['role']
-        ));
-
-
     }
+
 }
