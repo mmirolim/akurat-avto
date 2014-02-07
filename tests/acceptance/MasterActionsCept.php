@@ -44,4 +44,14 @@ $I->seeElement("form.form-create-car-brand");
 $I->fillField("brand", "TESTBRAND");
 $I->doubleClick(".form-create-car-brand input[type=submit]");
 $I->see("Car brand 'TESTBRAND' was created successfully");
+$I->wantTo('add edit provided service information');
+$I->doubleClick("a[href='/providedservices/edit/1']");
+$I->seeElement("form.form-edit-provided-service");
+$I->fillField("vin", "FGFF69ZEV017877");
+$I->fillField("milage", "30000");
+$I->selectOption("service_id","Свечи зажигания");
+$I->selectOption("master_id","Дима Д");
+$I->fillField("start_date", "28.12.2013");
+$I->doubleClick(".form-edit-provided-service input[type=submit]");
+$I->see("The provided service with id '1' was saved successfully");
 

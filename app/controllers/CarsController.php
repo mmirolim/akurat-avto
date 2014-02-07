@@ -155,7 +155,7 @@ class CarsController extends ControllerBase
         }
 
         $this->flashSession->success("Car '$car->vin' was created successfully");
-        return $this->response->redirect("/".strtolower($this->session->get("auth")["role"])."/".strtolower($this->session->get("auth")["username"]));
+        return $this->response->redirect($this->elements->getAccountRoute());
 
     }
 

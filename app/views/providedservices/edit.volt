@@ -1,6 +1,6 @@
 <div class="large-4 large-centered columns">
     {{ form('/providedservices/save', 'method':'post', 'class':'form-edit-provided-service') }}
-        <h1>Edit Provided services</h1>
+        <h1>Edit Provided Service</h1>
         <table class="basic-form">
             <tr>
                 <td>

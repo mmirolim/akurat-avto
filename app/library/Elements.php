@@ -49,4 +49,9 @@ class Elements extends Component
     {
         return '<span class="button small" id="cancel" onclick="window.history.back()">Cancel</span>';
     }
+
+    public function getAccountRoute()
+    {
+        return "/".strtolower($this->session->get("auth")["role"])."/".strtolower($this->session->get("auth")["username"]);
+    }
 }

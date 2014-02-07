@@ -167,7 +167,7 @@ class ClientsController extends ControllerBase
         }
 
         $this->flashSession->success("Client '$client->username' was created successfully");
-        return $this->response->redirect("/".strtolower($this->session->get("auth")["role"])."/".strtolower($this->session->get("auth")["username"]));
+        return $this->response->redirect($this->elements->getAccountRoute());
 
     }
 

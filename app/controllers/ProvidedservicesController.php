@@ -70,7 +70,7 @@ class ProvidedservicesController extends ControllerBase
     public function editAction($id = null)
     {
 
-        if (!$this->request->isPost() && !is_null($id)) {
+        if (!is_null($id)) {
 
             $providedService = ProvidedServices::findFirstById($id);
             if (!$providedService) {
@@ -102,9 +102,9 @@ class ProvidedservicesController extends ControllerBase
             $this->view->providedService = $providedService;
 
         } else {
-            $this->view->disable();
+            //Show empty page
+            $this->view->disableLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
         }
-
 
     }
 
@@ -190,7 +190,7 @@ class ProvidedservicesController extends ControllerBase
         }
 
         $this->flashSession->success("The provided service for car '$vin' was created successfully");
-        return $this->response->redirect("/".strtolower($this->session->get("auth")["role"])."/".strtolower($this->session->get("auth")["username"]));
+        return $this->response->redirect($this->elements->getAccountRoute());
 
     }
 
@@ -210,17 +210,26 @@ class ProvidedservicesController extends ControllerBase
 
         $id = $this->request->getPost("id");
 
-        $providedService = ProvidedServices::findFirstByid($id);
+        $providedService = ProvidedServices::findFirstById($id);
         if (!$providedService) {
-            $this->flash->error("A provided service does not exist " . $id);
+            $this->flashSession->error("A provided service does not exist " . $id);
             return $this->dispatcher->forward(array(
                 "controller" => "providedservices",
                 "action" => "index"
             ));
         }
-
+        $vin = $providedService->carId = $this->request->getPost("vin");
+        $car = Cars::findFirstByVin($vin);
+        if ($car == false) {
+            $this->flashSession->error("There is no car with VIN '$vin'");
+            return $this->dispatcher->forward(array(
+                "controller" => "providedservices",
+                "action" => "edit",
+                "params" => array($providedService->id)
+            ));
+        }
+        $providedService->carId = $car->id;
         $providedService->id = $this->request->getPost("id");
-        $providedService->carId = $this->request->getPost("car_id");
         $providedService->serviceId = $this->request->getPost("service_id");
         $providedService->masterId = $this->request->getPost("master_id");
         $providedService->startDate = $this->request->getPost("start_date");
@@ -229,13 +238,13 @@ class ProvidedservicesController extends ControllerBase
         $providedService->remindDate = $this->request->getPost("remind_date");
         $providedService->remindKm = $this->request->getPost("remind_km");
         $providedService->more_info = $this->request->getPost("more_info");
-        $providedService->remindStatus = $this->request->getPost("remind_status");
+        $providedService->remindStatus = $this->request->getPost("remind");
         
 
         if (!$providedService->save()) {
 
             foreach ($providedService->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flashSession->error($message);
             }
 
             return $this->dispatcher->forward(array(
@@ -245,11 +254,8 @@ class ProvidedservicesController extends ControllerBase
             ));
         }
 
-        $this->flash->success("The provided service was updated successfully");
-        return $this->dispatcher->forward(array(
-            "controller" => "providedservices",
-            "action" => "index"
-        ));
+        $this->flashSession->success("The provided service with id '$providedService->id' was saved successfully");
+        return $this->response->redirect($this->elements->getAccountRoute());
 
     }
 
