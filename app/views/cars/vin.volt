@@ -43,12 +43,7 @@
                     <td class="date-{{ providedService.getRemindDateStatus() }}">{{ providedService.remindDate }}</td>
                     <td class="remind-status">{{ providedService.remindStatus }}</td>
                     <td>
-                        {% if editAllowed %}
-                            {{link_to("/providedservices/edit/" ~ providedService.id, "Edit") }}
-                        {% endif %}
-                        {% if deleteAllowed %}
-                            {{link_to("/providedservices/confirm/" ~ providedService.id, "Delete") }}
-                        {% endif %}
+                        {{  this.elements.getEditLinks(providedService.id,'providedservices') }}
                     </td>
                 </tr>
             {% endfor %}
@@ -58,21 +53,6 @@
 </div>
 {# Check if client is defined #}
 <div class="large-3 columns analytics-block">
-{% if client is defined %}
-    <div class="client-data">
-        <ul class="client-info">
-            <li><h5 class="label radius secondary">{{ client.fullname }}</h5></li>
-            <li><span>Phone:</span>{{ client.contactPhone }}</li>
-            <li> <span>Email:</span>{{ client.contactEmail }}</li>
-            <li> <span>Signup date:</span>{{ client.regDate }}</li>
-            <li> <span>Add info:</span>{{ client.moreInfo }}</li>
-            <li> <span>Username:</span>{{ client.username }}</li>
-            <li>
-                <span>Notify me :</span><?= $client->notify ? 'Yes' : 'No'?>
-            </li>
-        </ul>
-    </div>
-{% endif %}
 {# Check if car is found #}
 {% if car is defined %}
     <div class="car-data">
@@ -85,6 +65,27 @@
             <li><span>Milage KM/day:</span>{{ car.dailyMilage }}</li>
             <li><span>VIN:</span>{{ car.vin }}</li>
             <li><span>Add info:</span>{{ car.moreInfo }}</li>
+            <li>
+                {{  this.elements.getEditLinks(car.id) }}
+            </li>
+        </ul>
+    </div>
+{% endif %}
+{% if client is defined %}
+    <div class="client-data">
+        <ul class="client-info">
+            <li><h5 class="label radius secondary">{{ client.fullname }}</h5></li>
+            <li><span>Phone:</span>{{ client.contactPhone }}</li>
+            <li> <span>Email:</span>{{ client.contactEmail }}</li>
+            <li> <span>Signup date:</span>{{ client.regDate }}</li>
+            <li> <span>Add info:</span>{{ client.moreInfo }}</li>
+            <li> <span>Username:</span>{{ client.username }}</li>
+            <li>
+                <span>Notify me :</span><?= $client->notify ? 'Yes' : 'No'?>
+            </li>
+            <li>
+                {{  this.elements.getEditLinks(client.id,'clients') }}
+            </li>
         </ul>
     </div>
 {% endif %}

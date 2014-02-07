@@ -254,7 +254,7 @@ class ProvidedservicesController extends ControllerBase
             ));
         }
 
-        $this->flashSession->success("The provided service with id '$providedService->id' was saved successfully");
+        $this->flashSession->success("The provided service with id '$providedService->id' was updated successfully");
         return $this->response->redirect($this->elements->getAccountRoute());
 
     }

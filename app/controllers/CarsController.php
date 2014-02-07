@@ -335,9 +335,6 @@ class CarsController extends ControllerBase
     public function vinAction($identity = null)
     {
         //Check if $identity is null
-        if (is_null($identity) && !$this->request->isPost()) {
-            $this->flashSession->error("The VIN should be not empty and should be POST");
-        }
         if(is_null($identity)) {
             $identity = $this->request->getPost("car-identity");
         }

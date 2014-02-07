@@ -53,5 +53,5 @@ $I->selectOption("service_id","Свечи зажигания");
 $I->selectOption("master_id","Дима Д");
 $I->fillField("start_date", "28.12.2013");
 $I->doubleClick(".form-edit-provided-service input[type=submit]");
-$I->see("The provided service with id '1' was saved successfully");
+$I->see("The provided service with id '1' was updated successfully");
 

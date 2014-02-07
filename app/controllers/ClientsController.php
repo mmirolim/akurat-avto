@@ -198,20 +198,27 @@ class ClientsController extends ControllerBase
 
         $client->id = $this->request->getPost("id");
         $client->username = $this->request->getPost("username");
-        if($client->password != $this->request->getPost("password")) {
+        if($client->password != $this->security->hash($this->request->getPost("password"))) {
             $client->password = $this->security->hash($this->request->getPost("password"));
         }
         $client->fullname = $this->request->getPost("fullname");
-        $client->contactEmail = $this->request->getPost("contact_email");
         $client->contactPhone = $this->request->getPost("contact_phone");
-        $client->moreInfo = $this->request->getPost("more_info");
-        $client->notify = $this->request->getPost("notify");
-        
+        if ($this->request->getPost("contact_email")) {
+            $client->contactEmail = $this->request->getPost("contact_email");
+        } else {
+            $client->contactEmail = new RawValue('default');
+        }
+        if ($this->request->getPost("more_info")) {
+            $client->moreInfo = $this->request->getPost("more_info");
+        } else {
+            $client->moreInfo = new RawValue('default');
+        }
+
 
         if (!$client->save()) {
 
             foreach ($client->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flashSession->error($message);
             }
 
             return $this->dispatcher->forward(array(
@@ -221,11 +228,8 @@ class ClientsController extends ControllerBase
             ));
         }
 
-        $this->flash->success("Client was updated successfully");
-        return $this->dispatcher->forward(array(
-            "controller" => "clients",
-            "action" => "index"
-        ));
+        $this->flashSession->success("Client '$client->username' was updated successfully");
+        return $this->response->redirect($this->elements->getAccountRoute());
 
     }
 
