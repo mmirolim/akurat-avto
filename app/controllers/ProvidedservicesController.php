@@ -70,9 +70,9 @@ class ProvidedservicesController extends ControllerBase
     public function editAction($id = null)
     {
 
-        if (!$this->request->isPost() && $this->request->getPost("id") > 0) {
+        if (!$this->request->isPost() && !is_null($id)) {
 
-            $providedService = ProvidedServices::findFirstByid($id);
+            $providedService = ProvidedServices::findFirstById($id);
             if (!$providedService) {
                 $this->flash->error("A provided service was not found");
                 return $this->dispatcher->forward(array(
@@ -80,22 +80,32 @@ class ProvidedservicesController extends ControllerBase
                     "action" => "index"
                 ));
             }
+            $this->view->carServices = CarServices::find();
+            $this->view->employees = Employees::find();
+            $car = Cars::findFirstById($providedService->carId);
 
-            $this->view->id = $providedService->id;
+            //Set default values to form elements
+            $this->tag->setDefault("vin",$car->vin);
+            $this->tag->setDefault("id",$providedService->id);
+            $this->tag->setDefault("service_id",$providedService->serviceId);
+            $this->tag->setDefault("milage",$providedService->milage);
+            $this->tag->setDefault("in_ms",$providedService->inMs);
+            $this->tag->setDefault("remind",$providedService->remindStatus);
+            $this->tag->setDefault("master_id",$providedService->masterId);
+            $this->tag->setDefault("start_date",$providedService->startDate);
+            $this->tag->setDefault("finish_date",$providedService->finishDate);
+            $this->tag->setDefault("remind_date",$providedService->remindDate);
+            $this->tag->setDefault("remind_km",$providedService->remindKm);
+            $this->tag->setDefault("more_info",$providedService->moreInfo);
 
-            $this->tag->setDefault("id", $providedService->id);
-            $this->tag->setDefault("car_id", $providedService->carId);
-            $this->tag->setDefault("service_id", $providedService->serviceId);
-            $this->tag->setDefault("master_id", $providedService->masterId);
-            $this->tag->setDefault("start_date", $providedService->startDate);
-            $this->tag->setDefault("finish_date", $providedService->finishDate);
-            $this->tag->setDefault("milage", $providedService->milage);
-            $this->tag->setDefault("remind_date", $providedService->remindDate);
-            $this->tag->setDefault("remind_km", $providedService->remindKm);
-            $this->tag->setDefault("remind_status", $providedService->remindStatus);
-            $this->tag->setDefault("more_info", $providedService->moreInfo);
+            $this->view->car = $car;
+            $this->view->providedService = $providedService;
 
+        } else {
+            $this->view->disable();
         }
+
+
     }
 
     /**
