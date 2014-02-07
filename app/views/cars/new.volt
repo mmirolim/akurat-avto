@@ -52,7 +52,10 @@
             </td>
         </tr>
         <tr>
-            <td>{{ submit_button("class":"button small","Сохранить") }}</td>
+            <td>
+                {{ submit_button("class":"button small","Сохранить") }}
+                {{ this.elements.getCancelButton() }}
+            </td>
         </tr>
     </table>
     </form>

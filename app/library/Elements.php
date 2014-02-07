@@ -44,4 +44,9 @@ class Elements extends Component
     {
         return '<a class="button" href="zxing://scan/?ret=http%3A%2F%2Fakurat.auto:8080%2Fcars%2Fvin%2F%7BCODE%7D%2F">Find car by QR Code</a>';
     }
+
+    public function getCancelButton()
+    {
+        return '<span class="button small" id="cancel" onclick="window.history.back()">Cancel</span>';
+    }
 }

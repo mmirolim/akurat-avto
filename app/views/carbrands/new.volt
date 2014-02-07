@@ -6,5 +6,6 @@
     <label for="brand">New car brand name*</label>
     {{ text_field("brand", "size":40, 'required':'required')}}
     {{ submit_button("class":"button small","Сохранить") }}
+    {{ this.elements.getCancelButton() }}
     </form>
 </div>
