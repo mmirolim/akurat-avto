@@ -47,7 +47,7 @@
                             {{link_to("/providedservices/edit/" ~ providedService.id, "Edit") }}
                         {% endif %}
                         {% if deleteAllowed %}
-                            {{link_to("/providedservices/delete/" ~ providedService.id, "Delete") }}
+                            {{link_to("/providedservices/confirm/" ~ providedService.id, "Delete") }}
                         {% endif %}
                     </td>
                 </tr>
