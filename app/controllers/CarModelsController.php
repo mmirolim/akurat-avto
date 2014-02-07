@@ -45,7 +45,7 @@ class CarModelsController extends \Phalcon\Mvc\Controller
         }
 
         $this->flashSession->success("Car model '$carModel->name' was created successfully");
-        return $this->response->redirect("/".strtolower($this->session->get("auth")["role"])."/".strtolower($this->session->get("auth")["username"]));
+        return $this->response->redirect($this->elements->getAccountRoute());
     }
 
     /**

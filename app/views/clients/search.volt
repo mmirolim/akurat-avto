@@ -44,7 +44,7 @@
                 {% endif %}
             </td>
             <td>{% if deleteAllowed %}
-                    {{link_to("/clients/delete/" ~ client.id, "Delete") }}
+                    {{link_to("/clients/confirm/" ~ client.id, "Delete") }}
                 {% endif %}
             </td>
         </tr>

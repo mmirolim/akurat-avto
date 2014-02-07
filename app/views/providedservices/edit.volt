@@ -1,10 +1,10 @@
 <div class="large-4 large-centered columns">
-    {{ form('/providedservices/create', 'method':'post', 'class':'form-create-provided-service') }}
-        <h1>Add Provided Service</h1>
+    {{ form('/providedservices/save', 'method':'post', 'class':'form-edit-provided-service') }}
+        <h1>Edit Provided Service</h1>
         <table class="basic-form">
             <tr>
                 <td>
-                    <label for="vin">Car VIN*</label>
+                    <label for="vin">{{ link_to('/cars/vin/'~car.vin,'Car VIN*') }}</label>
                     {{  text_field("vin", "size":"40", 'required':'required') }}
                 </td>
             </tr>
@@ -17,7 +17,7 @@
             <tr>
                 <td>
                     <label for="milage">Car milage in km*</label>
-                    <input name="milage" id="milage" type="number" required="required">
+                    <input name="milage" id="milage" type="number" required="required" value="{{ providedService.milage }}">
                 </td>
             </tr>
             <tr>
@@ -42,11 +42,11 @@
                 <td>
                     <div class="large-6 small-12 columns">
                         <label for="start_date">Start date*</label>
-                        <input name="start_date" id="start_date" type="date" required="required">
+                        <input name="start_date" id="start_date" type="date" required="required" value="{{ providedService.startDate }}">
                     </div>
                     <div class="large-6 small-12 columns">
                         <label for="finish_date">Finish date</label>
-                        <input name="finish_date" id="finish_date" type="date">
+                        <input name="finish_date" id="finish_date" type="date" value="{{ providedService.finishDate }}">
                     </div>
                 </td>
             </tr>
@@ -54,11 +54,11 @@
                 <td>
                     <div class="large-6 small-12 columns">
                         <label for="remind_date">Remind after date</label>
-                        <input name="remind_date" id="remind_date" type="date">
+                        <input name="remind_date" id="remind_date" type="date" value="{{ providedService.remindDate }}">
                     </div>
                     <div class="large-6 small-12 columns">
                         <label for="remind_km">Remind after km</label>
-                        <input name="remind_km" id="remind_km" type="number">
+                        <input name="remind_km" id="remind_km" type="number" value="{{ providedService.remindKm }}">
                     </div>
                 </td>
             </tr>
@@ -70,7 +70,8 @@
             </tr>
             <tr>
                 <td>
-                    {{ submit_button("class":"button small","Сохранить") }}
+                    {{ hidden_field("id") }}
+                    {{ submit_button('class':'button small',"Сохранить") }}
                     {{ this.elements.getCancelButton() }}
                 </td>
             </tr>

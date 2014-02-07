@@ -44,7 +44,7 @@ class CarBrandsController extends \Phalcon\Mvc\Controller
         }
 
         $this->flashSession->success("Car brand '$brand->name' was created successfully");
-        return $this->response->redirect("/".strtolower($this->session->get("auth")["role"])."/".strtolower($this->session->get("auth")["username"]));
+        return $this->response->redirect($this->elements->getAccountRoute());
 
     }
 

@@ -155,7 +155,7 @@ class CarsController extends ControllerBase
         }
 
         $this->flashSession->success("Car '$car->vin' was created successfully");
-        return $this->response->redirect("/".strtolower($this->session->get("auth")["role"])."/".strtolower($this->session->get("auth")["username"]));
+        return $this->response->redirect($this->elements->getAccountRoute());
 
     }
 
@@ -335,9 +335,6 @@ class CarsController extends ControllerBase
     public function vinAction($identity = null)
     {
         //Check if $identity is null
-        if (is_null($identity) && !$this->request->isPost()) {
-            $this->flashSession->error("The VIN should be not empty and should be POST");
-        }
         if(is_null($identity)) {
             $identity = $this->request->getPost("car-identity");
         }

@@ -8,5 +8,6 @@
         <label for="model">New Model name and year*</label>
         {{ text_field("model", "size":40, 'required':'required')}}
         {{ submit_button("class":"button small","Сохранить") }}
+        {{ this.elements.getCancelButton() }}
     </form>
 </div>

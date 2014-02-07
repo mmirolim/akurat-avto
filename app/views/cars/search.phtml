@@ -44,7 +44,7 @@
             <td><?php echo $car->dailymilage ?></td>
             <td><?php echo $car->moreinfo ?></td>
             <td><?php echo $this->tag->linkTo(array("/cars/edit/" . $car->id, "Edit")); ?></td>
-            <td><?php echo $this->tag->linkTo(array("/cars/delete/" . $car->id, "Delete")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("/cars/confirm/" . $car->id, "Delete")); ?></td>
         </tr>
     <?php } ?>
     </tbody>
