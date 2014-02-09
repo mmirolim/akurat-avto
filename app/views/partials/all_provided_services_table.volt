@@ -25,7 +25,7 @@
             <td>{{ providedService.milage }}</td>
             <td class="date-when">{{ providedService.startDate }}</td>
             <td>{{ carServices[providedService.serviceId]['_service'] }}</td>
-            <td>{{ employees[providedService.masterId]['fullname'] }}</td>
+            <td>{{ employees[providedService.masterId]['_fullname'] }}</td>
             <td>{{ providedService.moreInfo }}</td>
             <td class="km-{{ providedService.getRemindKmStatus(car.getMilage(), car.getDailyMilage(), car.getMilageDate()) }}">
                 {{ providedService.getMilageRemind() }}

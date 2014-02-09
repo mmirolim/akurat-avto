@@ -65,7 +65,7 @@ class Cars extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", nullable=true)
      */
-    protected $_moreInfo;
+    protected $_info;
 
     /**
      * When last milage updated
@@ -104,7 +104,7 @@ class Cars extends \Phalcon\Mvc\Model
             'year' => '_year',
             'milage' => '_milage',
             'daily_milage' =>  '_dailyMilage',
-            'more_info'=>'_moreInfo' ,
+            'more_info'=>'_info' ,
             'milage_date' => '_milageDate',
             'when_updated'=> '_whenUpdated'
         );
@@ -125,7 +125,7 @@ class Cars extends \Phalcon\Mvc\Model
         $this->belongsTo("_modelId", "CarModels", "_id");
 
         //Set belongs to model relationship
-        $this->belongsTo("_ownerId", "Clients", "id");
+        $this->belongsTo("_ownerId", "Clients", "_id");
 
         //Use dynamic update to improve performance
         $this->useDynamicUpdate(true);
@@ -179,11 +179,11 @@ class Cars extends \Phalcon\Mvc\Model
     public function setOwner($username)
     {
         $owner = Clients::findFirst(array(
-            'username = ?0',
+            '_username = ?0',
             'bind' => [$username]
         ));
         if ($owner != false) {
-            $this->_ownerId = $owner->id;
+            $this->_ownerId = $owner->getId();
         } else {
             $this->_valid = false;
             $this->_flashSession->error("The is no client with username '$username'");
@@ -258,18 +258,18 @@ class Cars extends \Phalcon\Mvc\Model
         return $this->_dailyMilage;
     }
 
-    public function setMoreInfo($info)
+    public function setInfo($info)
     {
         if (empty($info)) {
-            $this->_moreInfo = new RawValue('default');
+            $this->_info = new RawValue('default');
         } else {
-            $this->_moreInfo = $info;
+            $this->_info = $info;
         }
     }
 
-    public function getMoreInfo()
+    public function getInfo()
     {
-        return $this->_moreInfo;
+        return $this->_info;
     }
 
     public function getMilageDate()

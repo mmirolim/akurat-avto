@@ -97,7 +97,7 @@ class CarsController extends ControllerBase
             $this->tag->setDefault("year", $car->getYear());
             $this->tag->setDefault("milage", $car->getMilage());
             $this->tag->setDefault("daily_milage", $car->getDailyMilage());
-            $this->tag->setDefault("more_info", $car->getMoreInfo());
+            $this->tag->setDefault("more_info", $car->getInfo());
             $this->tag->setDefault("when_updated", $car->getWhenUpdated());
             $this->tag->setDefault("milage_date", $car->getMilageDate());
             
@@ -122,7 +122,7 @@ class CarsController extends ControllerBase
         $car->setYear($this->request->getPost("year"));
         $car->setMilage($this->request->getPost("milage"));
         $car->setDailyMilage($this->request->getPost("daily_milage"));
-        $car->setMoreInfo($this->request->getPost("more_info"));
+        $car->setInfo($this->request->getPost("more_info"));
         $car->setRegDate();
 
         if (!$car->save()) {
@@ -176,7 +176,7 @@ class CarsController extends ControllerBase
         $car->setYear($this->request->getPost("year"));
         $car->setMilage($this->request->getPost("milage"));
         $car->setDailyMilage($this->request->getPost("daily_milage"));
-        $car->setMoreInfo($this->request->getPost("more_info"));
+        $car->setInfo($this->request->getPost("more_info"));
 
         if (!$car->save()) {
 
@@ -288,7 +288,7 @@ class CarsController extends ControllerBase
             $car->setDailyMilage($this->request->getPost("daily_milage"));
         }
         if($this->request->getPost("more_info")) {
-            $car->setMoreInfo($this->request->getPost("more_info"));
+            $car->setInfo($this->request->getPost("more_info"));
         }
 
 
@@ -306,7 +306,8 @@ class CarsController extends ControllerBase
         $obj->vin = $car->getVin();
         $obj->milage = $car->getMilage();
         $obj->dailyMilage = $car->getDailyMilage();
-        $obj->more_info = $car->getMoreInfo();
+        $obj->more_info = $car->getInfo();
+
         echo json_encode($obj);
         $this->view->disable();
 
@@ -333,7 +334,7 @@ class CarsController extends ControllerBase
             //Make resultset available in view
             //Get all employees and cache it
             $this->view->employees = Employees::inArrayById(array(
-                "columns" => "id, fullname, job, contacts",
+                "columns" => "_id, _fullname, _job, _contacts",
             ));
 
             //Get all services and cache it

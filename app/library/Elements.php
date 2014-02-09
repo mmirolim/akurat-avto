@@ -10,6 +10,7 @@ use Phalcon\Mvc\User\Component;
 
 class Elements extends Component
 {
+    //TODO move session service to initialize method and put into protected var
     public function getTopBarMenu()
     {
         //Create top nav left

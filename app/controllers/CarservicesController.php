@@ -150,7 +150,7 @@ class CarServicesController extends ControllerBase
         $carService = new CarServices();
 
         $carService->setService($this->request->getPost("service"));
-        $carService->setMoreInfo($this->request->getPost("more_info"));
+        $carService->setInfo($this->request->getPost("more_info"));
         
 
         if (!$carService->save()) {

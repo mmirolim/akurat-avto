@@ -26,7 +26,7 @@
                         <td>{{ providedService.milage }}</td>
                         <td class="date-when">{{ providedService.startDate }}</td>
                         <td>{{ carServices[providedService.serviceId]['_service'] }}</td>
-                        <td>{{ employees[providedService.masterId]['fullname'] }}</td>
+                        <td>{{ employees[providedService.masterId]['_fullname'] }}</td>
                         <td>{{ providedService.moreInfo }}</td>
                         <td class="km-{{ providedService.getRemindKmStatus(car.getMilage(), car.getDailyMilage(), car.getMilageDate()) }}">
                             {{ providedService.getMilageRemind() }}
@@ -65,16 +65,16 @@
             {# Escape all user provided data #}
             {% autoescape true %}
                 <div class="client-data">
-                    <ul class="client-info" data-id="{{ client.id }}" data-update-url="/clients/updateOwn">
-                        <li><h5 class="label radius secondary">{{ client.fullname }}</h5></li>
-                        <li><span>Phone:</span><span class="contact_phone">{{ client.contactPhone }}</span></li>
-                        <li> <span>Email:</span><span class="contact_email">{{ client.contactEmail }}</span></li>
-                        <li> <span>Signup date:</span><span class="date-registration">{{ client.regDate }}</span></li>
-                        <li> <span>Add info:</span><span class="more_info">{{ client.moreInfo }}</span></li>
-                        <li> <span>Username:</span>{{ client.username }}</li>
+                    <ul class="client-info" data-id="{{ client.getId() }}" data-update-url="/clients/updateOwn">
+                        <li><h5 class="label radius secondary">{{ client.getFullname() }}</h5></li>
+                        <li><span>Phone:</span><span class="contact_phone">{{ client.getPhone() }}</span></li>
+                        <li> <span>Email:</span><span class="contact_email">{{ client.getEmail() }}</span></li>
+                        <li> <span>Signup date:</span><span class="date-registration">{{ client.getRegDate() }}</span></li>
+                        <li> <span>Add info:</span><span class="more_info">{{ client.getInfo() }}</span></li>
+                        <li> <span>Username:</span>{{ client.getUsername() }}</li>
                         <li>
                             <span>Notify me :</span>
-                            <span class="notify"><?= $client->notify ? 'Yes' : 'No'?></span>
+                            <span class="notify"><?= $client->getNotify() ? 'Yes' : 'No'?></span>
                         </li>
                         <li><span class="password">Change password</span></li>
                     </ul>
@@ -89,7 +89,7 @@
                     <li><span>Current KM:</span><span class="milage" data-milage_date="{{ car.getMilageDate() }}">{{ car.getMilage() }}</span></li>
                     <li><span>Milage KM/day:</span><span class="daily_milage">{{ car.getDailyMilage() }}</span></li>
                     <li><span>Car VIN:</span>{{ car.getVin() }}</li>
-                    <li><span>Add info:</span>{{ car.getMoreInfo() }}</li>
+                    <li><span>Add info:</span>{{ car.getInfo() }}</li>
                     </ul>
                 {% endfor %}
                 </div>

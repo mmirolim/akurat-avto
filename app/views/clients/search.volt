@@ -16,22 +16,22 @@
             <th>Id</th>
             <th>Username</th>
             <th>Fullname</th>
-            <th>Contactemail</th>
-            <th>Contactphone</th>
-            <th>Regdate</th>
-            <th>Moreinfo</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Reg. date</th>
+            <th>Info</th>
          </tr>
     </thead>
     <tbody>
     {% for client in page.items %}
         <tr>
-            <td>{{ client.id }}</td>
-            <td>{{ client.username }}</td>
-            <td>{{ client.fullname }}</td>
-            <td>{{ client.contactEmail }}</td>
-            <td>{{ client.contactPhone }}</td>
-            <td>{{ client.regDate }}</td>
-            <td>{{ client.moreInfo }}</td>
+            <td>{{ client.getId() }}</td>
+            <td>{{ client.getUsername() }}</td>
+            <td>{{ client.getFullname() }}</td>
+            <td>{{ client.getEmail() }}</td>
+            <td>{{ client.getPhone() }}</td>
+            <td>{{ client.getRegDate() }}</td>
+            <td>{{ client.getInfo() }}</td>
             <td>
                 <ul>
                     {% for car in client.cars %}
@@ -39,13 +39,8 @@
                     {% endfor %}
                 </ul>
             </td>
-            <td>{% if editAllowed %}
-                    {{link_to("/clients/edit/" ~ client.id, "Edit") }}
-                {% endif %}
-            </td>
-            <td>{% if deleteAllowed %}
-                    {{link_to("/clients/confirm/" ~ client.id, "Delete") }}
-                {% endif %}
+            <td>
+                {{  this.elements.getEditLinks(client.getId()) }}
             </td>
         </tr>
     {% endfor %}

@@ -5,9 +5,9 @@ var AK = AK || {
     targets : [
         { modelProp : 'dailyMilage', htmlClass : 'daily_milage', text : 'Daily milage'},
         { modelProp : 'milage', htmlClass : 'milage', text : 'Milage'},
-        { modelProp : 'contactPhone', htmlClass : 'contact_phone', text : 'Contact phone'},
-        { modelProp : 'contactEmail', htmlClass : 'contact_email', text : 'Contact Email'},
-        { modelProp : 'moreInfo', htmlClass : 'more_info', text : 'Personal information'},
+        { modelProp : 'phone', htmlClass : 'contact_phone', text : 'Contact phone'},
+        { modelProp : 'email', htmlClass : 'contact_email', text : 'Contact Email'},
+        { modelProp : 'info', htmlClass : 'more_info', text : 'Personal information'},
         { modelProp : 'notify', htmlClass : 'notify', text : 'Notification status'},
         { modelProp : 'password', htmlClass : 'password', text : 'Your password'}
     ],

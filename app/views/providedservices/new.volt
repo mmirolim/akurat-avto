@@ -35,7 +35,7 @@
             <tr>
                 <td>
                     <label for="master_id">Master who done the work*</label>
-                    {{ select("master_id", employees, "using" : ["id", "fullname"], 'required':'required') }}
+                    {{ select("master_id", employees, "using" : ["_id", "_fullname"], 'required':'required') }}
                 </td>
             </tr>
             <tr>

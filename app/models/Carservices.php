@@ -21,7 +21,7 @@ class CarServices extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    protected $_moreInfo;
+    protected $_info;
 
     /**
      * current timestamp on each update
@@ -36,7 +36,7 @@ class CarServices extends \Phalcon\Mvc\Model
         return array(
             'id' => '_id',
             'service' => '_service',
-            'more_info' => '_moreInfo',
+            'more_info' => '_info',
             'when_updated'=> '_whenUpdated'
         );
     }
@@ -68,18 +68,18 @@ class CarServices extends \Phalcon\Mvc\Model
         return $this->_service;
     }
 
-    public function setMoreInfo($info)
+    public function setInfo($info)
     {
         if (empty($info)) {
-            $this->_moreInfo = new RawValue('default');
+            $this->_info = new RawValue('default');
         } else {
-            $this->_moreInfo = $info;
+            $this->_info = $info;
         }
     }
 
-    public function getMoreInfo()
+    public function getInfo()
     {
-        return $this->_moreInfo;
+        return $this->_info;
     }
 
     public function getWhenUpdated()

@@ -28,7 +28,7 @@
                 <li><span>Current KM:</span>{{ car.getMilage() }}</li>
                 <li><span>Milage KM/day:</span>{{ car.getDailyMilage() }}</li>
                 <li><span>VIN:</span>{{ car.getVin() }}</li>
-                <li><span>Add info:</span>{{ car.getMoreInfo() }}</li>
+                <li><span>Add info:</span>{{ car.getInfo() }}</li>
                 <li>
                     {{  this.elements.getEditLinks(car.getId()) }}
                 </li>
@@ -38,17 +38,17 @@
     {% if client is defined %}
         <div class="client-data">
             <ul class="client-info">
-                <li><h5 class="label radius secondary">{{ client.fullname }}</h5></li>
-                <li><span>Phone:</span>{{ client.contactPhone }}</li>
-                <li> <span>Email:</span>{{ client.contactEmail }}</li>
-                <li> <span>Signup date:</span>{{ client.regDate }}</li>
-                <li> <span>Add info:</span>{{ client.moreInfo }}</li>
-                <li> <span>Username:</span>{{ client.username }}</li>
+                <li><h5 class="label radius secondary">{{ client.getFullname() }}</h5></li>
+                <li><span>Phone:</span>{{ client.getPhone() }}</li>
+                <li> <span>Email:</span>{{ client.getEmail() }}</li>
+                <li> <span>Signup date:</span>{{ client.getRegDate() }}</li>
+                <li> <span>Add info:</span>{{ client.getInfo() }}</li>
+                <li> <span>Username:</span>{{ client.getUsername() }}</li>
                 <li>
-                    <span>Notify me :</span><?= $client->notify ? 'Yes' : 'No'?>
+                    <span>Notify me :</span><?= $client->getNotify() ? 'Yes' : 'No'?>
                 </li>
                 <li>
-                    {{  this.elements.getEditLinks(client.id,'clients') }}
+                    {{  this.elements.getEditLinks(client.getId(),'clients') }}
                 </li>
             </ul>
         </div>
