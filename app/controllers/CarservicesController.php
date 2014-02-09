@@ -103,7 +103,7 @@ class CarServicesController extends ControllerBase
      */
     public function newAction()
     {
-
+        $this->view->carServices = CarServices::find();
     }
 
     /**
@@ -149,26 +149,22 @@ class CarServicesController extends ControllerBase
 
         $carService = new CarServices();
 
-        $carService->id = $this->request->getPost("id");
-        $carService->service = $this->request->getPost("service");
-        $carService->moreInfo = $this->request->getPost("more_info");
+        $carService->setService($this->request->getPost("service"));
+        $carService->setMoreInfo($this->request->getPost("more_info"));
         
 
         if (!$carService->save()) {
             foreach ($carService->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flashSession->error($message);
             }
             return $this->dispatcher->forward(array(
                 "controller" => "carservices",
-                "action" => "create"
+                "action" => "new"
             ));
         }
 
-        $this->flash->success("Car service was created successfully");
-        return $this->dispatcher->forward(array(
-            "controller" => "carservices",
-            "action" => "index"
-        ));
+        $this->flashSession->success("Car service '".$carService->getService()."' was created successfully");
+        return $this->response->redirect($this->elements->getAccountRoute());
 
     }
 

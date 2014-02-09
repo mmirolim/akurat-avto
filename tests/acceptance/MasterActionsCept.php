@@ -3,6 +3,7 @@ $I = new WebGuy\MemberSteps($scenario);
 $I->am('master');
 $I->login('dima', '123');
 $I->see("Welcome Дима Д");
+$I->dontSeeTexts(array('Notice', 'Warning', 'Error'));
 $I->wantTo('add a new client');
 $I->doubleClick("a[href='/clients/new']");
 $I->seeElement("form.form-create-client");
