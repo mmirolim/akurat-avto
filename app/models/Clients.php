@@ -93,7 +93,7 @@ class Clients extends \Phalcon\Mvc\Model
         $this->skipAttributesOnCreate(array('notification_status'));
 
         //Set has-many cars relationship
-        $this->hasMany("id", "Cars", "ownerId");
+        $this->hasMany("id", "Cars", "_ownerId");
 
         //Use dynamic update to improve performance
         $this->useDynamicUpdate(true);

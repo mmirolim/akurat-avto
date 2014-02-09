@@ -35,7 +35,7 @@
             <td>
                 <ul>
                     {% for car in client.cars %}
-                        <li>{{ car.regNumber}} - {{ link_to("/cars/vin/"~car.vin, car.vin) }}</li>
+                        <li>{{ car.getRegNumber()}} - {{ link_to("/cars/vin/"~car.getVin(), car.getVin()) }}</li>
                     {% endfor %}
                 </ul>
             </td>

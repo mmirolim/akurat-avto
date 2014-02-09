@@ -4,7 +4,7 @@
         <table class="basic-form">
             <tr>
                 <td>
-                    <label for="vin">{{ link_to('/cars/vin/'~car.vin,'Car VIN*') }}</label>
+                    <label for="vin">{{ link_to('/cars/vin/'~car.getVin(),'Car VIN*') }}</label>
                     {{  text_field("vin", "size":"40", 'required':'required') }}
                 </td>
             </tr>

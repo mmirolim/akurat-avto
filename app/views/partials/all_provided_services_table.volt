@@ -21,13 +21,15 @@
         {% set car = providedService.Cars %}
         <tr class="in-regulation-{{ providedService.inMs }}">
             <td>{{ providedService.id }}</td>
-            <td>{{ car.regNumber }}</td>
+            <td>{{ car.getRegNumber() }}</td>
             <td>{{ providedService.milage }}</td>
             <td class="date-when">{{ providedService.startDate }}</td>
             <td>{{ carServices[providedService.serviceId]['service'] }}</td>
             <td>{{ employees[providedService.masterId]['fullname'] }}</td>
             <td>{{ providedService.moreInfo }}</td>
-            <td class="km-{{ providedService.getRemindKmStatus(car.milage, car.dailyMilage, car.milageDate) }}">{{ providedService.getMilageRemind() }}</td>
+            <td class="km-{{ providedService.getRemindKmStatus(car.getMilage(), car.getDailyMilage(), car.getMilageDate()) }}">
+                {{ providedService.getMilageRemind() }}
+            </td>
             <td class="date-{{ providedService.getRemindDateStatus() }}">{{ providedService.remindDate }}</td>
             <td class="remind-status">{{ providedService.remindStatus }}</td>
             <td><?= $providedService->inMs ? 'Да': '-' ?></td>

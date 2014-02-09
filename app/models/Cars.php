@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Model\Behavior\Timestampable;
+use Phalcon\Db\RawValue;
 
 class Cars extends \Phalcon\Mvc\Model
 {
@@ -9,111 +10,122 @@ class Cars extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    public $id;
+    protected $_id;
 
     /**
      * Vehicle identification number
      * @var string
      */
-    public $vin;
+    protected $_vin;
 
     /**
      *
      * @var string
      */
-    public $regNumber;
+    protected $_regNumber;
      
     /**
      *
      * @var integer
      */
-    public $ownerId;
+    protected $_ownerId;
      
     /**
      *
      * @var integer
      */
-    public $modelId;
+    protected $_modelId;
 
     /**
      *
      * @var string
      */
-    public $regDate;
+    protected $_regDate;
      
     /**
      *
      * @var string
      */
-    public $year;
+    protected $_year;
      
     /**
      *
      * @var integer
      */
-    public $milage;
+    protected $_milage;
      
     /**
      *
      * @var integer
      */
-    public $dailyMilage;
+    protected $_dailyMilage;
      
     /**
      *
      * @var string
+     * @Column(type="string", nullable=true)
      */
-    public $moreInfo;
+    protected $_moreInfo;
 
     /**
      * When last milage updated
      * @var date
      */
-    public $milageDate;
+    protected $_milageDate;
 
     /**
      * current timestamp on each update
      * @var timestamp
      */
-    public $whenUpdated;
+    protected $_whenUpdated;
+
+    /**
+     *if setters have exception set to false
+     * @var boolean
+     */
+    protected $_valid;
+
+    /**
+     * @var Phalcon\Flash\Session
+     */
+    private $_flashSession;
 
     public function columnMap()
     {
         //Keys are the real names in the table and
         //the values their names in the application
          return array(
-            'id' => 'id',
-            'vin' => 'vin',
-            'registration_number' => 'regNumber',
-            'owner_id' => 'ownerId',
-            'model_id' => 'modelId',
-            'registered_date' => 'regDate',
-            'year' => 'year',
-            'milage' => 'milage',
-            'daily_milage' =>  'dailyMilage',
-            'more_info'=>'moreInfo' ,
-            'milage_date' => 'milageDate',
-            'when_updated'=> 'whenUpdated'
+            'id' => '_id',
+            'vin' => '_vin',
+            'registration_number' => '_regNumber',
+            'owner_id' => '_ownerId',
+            'model_id' => '_modelId',
+            'registered_date' => '_regDate',
+            'year' => '_year',
+            'milage' => '_milage',
+            'daily_milage' =>  '_dailyMilage',
+            'more_info'=>'_moreInfo' ,
+            'milage_date' => '_milageDate',
+            'when_updated'=> '_whenUpdated'
         );
     }
 
 
     public function initialize()
     {
+        //Get flash session service
+        $this->_flashSession = $this->getDI()->getFlashSession();
         //Skips fields/columns on both INSERT/UPDATE operations
         $this->skipAttributes(array('when_updated'));
 
         //Set has-many cars relationship
-        $this->hasMany("id", "ProvidedServices", "carId");
+        $this->hasMany("_id", "ProvidedServices", "carId");
 
         //Set belongs to model relationship
-        $this->belongsTo("modelId", "CarModels", "_id");
+        $this->belongsTo("_modelId", "CarModels", "_id");
 
-        //Insert date on creation for milage date
-        //TODO test Behavior
-        $this->addBehavior(new Timestampable(array(
-            'beforeCreate' => array('field' => 'milageDate','format' => 'Y-m-d H:i:s')
-        )));
+        //Set belongs to model relationship
+        $this->belongsTo("_ownerId", "Clients", "id");
 
         //Use dynamic update to improve performance
         $this->useDynamicUpdate(true);
@@ -121,8 +133,154 @@ class Cars extends \Phalcon\Mvc\Model
         //Log model events
         $this->addBehavior(new Blamable());
 
+        $this->addBehavior(new Timestampable(
+            array('beforeCreate' => array('field' => '_regDate','format' => 'Y-m-d'))
+        ));
+
     }
 
+    public function validation()
+    {
+        if ($this->_valid === false) {
+            return false;
+        }
+    }
+
+    public function getId()
+    {
+        return $this->_id;
+    }
+
+    public function setVin($vin)
+    {
+        $this->_vin = $vin;
+    }
+
+    public function getVin()
+    {
+        return $this->_vin;
+    }
+
+    public function setRegNumber($regnum)
+    {
+        $this->_regNumber = $regnum;
+    }
+
+    public function getRegNumber()
+    {
+        return $this->_regNumber;
+    }
+
+    /**
+     * Set _ownerId according to username
+     * @param $username
+     * @throws \InvalidArgumentException
+     */
+    public function setOwner($username)
+    {
+        $owner = Clients::findFirst(array(
+            'username = ?0',
+            'bind' => [$username]
+        ));
+        if ($owner != false) {
+            $this->_ownerId = $owner->id;
+        } else {
+            $this->_valid = false;
+            $this->_flashSession->error("The is no client with username '$username'");
+        }
+
+    }
+
+    public function setOwnerId($id)
+    {
+        $this->_ownerId = $id;
+    }
+
+    public function getOwnerId()
+    {
+        return $this->_ownerId;
+    }
+
+    public function setModelId($id)
+    {
+        $this->_modelId = $id;
+    }
+
+    public function getModelId()
+    {
+        return $this->_modelId;
+    }
+
+    public function setRegDate()
+    {
+        $this->_regDate = new RawValue('default');
+    }
+    public function getRegDate()
+    {
+        return $this->_regDate;
+    }
+
+    public function setYear($year)
+    {
+        $this->_year = $year;
+    }
+
+    public function getYear()
+    {
+        return $this->_year;
+    }
+
+    public function setMilage($milage)
+    {
+        //TODO set _milageDate when milage changes
+        if(intval($milage) != intval($this->_milage)) {
+            $this->_milageDate = date('Y-m-d');
+        }
+        $this->_milage= $milage;
+    }
+
+    /**
+     * Get car milage
+     * @return int
+     */
+    public function getMilage()
+    {
+        return $this->_milage;
+    }
+
+    public function setDailyMilage($dailyMilage)
+    {
+        $this->_dailyMilage = $dailyMilage;
+    }
+
+    public function getDailyMilage()
+    {
+        return $this->_dailyMilage;
+    }
+
+    public function setMoreInfo($info)
+    {
+        if (empty($info)) {
+            $this->_moreInfo = new RawValue('default');
+        } else {
+            $this->_moreInfo = $info;
+        }
+    }
+
+    public function getMoreInfo()
+    {
+        return $this->_moreInfo;
+    }
+
+    public function getMilageDate()
+    {
+        return $this->_milageDate;
+    }
+
+    public function getWhenUpdated()
+    {
+        return $this->_whenUpdated;
+    }
 
     /**
      * Return the related "services provided"

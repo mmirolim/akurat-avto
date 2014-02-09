@@ -72,7 +72,10 @@ class ProvidedservicesController extends ControllerBase
 
         if (!is_null($id)) {
 
-            $providedService = ProvidedServices::findFirstById($id);
+            $providedService = ProvidedServices::findFirst(array(
+                'id = ?0',
+                'bind' => [$id]
+            ));
             if (!$providedService) {
                 $this->flash->error("A provided service was not found");
                 return $this->dispatcher->forward(array(
@@ -82,10 +85,13 @@ class ProvidedservicesController extends ControllerBase
             }
             $this->view->carServices = CarServices::find();
             $this->view->employees = Employees::find();
-            $car = Cars::findFirstById($providedService->carId);
+            $car = Cars::findFirst(array(
+                '_id = ?0',
+                'bind' => [$providedService->carId]
+            ));
 
             //Set default values to form elements
-            $this->tag->setDefault("vin",$car->vin);
+            $this->tag->setDefault("vin",$car->getVin());
             $this->tag->setDefault("id",$providedService->id);
             $this->tag->setDefault("service_id",$providedService->serviceId);
             $this->tag->setDefault("milage",$providedService->milage);
@@ -126,11 +132,11 @@ class ProvidedservicesController extends ControllerBase
         if ($this->request->getPost("vin")) {
             $vin = $this->request->getPost("vin");
             $car = Cars::findFirst(array(
-                'vin = ?0',
+                '_vin = ?0',
                 'bind' => [$vin]
             ));
             if ($car != false) {
-                $providedService->carId = $car->id;
+                $providedService->carId = $car->getId();
             } else {
                 $this->flashSession->error("There is no car with vin equal to '$vin'");
                 return $this->dispatcher->forward(array(
@@ -219,7 +225,10 @@ class ProvidedservicesController extends ControllerBase
             ));
         }
         $vin = $providedService->carId = $this->request->getPost("vin");
-        $car = Cars::findFirstByVin($vin);
+        $car = Cars::findFirst(array(
+            '_vin = ?0',
+            'bind' => [$vin]
+        ));
         if ($car == false) {
             $this->flashSession->error("There is no car with VIN '$vin'");
             return $this->dispatcher->forward(array(
@@ -228,7 +237,7 @@ class ProvidedservicesController extends ControllerBase
                 "params" => array($providedService->id)
             ));
         }
-        $providedService->carId = $car->id;
+        $providedService->carId = $car->getId();
         $providedService->id = $this->request->getPost("id");
         $providedService->serviceId = $this->request->getPost("service_id");
         $providedService->masterId = $this->request->getPost("master_id");

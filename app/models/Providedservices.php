@@ -107,7 +107,7 @@ class ProvidedServices extends \Phalcon\Mvc\Model
     public function initialize()
     {
         //Define relationship wiht other Models
-        $this->belongsTo("carId", "Cars", "id");
+        $this->belongsTo("carId", "Cars", "_id");
         $this->belongsTo("serviceId", "CarServices", "id");
         $this->belongsTo("masterId", "Employees", "id");
 
@@ -187,9 +187,9 @@ class ProvidedServices extends \Phalcon\Mvc\Model
             //If null get from related model
             if (is_null($milage) || is_null($dailyMilage) ||is_null($milageDate)) {
                 $car = $this->getCar();
-                $milage = $car->milage;
-                $dailyMilage = $car->dailyMilage;
-                $milageDate = $car->milageDate;
+                $milage = $car->getMilage();
+                $dailyMilage = $car->getDailyMilage();
+                $milageDate = $car->getMilageDate();
             }
              //Get number of days between now and last milage updated
             $days = round((time() - strtotime($milageDate))/86400);

@@ -22,13 +22,15 @@
                 {% for providedService in car.getProvidedServices() %}
                     <tr class="in-regulation-{{ providedService.inMs }}">
                         <td>{{ providedService.id }}</td>
-                        <td>{{ car.regNumber }}</td>
+                        <td>{{ car.getRegNumber() }}</td>
                         <td>{{ providedService.milage }}</td>
                         <td class="date-when">{{ providedService.startDate }}</td>
                         <td>{{ carServices[providedService.serviceId]['service'] }}</td>
                         <td>{{ employees[providedService.masterId]['fullname'] }}</td>
                         <td>{{ providedService.moreInfo }}</td>
-                        <td class="km-{{ providedService.getRemindKmStatus(car.milage, car.dailyMilage, car.milageDate) }}">{{ providedService.getMilageRemind() }}</td>
+                        <td class="km-{{ providedService.getRemindKmStatus(car.getMilage(), car.getDailyMilage(), car.getMilageDate()) }}">
+                            {{ providedService.getMilageRemind() }}
+                        </td>
                         <td class="date-{{ providedService.getRemindDateStatus() }}">{{ providedService.remindDate }}</td>
                         <td class="remind-status">{{ providedService.remindStatus }}</td>
                         <td><?= $providedService->inMs ? 'Да': '-' ?></td>
@@ -43,7 +45,7 @@
             {% for key, car in client.cars %}
                 {# Create div block per car #}
                 <div class="analytic-data">
-                    <h5 class="label radius secondary car-regnum">{{ car.regNumber }} - {{ car.carModels.getName() }}</h5>
+                    <h5 class="label radius secondary car-regnum">{{ car.getRegNumber() }} - {{ car.carModels.getName() }}</h5>
                     <div class="total-health">
                         <h5>Total Health</h5>
                         <span id="car-health" class="label radius success">{{ car.getHealth() }}</span>
@@ -79,15 +81,15 @@
                 </div>
                 <div class="car-data">
                 {% for car in client.cars %}
-                    <ul class="car-info" data-id="{{ car.id }}" data-update-url="/cars/updateOwn">
+                    <ul class="car-info" data-id="{{ car.getId() }}" data-update-url="/cars/updateOwn">
                     <li><h5 class="label radius secondary">{{ car.carModels.getName() }}</h5></li>
-                    <li><span>Number:</span>{{ car.regNumber }}</li>
-                    <li><span>Year:</span>{{ car.year }}</li>
-                    <li><span>First service date:</span>{{ car.regDate }}</li>
-                    <li><span>Current KM:</span><span class="milage" data-milage_date="{{ car.milageDate }}">{{ car.milage }}</span></li>
-                    <li><span>Milage KM/day:</span><span class="daily_milage">{{ car.dailyMilage }}</span></li>
-                    <li><span>Car VIN:</span>{{ car.vin }}</li>
-                    <li><span>Add info:</span>{{ car.moreInfo }}</li>
+                    <li><span>Number:</span>{{ car.getRegNumber() }}</li>
+                    <li><span>Year:</span>{{ car.getYear() }}</li>
+                    <li><span>First service date:</span>{{ car.getRegDate() }}</li>
+                    <li><span>Current KM:</span><span class="milage" data-milage_date="{{ car.getMilageDate() }}">{{ car.getMilage() }}</span></li>
+                    <li><span>Milage KM/day:</span><span class="daily_milage">{{ car.getDailyMilage() }}</span></li>
+                    <li><span>Car VIN:</span>{{ car.getVin() }}</li>
+                    <li><span>Add info:</span>{{ car.getMoreInfo() }}</li>
                     </ul>
                 {% endfor %}
                 </div>

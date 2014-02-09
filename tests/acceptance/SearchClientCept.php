@@ -7,5 +7,6 @@ $I->see("Welcome Махмуд М");
 $I->fillField("username", "anvar");
 $I->doubleClick(".form-search-client input[type=submit]");
 $I->see("(99893) 567-12-32");
+$I->dontSeeTexts(array('Notice', 'Warning', 'Error'));
 
 
