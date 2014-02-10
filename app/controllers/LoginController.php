@@ -13,10 +13,10 @@ class LoginController extends ControllerBase
     {
         if ($user instanceof Employees) {
             $role = Roles::findFirst(array(
-                'id = ?0',
+                '_id = ?0',
                 'bind' => [$user->getRoleId()]
             ));
-            $role = $role->role;
+            $role = $role->getRole();
         } else {
             $role = 'Client';
         }

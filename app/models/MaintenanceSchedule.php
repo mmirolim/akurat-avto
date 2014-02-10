@@ -10,19 +10,19 @@ class MaintenanceSchedule extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    public $id;
+    protected $_id;
      
     /**
      *
      * @var integer
      */
-    public $modelId;
+    protected $_modelId;
      
     /**
      *
      * @var string
      */
-    public $conf;
+    protected $_conf;
      
     /**
      * Independent Column Mapping.
@@ -30,10 +30,36 @@ class MaintenanceSchedule extends \Phalcon\Mvc\Model
     public function columnMap()
     {
         return array(
-            'id' => 'id', 
-            'model_id' => 'modelId',
-            'configuration' => 'conf'
+            'id' => '_id',
+            'model_id' => '_modelId',
+            'configuration' => '_conf'
         );
     }
+
+    public function getId()
+    {
+        return $this->_id;
+    }
+
+    public function setModelId($id)
+    {
+        $this->_modelId = $id;
+    }
+
+    public function getModelId()
+    {
+        return $this->_modelId;
+    }
+    //TODO set proper var type and description
+    public function setConf($conf)
+    {
+        $this->_conf = $conf;
+    }
+
+    public function getConf()
+    {
+        return $this->_conf;
+    }
+
 
 }
