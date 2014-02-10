@@ -242,14 +242,21 @@ class ProvidedservicesController extends ControllerBase
     /**
      * Deletes a ProvidedService
      *
-     * @param string $id
+     *
      */
-    public function deleteAction($id = null)
+    public function deleteAction()
     {
 
+        if (!$this->request->isPost()) {
+            return $this->dispatcher->forward(array(
+                "controller" => "providedservices",
+                "action" => "index"
+            ));
+        }
+        $id = $this->request->getPost("id");
         $providedService = ProvidedServices::findFirst(array(
             '_id = ?0',
-            'bid' => [$id]
+            'bind' => [$id]
         ));
         if (!$providedService) {
             $this->flashSession->error("A provided service was not found");
@@ -271,11 +278,8 @@ class ProvidedservicesController extends ControllerBase
             ));
         }
 
-        $this->flashSession->success("The provided service was deleted successfully");
-        return $this->dispatcher->forward(array(
-            "controller" => "providedservices",
-            "action" => "index"
-        ));
+        $this->flashSession->success("The provided service with id '".$id."' was deleted successfully");
+        return $this->response->redirect($this->elements->getAccountRoute());
     }
 
 }
