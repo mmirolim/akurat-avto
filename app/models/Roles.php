@@ -32,7 +32,7 @@ class Roles extends \Phalcon\Mvc\Model
         'role' => '_role',
         'more_info' => '_info',
 
-    );
+        );
     }
      
 

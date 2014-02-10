@@ -119,7 +119,7 @@ class Cars extends \Phalcon\Mvc\Model
         $this->skipAttributes(array('when_updated'));
 
         //Set has-many cars relationship
-        $this->hasMany("_id", "ProvidedServices", "carId");
+        $this->hasMany("_id", "ProvidedServices", "_carId");
 
         //Set belongs to model relationship
         $this->belongsTo("_modelId", "CarModels", "_id");
@@ -291,7 +291,7 @@ class Cars extends \Phalcon\Mvc\Model
     {
         //If $params null order by star date
         if (is_null($parameters)) {
-            $parameters = array("order" => "startDate ASC" );
+            $parameters = array("order" => "_startDate ASC" );
         }
         return $this->getRelated("ProvidedServices", $parameters);
     }
@@ -307,10 +307,10 @@ class Cars extends \Phalcon\Mvc\Model
         foreach ($providedServices as $providedService) {
             //Calculate days in maintenance per car
             //TODO exclude services accomplished same day (filter,oil,check all same time period)
-            if(isset($providedService->finishDate)) {
+            if($providedService->getFinishDate()) {
                 //Check if finishdate not same date of startdate
-                if(strtotime($providedService->finishDate) - strtotime($providedService->startDate) > 0){
-                    $daysInMaintenance += strtotime($providedService->finishDate) - strtotime($providedService->startDate);
+                if(strtotime($providedService->getFinishDate()) - strtotime($providedService->getStartDate()) > 0){
+                    $daysInMaintenance += strtotime($providedService->getFinishDate()) - strtotime($providedService->getStartDate());
                 }
             }
         }
@@ -335,7 +335,7 @@ class Cars extends \Phalcon\Mvc\Model
         $kmOk = 0;
         foreach ($providedServices as $providedService) {
 
-            if ($providedService->remindStatus == 0) {
+            if ($providedService->getRemindStatus() == 0) {
                 $disabled++;
             } else {
                 if ($providedService->getRemindDateStatus() == 'ok') {
@@ -363,7 +363,7 @@ class Cars extends \Phalcon\Mvc\Model
         $countIssues = 0;
 
         foreach ($providedServices as $providedService) {
-            if ($providedService->remindStatus != 0) {
+            if ($providedService->getRemindStatus() != 0) {
                 if ($providedService->getRemindDateStatus() == 'alert' || $providedService->getRemindKmStatus() == 'alert') {
                     $countIssues++;
                 }

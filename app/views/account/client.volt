@@ -20,20 +20,20 @@
             {% for car in client.cars %}
             {# Get all provided services by car ordered by start date #}
                 {% for providedService in car.getProvidedServices() %}
-                    <tr class="in-regulation-{{ providedService.inMs }}">
-                        <td>{{ providedService.id }}</td>
+                    <tr class="in-regulation-{{ providedService.getInMs() }}">
+                        <td>{{ providedService.getId() }}</td>
                         <td>{{ car.getRegNumber() }}</td>
-                        <td>{{ providedService.milage }}</td>
-                        <td class="date-when">{{ providedService.startDate }}</td>
-                        <td>{{ carServices[providedService.serviceId]['_service'] }}</td>
-                        <td>{{ employees[providedService.masterId]['_fullname'] }}</td>
-                        <td>{{ providedService.moreInfo }}</td>
+                        <td>{{ providedService.getMilage() }}</td>
+                        <td class="date-when">{{ providedService.getStartDate() }}</td>
+                        <td>{{ carServices[providedService.getServiceId()]['_service'] }}</td>
+                        <td>{{ employees[providedService.getMasterId()]['_fullname'] }}</td>
+                        <td>{{ providedService.getInfo() }}</td>
                         <td class="km-{{ providedService.getRemindKmStatus(car.getMilage(), car.getDailyMilage(), car.getMilageDate()) }}">
                             {{ providedService.getMilageRemind() }}
                         </td>
-                        <td class="date-{{ providedService.getRemindDateStatus() }}">{{ providedService.remindDate }}</td>
-                        <td class="remind-status">{{ providedService.remindStatus }}</td>
-                        <td><?= $providedService->inMs ? 'Да': '-' ?></td>
+                        <td class="date-{{ providedService.getRemindDateStatus() }}">{{ providedService.getRemindDate() }}</td>
+                        <td class="remind-status">{{ providedService.getRemindStatus() }}</td>
+                        <td><?= $providedService->getInMs() ? 'Да': '-' ?></td>
                     </tr>
                 {% endfor %}
             {% endfor %}

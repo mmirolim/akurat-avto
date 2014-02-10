@@ -17,7 +17,7 @@
             <tr>
                 <td>
                     <label for="milage">Car milage in km*</label>
-                    <input name="milage" id="milage" type="number" required="required" value="{{ providedService.milage }}">
+                    <input name="milage" id="milage" type="number" required="required" value="{{ providedService.getMilage() }}">
                 </td>
             </tr>
             <tr>
@@ -42,11 +42,11 @@
                 <td>
                     <div class="large-6 small-12 columns">
                         <label for="start_date">Start date*</label>
-                        <input name="start_date" id="start_date" type="date" required="required" value="{{ providedService.startDate }}">
+                        <input name="start_date" id="start_date" type="date" required="required" value="{{ providedService.getStartDate() }}">
                     </div>
                     <div class="large-6 small-12 columns">
                         <label for="finish_date">Finish date</label>
-                        <input name="finish_date" id="finish_date" type="date" value="{{ providedService.finishDate }}">
+                        <input name="finish_date" id="finish_date" type="date" value="{{ providedService.getFinishDate() }}">
                     </div>
                 </td>
             </tr>
@@ -54,11 +54,11 @@
                 <td>
                     <div class="large-6 small-12 columns">
                         <label for="remind_date">Remind after date</label>
-                        <input name="remind_date" id="remind_date" type="date" value="{{ providedService.remindDate }}">
+                        <input name="remind_date" id="remind_date" type="date" value="{{ providedService.getRemindDate() }}">
                     </div>
                     <div class="large-6 small-12 columns">
                         <label for="remind_km">Remind after km</label>
-                        <input name="remind_km" id="remind_km" type="number" value="{{ providedService.remindKm }}">
+                        <input name="remind_km" id="remind_km" type="number" value="{{ providedService.getRemindKm() }}">
                     </div>
                 </td>
             </tr>
