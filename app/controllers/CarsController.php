@@ -91,7 +91,7 @@ class CarsController extends ControllerBase
             $this->tag->setDefault("id", $car->getId());
             $this->tag->setDefault("vin", $car->getVin());
             $this->tag->setDefault("registration_number", $car->getRegNumber());
-            $this->tag->setDefault("username", $car->clients->username);
+            $this->tag->setDefault("username", $car->clients->getUsername());
             $this->tag->setDefault("model_id", $car->getModelId());
             $this->tag->setDefault("registered_date", $car->getRegDate());
             $this->tag->setDefault("year", $car->getYear());

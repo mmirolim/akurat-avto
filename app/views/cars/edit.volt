@@ -1,6 +1,6 @@
 <div class="large-4 large-centered columns">
     {{ form('/cars/save', 'method':'post', 'class':'form-create-car') }}
-    <h1>Add New Car</h1>
+    <h1>Edit Car</h1>
     <table>
         <tr>
             <td >
