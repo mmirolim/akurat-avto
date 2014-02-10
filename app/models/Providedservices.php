@@ -267,7 +267,11 @@ class ProvidedServices extends \Phalcon\Mvc\Model
     }
     public function getRemindDate()
     {
-        return $this->_remindDate;
+        $date = '-';
+        if ($this->_remindStatus) {
+            $date = $this->_remindDate;
+        }
+        return $date;
     }
 
     public function setRemindKm($km)
@@ -403,12 +407,16 @@ class ProvidedServices extends \Phalcon\Mvc\Model
 
     /**
      * Return milage reminder according to odometer
-     * @return string
+     * @return int
      */
     public function getMilageRemind()
     {
-        //Show total milage as reminder
-        return $this->_remindKm + $this->_milage;
+        $milage = 0;
+        //Show total milage as reminder if remind status true
+        if ($this->_remindStatus) {
+            $milage = $this->_remindKm + $this->_milage;
+        }
+        return $milage;
     }
      
 }

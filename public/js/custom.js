@@ -172,14 +172,14 @@ AK.checkRemindStatus = function() {
 //TODO make it work with any table and attributes
 AK.getProvidedServiceAttr = function(el) {
     //Prepare obj from attributes of child elements in provided service row
-    var obj = {
+    //Return obj to store
+    return {
         statusOfPrs : el.getAttribute('status-of-prs'),
         id : el.children[0].textContent,
+        dateWhen : el.children[3].getAttribute("class"),
         remindKmStatus : el.children[7].getAttribute("class"),
         remindDateStatus : el.children[8].getAttribute("class")
     }
-    //Return obj to store
-    return obj
 }
 //Restore provided attributes to provided services row from obj
 //TODO make it work with any table and attributes
@@ -187,6 +187,7 @@ AK.setProvidedServiceAttr = function(el,obj){
     if (obj.statusOfPrs) {
         el.setAttribute('status-of-prs', obj.statusOfPrs);
     }
+    el.children[3].setAttribute("class", obj.dateWhen);
     el.children[7].setAttribute("class",obj.remindKmStatus);
     el.children[8].setAttribute("class",obj.remindDateStatus);
 }
@@ -238,8 +239,11 @@ AK.makeTableSortable = function(tableId) {
     AK.styleDynatableControls();
     //Automatically restore attributes after each dynatable update
     table.bind("dynatable:afterUpdate",AK.restoreServicesAttr);
+    //Format dates from ISO to local after dynatable sort
+    table.bind("dynatable:afterUpdate",AK.formatDates);
     //Restore after initial normalization of dynatable
     AK.restoreServicesAttr();
+    AK.formatDates();
 }
 //Style dynatable controls
 AK.styleDynatableControls = function() {
@@ -274,8 +278,10 @@ AK.formatDates = function(){
     for (var i = 0; i < elsTotal; i++) {
         var date = els[i].textContent;
         //Set required date format
-        var localDate = moment(date).format("MMM DD YYYY");
-        els[i].textContent = localDate;
+        if (date !== '-') {
+            var localDate = moment(date).format("MMM DD YYYY");
+            els[i].textContent = localDate;
+        }
     }
 }
 //Set searchable field in client search
@@ -310,9 +316,6 @@ $(window).load(function(){
 
     AK.updateOwnData();
     AK.checkRemindStatus();
-
-    //Format dates from ISO to local before dynatable normalization
-    AK.formatDates();
 
     //TODO create charts from table data
     AK.makeTableSortable("table-provided-services");
