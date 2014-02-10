@@ -9,7 +9,7 @@ $I->click("Login");
 $I->amGoingTo("To login page");
 $I->login('mahmud', '123');
 $I->see("Welcome Махмуд М");
-$I->see("Find car by QR Code");
+$I->dontSeeTexts(array('Notice', 'Warning', 'Error'));
 //Let assume button clicked, it started qr scanner app which set correct url in browser
 $I->amOnPage("/cars/vin/AZAF69ZEV016666");
 $I->see("VIN AZAF69ZEV016666");

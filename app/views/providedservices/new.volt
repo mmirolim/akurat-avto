@@ -11,7 +11,7 @@
             <tr>
                 <td>
                     <label for="service_id">Type of service*</label>
-                    {{ select("service_id", carServices, "using" : ["id", "service"], 'required':'required') }}
+                    {{ select("service_id", carServices, "using" : ["_id", "_service"], 'required':'required') }}
                 </td>
             </tr>
             <tr>
@@ -35,7 +35,7 @@
             <tr>
                 <td>
                     <label for="master_id">Master who done the work*</label>
-                    {{ select("master_id", employees, "using" : ["id", "fullname"], 'required':'required') }}
+                    {{ select("master_id", employees, "using" : ["_id", "_fullname"], 'required':'required') }}
                 </td>
             </tr>
             <tr>

@@ -70,9 +70,12 @@ class ProvidedservicesController extends ControllerBase
     public function editAction($id = null)
     {
 
+        //TODO refactor flow
         if (!is_null($id)) {
-
-            $providedService = ProvidedServices::findFirstById($id);
+            $providedService = ProvidedServices::findFirst(array(
+                '_id = ?0',
+                'bind' => [$id]
+            ));
             if (!$providedService) {
                 $this->flash->error("A provided service was not found");
                 return $this->dispatcher->forward(array(
@@ -82,21 +85,24 @@ class ProvidedservicesController extends ControllerBase
             }
             $this->view->carServices = CarServices::find();
             $this->view->employees = Employees::find();
-            $car = Cars::findFirstById($providedService->carId);
+            $car = Cars::findFirst(array(
+                '_id = ?0',
+                'bind' => [$providedService->getCarId()]
+            ));
 
             //Set default values to form elements
-            $this->tag->setDefault("vin",$car->vin);
-            $this->tag->setDefault("id",$providedService->id);
-            $this->tag->setDefault("service_id",$providedService->serviceId);
-            $this->tag->setDefault("milage",$providedService->milage);
-            $this->tag->setDefault("in_ms",$providedService->inMs);
-            $this->tag->setDefault("remind",$providedService->remindStatus);
-            $this->tag->setDefault("master_id",$providedService->masterId);
-            $this->tag->setDefault("start_date",$providedService->startDate);
-            $this->tag->setDefault("finish_date",$providedService->finishDate);
-            $this->tag->setDefault("remind_date",$providedService->remindDate);
-            $this->tag->setDefault("remind_km",$providedService->remindKm);
-            $this->tag->setDefault("more_info",$providedService->moreInfo);
+            $this->tag->setDefault("vin",$car->getVin());
+            $this->tag->setDefault("id",$providedService->getId());
+            $this->tag->setDefault("service_id",$providedService->getServiceId());
+            $this->tag->setDefault("milage",$providedService->getMilage());
+            $this->tag->setDefault("in_ms",$providedService->getInMs());
+            $this->tag->setDefault("remind",$providedService->getRemindStatus());
+            $this->tag->setDefault("master_id",$providedService->getMasterId());
+            $this->tag->setDefault("start_date",$providedService->getStartDate());
+            $this->tag->setDefault("finish_date",$providedService->getFinishDate());
+            $this->tag->setDefault("remind_date",$providedService->getRemindDate());
+            $this->tag->setDefault("remind_km",$providedService->getRemindKm());
+            $this->tag->setDefault("more_info",$providedService->getInfo());
 
             $this->view->car = $car;
             $this->view->providedService = $providedService;
@@ -122,61 +128,20 @@ class ProvidedservicesController extends ControllerBase
         }
 
         $providedService = new Providedservices();
-
-        if ($this->request->getPost("vin")) {
-            $vin = $this->request->getPost("vin");
-            $car = Cars::findFirst(array(
-                'vin = ?0',
-                'bind' => [$vin]
-            ));
-            if ($car != false) {
-                $providedService->carId = $car->id;
-            } else {
-                $this->flashSession->error("There is no car with vin equal to '$vin'");
-                return $this->dispatcher->forward(array(
-                    "controller" => "providedservices",
-                    "action" => "new"
-                ));
-            }
+        $vin = $this->request->getPost("vin");
+        if ($vin) {
+            $providedService->setCarByVin($vin);
         }
-        $providedService->milage = $this->request->getPost("milage");
-        $providedService->serviceId = $this->request->getPost("service_id");
-        //TODO make it recieve checkbox value
-        if ($this->request->getPost("in_ms")) {
-            $providedService->inMs = $this->request->getPost("in_ms");
-        } else {
-            $providedService->inMs = new RawValue('default');
-        }
-        //TODO make it recieve checkbox value
-        if ($this->request->getPost("remind")) {
-            $providedService->remindStatus = $this->request->getPost("remind");
-        } else {
-            $providedService->remindStatus = new RawValue('default');
-        }
-        $providedService->masterId = $this->request->getPost("master_id");
-        $providedService->startDate = $this->request->getPost("start_date");
-
-        if ($this->request->getPost("finish_date")) {
-            $providedService->finishDate = $this->request->getPost("finish_date");
-        } else {
-            $providedService->finishDate = new RawValue('default');
-        }
-
-        if ($this->request->getPost("remind_date")) {
-            $providedService->remindDate = $this->request->getPost("remind_date");
-        } else {
-            $providedService->remindDate = new RawValue('default');
-        }
-        if ($this->request->getPost("remind_km")) {
-            $providedService->remindKm = $this->request->getPost("remind_km");
-        } else {
-            $providedService->remindKm = new RawValue('default');
-        }
-        if ($this->request->getPost("more_info")) {
-            $providedService->moreInfo = $this->request->getPost("more_info");
-        } else {
-            $providedService->moreInfo = new RawValue('default');
-        }
+        $providedService->setMilage($this->request->getPost("milage"));
+        $providedService->setServiceId($this->request->getPost("service_id"));
+        $providedService->setInMs($this->request->getPost("in_ms"));
+        $providedService->setRemindStatus($this->request->getPost("remind"));
+        $providedService->setMasterId($this->request->getPost("master_id"));
+        $providedService->setStartDate($this->request->getPost("start_date"));
+        $providedService->setFinishDate($this->request->getPost("finish_date"));
+        $providedService->setRemindDate($this->request->getPost("remind_date"));
+        $providedService->setRemindKm($this->request->getPost("remind_km"));
+        $providedService->setInfo($this->request->getPost("more_info"));
 
 
         if (!$providedService->save()) {
@@ -209,8 +174,10 @@ class ProvidedservicesController extends ControllerBase
         }
 
         $id = $this->request->getPost("id");
-
-        $providedService = ProvidedServices::findFirstById($id);
+        $providedService = ProvidedServices::findFirst(array(
+            '_id = ?0',
+            'bind' => [$id]
+        ));
         if (!$providedService) {
             $this->flashSession->error("A provided service does not exist " . $id);
             return $this->dispatcher->forward(array(
@@ -218,28 +185,31 @@ class ProvidedservicesController extends ControllerBase
                 "action" => "index"
             ));
         }
-        $vin = $providedService->carId = $this->request->getPost("vin");
-        $car = Cars::findFirstByVin($vin);
+        $vin = $this->request->getPost("vin");
+        $car = Cars::findFirst(array(
+            '_vin = ?0',
+            'bind' => [$vin]
+        ));
         if ($car == false) {
             $this->flashSession->error("There is no car with VIN '$vin'");
             return $this->dispatcher->forward(array(
                 "controller" => "providedservices",
                 "action" => "edit",
-                "params" => array($providedService->id)
+                "params" => array($providedService->getId())
             ));
         }
-        $providedService->carId = $car->id;
-        $providedService->id = $this->request->getPost("id");
-        $providedService->serviceId = $this->request->getPost("service_id");
-        $providedService->masterId = $this->request->getPost("master_id");
-        $providedService->startDate = $this->request->getPost("start_date");
-        $providedService->finishDate = $this->request->getPost("finish_date");
-        $providedService->milage = $this->request->getPost("milage");
-        $providedService->remindDate = $this->request->getPost("remind_date");
-        $providedService->remindKm = $this->request->getPost("remind_km");
-        $providedService->more_info = $this->request->getPost("more_info");
-        $providedService->remindStatus = $this->request->getPost("remind");
-        
+
+        $providedService->setCarByVin($vin);
+        $providedService->setMilage($this->request->getPost("milage"));
+        $providedService->setServiceId($this->request->getPost("service_id"));
+        $providedService->setInMs($this->request->getPost("in_ms"));
+        $providedService->setRemindStatus($this->request->getPost("remind"));
+        $providedService->setMasterId($this->request->getPost("master_id"));
+        $providedService->setStartDate($this->request->getPost("start_date"));
+        $providedService->setFinishDate($this->request->getPost("finish_date"));
+        $providedService->setRemindDate($this->request->getPost("remind_date"));
+        $providedService->setRemindKm($this->request->getPost("remind_km"));
+        $providedService->setInfo($this->request->getPost("more_info"));
 
         if (!$providedService->save()) {
 
@@ -250,11 +220,13 @@ class ProvidedservicesController extends ControllerBase
             return $this->dispatcher->forward(array(
                 "controller" => "providedservices",
                 "action" => "edit",
-                "params" => array($providedService->id)
+                "params" => array($providedService->getId())
             ));
         }
 
-        $this->flashSession->success("The provided service with id '$providedService->id' was updated successfully");
+        $this->flashSession->success("The provided service with id '".$providedService->getId()
+            ."' was updated successfully");
+
         return $this->response->redirect($this->elements->getAccountRoute());
 
     }
@@ -275,9 +247,12 @@ class ProvidedservicesController extends ControllerBase
     public function deleteAction($id = null)
     {
 
-        $providedService = ProvidedServices::findFirstByid($id);
+        $providedService = ProvidedServices::findFirst(array(
+            '_id = ?0',
+            'bid' => [$id]
+        ));
         if (!$providedService) {
-            $this->flash->error("A provided service was not found");
+            $this->flashSession->error("A provided service was not found");
             return $this->dispatcher->forward(array(
                 "controller" => "providedservices",
                 "action" => "index"
@@ -287,7 +262,7 @@ class ProvidedservicesController extends ControllerBase
         if (!$providedService->delete()) {
 
             foreach ($providedService->getMessages() as $message){
-                $this->flash->error($message);
+                $this->flashSession->error($message);
             }
 
             return $this->dispatcher->forward(array(
@@ -296,7 +271,7 @@ class ProvidedservicesController extends ControllerBase
             ));
         }
 
-        $this->flash->success("The provided service was deleted successfully");
+        $this->flashSession->success("The provided service was deleted successfully");
         return $this->dispatcher->forward(array(
             "controller" => "providedservices",
             "action" => "index"

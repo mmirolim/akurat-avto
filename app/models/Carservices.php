@@ -1,5 +1,6 @@
 <?php
 
+use Phalcon\Db\RawValue;
 
 class CarServices extends \Phalcon\Mvc\Model
 {
@@ -8,48 +9,82 @@ class CarServices extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    public $id;
+    protected $_id;
      
     /**
      *
      * @var string
      */
-    public $service;
+    protected $_service;
 
     /**
      *
      * @var string
      */
-    public $moreInfo;
+    protected $_info;
 
     /**
      * current timestamp on each update
      * @var timestamp
      */
-    public $whenUpdated;
+    protected $_whenUpdated;
 
     public function columnMap()
     {
         //Keys are the real names in the table and
         //the values their names in the application
         return array(
-            'id' => 'id',
-            'service' => 'service',
-            'more_info' => 'moreInfo',
-            'when_updated'=> 'whenUpdated'
+            'id' => '_id',
+            'service' => '_service',
+            'more_info' => '_info',
+            'when_updated'=> '_whenUpdated'
         );
     }
 
     public function initialize()
     {
         //Skips fields/columns on both INSERT/UPDATE operations
-        $this->skipAttributes(array('whenUpdated'));
+        $this->skipAttributes(array('when_updated'));
 
         //Use dynamic update to improve performance
         $this->useDynamicUpdate(true);
 
         //Log model events
         $this->addBehavior(new Blamable());
+    }
+
+    public function getId()
+    {
+        return $this->_id;
+    }
+
+    public function setService($name)
+    {
+        $this->_service = $name;
+    }
+
+    public function getService()
+    {
+        return $this->_service;
+    }
+
+    public function setInfo($info)
+    {
+        if (empty($info)) {
+            $this->_info = new RawValue('default');
+        } else {
+            $this->_info = $info;
+        }
+    }
+
+    public function getInfo()
+    {
+        return $this->_info;
+    }
+
+    public function getWhenUpdated()
+    {
+        return $this->_whenUpdated;
     }
 
     /**
@@ -64,7 +99,7 @@ class CarServices extends \Phalcon\Mvc\Model
         //Create array with keys from employees ids
         $servicesById = array();
         foreach ($services as $service) {
-            $servicesById[$service['id']] = $service;
+            $servicesById[$service['_id']] = $service;
         }
 
         return $servicesById;

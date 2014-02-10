@@ -4,20 +4,20 @@
         <table class="basic-form">
             <tr>
                 <td>
-                    <label for="vin">{{ link_to('/cars/vin/'~car.vin,'Car VIN*') }}</label>
+                    <label for="vin">{{ link_to('/cars/vin/'~car.getVin(),'Car VIN*') }}</label>
                     {{  text_field("vin", "size":"40", 'required':'required') }}
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="service_id">Type of service*</label>
-                    {{ select("service_id", carServices, "using" : ["id", "service"], 'required':'required') }}
+                    {{ select("service_id", carServices, "using" : ["_id", "_service"], 'required':'required') }}
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="milage">Car milage in km*</label>
-                    <input name="milage" id="milage" type="number" required="required" value="{{ providedService.milage }}">
+                    <input name="milage" id="milage" type="number" required="required" value="{{ providedService.getMilage() }}">
                 </td>
             </tr>
             <tr>
@@ -35,18 +35,18 @@
             <tr>
                 <td>
                     <label for="master_id">Master who done the work*</label>
-                    {{ select("master_id", employees, "using" : ["id", "fullname"], 'required':'required') }}
+                    {{ select("master_id", employees, "using" : ["_id", "_fullname"], 'required':'required') }}
                 </td>
             </tr>
             <tr>
                 <td>
                     <div class="large-6 small-12 columns">
                         <label for="start_date">Start date*</label>
-                        <input name="start_date" id="start_date" type="date" required="required" value="{{ providedService.startDate }}">
+                        <input name="start_date" id="start_date" type="date" required="required" value="{{ providedService.getStartDate() }}">
                     </div>
                     <div class="large-6 small-12 columns">
                         <label for="finish_date">Finish date</label>
-                        <input name="finish_date" id="finish_date" type="date" value="{{ providedService.finishDate }}">
+                        <input name="finish_date" id="finish_date" type="date" value="{{ providedService.getFinishDate() }}">
                     </div>
                 </td>
             </tr>
@@ -54,11 +54,11 @@
                 <td>
                     <div class="large-6 small-12 columns">
                         <label for="remind_date">Remind after date</label>
-                        <input name="remind_date" id="remind_date" type="date" value="{{ providedService.remindDate }}">
+                        <input name="remind_date" id="remind_date" type="date" value="{{ providedService.getRemindDate() }}">
                     </div>
                     <div class="large-6 small-12 columns">
                         <label for="remind_km">Remind after km</label>
-                        <input name="remind_km" id="remind_km" type="number" value="{{ providedService.remindKm }}">
+                        <input name="remind_km" id="remind_km" type="number" value="{{ providedService.getRemindKm() }}">
                     </div>
                 </td>
             </tr>

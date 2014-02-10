@@ -31,8 +31,8 @@ class CarModelsController extends \Phalcon\Mvc\Controller
         }
 
         $carModel = new CarModels();
-        $carModel->brandId = $this->request->getPost("brand_id");
-        $carModel->name = $this->request->getPost("model");
+        $carModel->setBrandId($this->request->getPost("brand_id"));
+        $carModel->setName($this->request->getPost("model"));
 
         if (!$carModel->save()) {
             foreach ($carModel->getMessages() as $message) {
@@ -44,7 +44,7 @@ class CarModelsController extends \Phalcon\Mvc\Controller
             ));
         }
 
-        $this->flashSession->success("Car model '$carModel->name' was created successfully");
+        $this->flashSession->success("Car model '".$carModel->getName()."' was created successfully");
         return $this->response->redirect($this->elements->getAccountRoute());
     }
 

@@ -18,6 +18,7 @@
             <li>{{ link_to("/providedservices/new","Add Provided Service") }}</li>
             <li>{{ link_to("/carmodels/new","Add new Car model") }}</li>
             <li>{{ link_to("/carbrands/new","Add new Car brand") }}</li>
+            <li>{{ link_to("/carservices/new","Add new Car service") }}</li>
         </ul>
     </div>
 </div>

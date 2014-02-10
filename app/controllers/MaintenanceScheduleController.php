@@ -22,8 +22,8 @@ class MaintenanceScheduleController extends \Phalcon\Mvc\Controller
         $data = array();
         foreach ($carServices as $carService) {
             $data[] = array(
-                'id' => $carService->id,
-                'name' =>$carService->service,
+                'id' => $carService->getId(),
+                'name' =>$carService->getService(),
             );
         }
         $services = json_encode($data,JSON_UNESCAPED_UNICODE);
@@ -47,15 +47,15 @@ class MaintenanceScheduleController extends \Phalcon\Mvc\Controller
             $clientUsername = $this->session->get("auth")["username"];
         } else {
             $this->flashSession->error("You should be an Admin");
-            return $this->response->redirect("/account/".$clientUsername."/view");
+            return $this->response->redirect($this->elements->getAccountRoute());
         }
         //Get model id
         $modelId = $this->request->getPost("model_id");
         $conf = $this->request->getPost("conf");
 
         $schedule = new MaintenanceSchedule();
-        $schedule->modelId = $modelId;
-        $schedule->conf = $conf;
+        $schedule->setModelId($modelId);
+        $schedule->setConf($conf);
         $status = '';
         if (!$schedule->save()) {
 

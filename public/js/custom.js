@@ -5,9 +5,9 @@ var AK = AK || {
     targets : [
         { modelProp : 'dailyMilage', htmlClass : 'daily_milage', text : 'Daily milage'},
         { modelProp : 'milage', htmlClass : 'milage', text : 'Milage'},
-        { modelProp : 'contactPhone', htmlClass : 'contact_phone', text : 'Contact phone'},
-        { modelProp : 'contactEmail', htmlClass : 'contact_email', text : 'Contact Email'},
-        { modelProp : 'moreInfo', htmlClass : 'more_info', text : 'Personal information'},
+        { modelProp : 'phone', htmlClass : 'contact_phone', text : 'Contact phone'},
+        { modelProp : 'email', htmlClass : 'contact_email', text : 'Contact Email'},
+        { modelProp : 'info', htmlClass : 'more_info', text : 'Personal information'},
         { modelProp : 'notify', htmlClass : 'notify', text : 'Notification status'},
         { modelProp : 'password', htmlClass : 'password', text : 'Your password'}
     ],
@@ -269,7 +269,7 @@ AK.addDatepicker = function () {
 AK.formatDates = function(){
     moment.lang(AK.lang);
     //Select in once all date elements
-    var els = document.querySelectorAll('[class^=date-],[id=table-provided-services] td:nth-child(3)');
+    var els = document.querySelectorAll('[class^=date-]');
     var elsTotal = els.length;
     for (var i = 0; i < elsTotal; i++) {
         var date = els[i].textContent;

@@ -20,22 +20,12 @@ class AccountController extends ControllerBase
     /**
      * Set common variables in all actions
      */
-    protected function setCommonVars() {
-        $role = $this->session->get("auth")['role'];
-        if ($role != 'Client') {
-            $this->view->editAllowed = Security::isActionAllowed(array(
-                'controller' => 'providedservices',
-                'action' => 'edit',
-                'role' => $role
-            ));
-            $this->view->deleteAllowed = Security::isActionAllowed(array(
-                'controller' => 'providedservices',
-                'action' => 'delete',
-                'role' => $role
-            ));
-        }
+    protected function setCommonVars()
+    {
         $this->view->setVars(array(
-            'employee' => Employees::findFirstByUsername($this->session->get("auth")["username"]),
+            'employee' => Employees::findFirst(array(
+                    '_username = ?0',
+                    'bind' => [$this->session->get("auth")["username"]])),
             'employees' => Employees::inArrayById(),
             'carServices' => CarServices::inArrayById(),
             'providedServices' => ProvidedServices::find()
@@ -49,7 +39,10 @@ class AccountController extends ControllerBase
     public function clientAction()
     {
         //Get client info
-        $this->view->client = Clients::findFirstByUsername($this->session->get("auth")["username"]);
+        $this->view->client = Clients::findFirst(array(
+            '_username = ?0',
+            'bind' => [$this->session->get("auth")["username"]]
+        ));
         $this->setCommonVars();
 
     }
