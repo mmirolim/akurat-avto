@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 	<head>
         <meta charset='utf-8'>
@@ -68,7 +67,7 @@
                <div class="row"><h4 class="large-12 columns copyright">AKURAT AVTO all rights registered @ 2014</h4></div>
              </div>
          </div>
-        {{ javascript_include("/../js/jquery-2.0.3.min.js") }}
+        {{ javascript_include("/../js/jquery-2.1.0.js") }}
         {{ javascript_include("/../js/foundation.min.js") }}
         {{ javascript_include("/../js/modernizr.js") }}
          <!-- activate foundation -->
