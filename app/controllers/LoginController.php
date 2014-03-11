@@ -29,7 +29,6 @@ class LoginController extends ControllerBase
 
     public function indexAction()
     {
-
          if($this->request->isPost()) {
               //Receiving the variables sent by POST
             $username = $this->request->getPost('username');

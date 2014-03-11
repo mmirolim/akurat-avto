@@ -159,3 +159,4 @@ $di->set('modelsCache', function() use ($config) {
 
     return $cache;
 });
+new Whoops\Provider\Phalcon\WhoopsServiceProvider;
