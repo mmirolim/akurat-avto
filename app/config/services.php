@@ -38,7 +38,8 @@ $di->set('view', function() use ($config) {
 
 			$volt->setOptions(array(
 				'compiledPath' => $config->application->cacheDir,
-				'compiledSeparator' => '_'
+				'compiledSeparator' => '_',
+                'compileAlways' => true
 			));
 
 			return $volt;
@@ -158,3 +159,4 @@ $di->set('modelsCache', function() use ($config) {
 
     return $cache;
 });
+new Whoops\Provider\Phalcon\WhoopsServiceProvider;

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Янв 16 2014 г., 18:05
+-- Время создания: Фев 06 2014 г., 08:50
 -- Версия сервера: 5.5.24-log
 -- Версия PHP: 5.4.3
 
@@ -118,22 +118,31 @@ CREATE TABLE IF NOT EXISTS `car_services` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `carservice` (`service`),
   KEY `when_updated` (`when_updated`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=37 ;
 
 --
 -- Дамп данных таблицы `car_services`
 --
 
 INSERT INTO `car_services` (`id`, `service`, `more_info`, `when_updated`) VALUES
-(19, 'Аккумулятор', 'Замена', '0000-00-00 00:00:00'),
-(20, 'Амортизаторы', 'Замена', '0000-00-00 00:00:00'),
+(19, 'Приводной ремень (генератора, компрессора и гидроусилителя)\r\n', 'Замена', '2014-02-04 13:57:50'),
+(20, 'Антифриз', 'Замена', '2014-02-04 13:58:24'),
 (21, 'Воздушный фильтр', 'Замена', '0000-00-00 00:00:00'),
-(22, 'Давление в Шинах', 'Проверка', '0000-00-00 00:00:00'),
-(23, 'Другое', 'Виды услуг', '0000-00-00 00:00:00'),
+(22, 'Свечи зажигания', 'Проверка', '2014-02-04 13:59:08'),
+(23, 'Другой ремонт', 'Виды услуг', '2014-02-04 13:57:00'),
 (24, 'Замена тормозов', 'Замена', '0000-00-00 00:00:00'),
 (25, 'Масляный Фильтр', 'Замена', '0000-00-00 00:00:00'),
-(26, 'Осмотр', 'Комплексный', '0000-00-00 00:00:00'),
-(27, 'Замена Масла двигателя', 'Замена', '0000-00-00 00:00:00');
+(26, 'Общая диагностика состояния авто и затяжка болтов\r\n', 'Комплексный', '2014-02-04 13:55:51'),
+(27, 'Моторное масло\r\n', 'Замена', '2014-02-04 13:51:10'),
+(28, 'Топливный фильтр', '', '2014-02-04 13:52:23'),
+(29, 'Воздушный фильтр салона', '', '2014-02-04 13:53:46'),
+(30, 'ГРМ (зубчатый ремень)', '', '2014-02-04 13:54:27'),
+(31, 'Тормозные колодки', '', '2014-02-04 13:55:15'),
+(32, 'Масло АКПП', '', '2014-02-04 13:56:14'),
+(33, 'Провода высокого напряжения\r\n', '', '2014-02-04 13:59:57'),
+(34, 'Жидкость гидропривода тормоза/сцепления\r\n', '', '2014-02-04 13:59:57'),
+(35, 'Переустановка колес\r\n', '', '2014-02-04 14:00:19'),
+(36, 'Развал- схождения\r\n', '', '2014-02-04 14:00:19');
 
 -- --------------------------------------------------------
 
@@ -164,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
 
 INSERT INTO `clients` (`id`, `username`, `password`, `fullname`, `contact_email`, `contact_phone`, `registered_date`, `more_info`, `notification_status`, `when_updated`) VALUES
 (1, 'anvar', '$2a$08$GXcxPDochIra7bvNvvjSYe8RnmGvGSHM0FeIFjfi4aiOD80bbpeoy', 'Анвар Анваров', 'exmpl@mail.com', '(99893) 567-12-32', '2013-12-12', 'Матиз, цвет салат "X 820 BA"', 0, '0000-00-00 00:00:00'),
-(2, 'valentin', '$2a$08$xn0TpNtbbpqNGxlnElV95emMw/DE5f7BvG/OXwlyUT4PVKXqCNhQi', 'Валентин Ан', 'mail7@gmail.ru', '(99893) 567-12-35', '2013-12-13', 'Белая', 1, '2014-01-15 14:32:46'),
+(2, 'valentin', '$2a$08$xn0TpNtbbpqNGxlnElV95emMw/DE5f7BvG/OXwlyUT4PVKXqCNhQi', 'Валентин Ан', 'mail7@gmail.ru', '(99893) 567-12-35', '2013-12-13', 'Белая', 1, '2014-02-06 08:49:09'),
 (3, 'sanjar', '$2a$08$FMa2OMhYX1e5xPyWstG1EuhxGLRwZqzcAtoME8ZO9JLSnolWMHCFm', 'Санжар Абдурахманов', 'mail@g.ru', '(99890) 124-96-01', '2013-10-24', 'Shkoda, красная "F321BA"', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
@@ -203,6 +212,27 @@ INSERT INTO `employees` (`id`, `username`, `password`, `role_id`, `fullname`, `j
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `maintenance_schedule`
+--
+
+CREATE TABLE IF NOT EXISTS `maintenance_schedule` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `model_id` smallint(5) unsigned NOT NULL COMMENT 'Model id',
+  `configuration` varchar(7000) NOT NULL COMMENT 'Configuration in serialized form',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `model_id` (`model_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Дамп данных таблицы `maintenance_schedule`
+--
+
+INSERT INTO `maintenance_schedule` (`id`, `model_id`, `configuration`) VALUES
+(1, 1, '[{"id":"19","2-3":"N","10-6":"N","20-12":"R","30-18":"I"},{"id":"20","2-3":"N","10-6":"N","20-12":"I","30-18":"R"},{"30":"R","id":"22"}]');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `provided_services`
 --
 
@@ -210,13 +240,14 @@ CREATE TABLE IF NOT EXISTS `provided_services` (
   `id` mediumint(9) unsigned NOT NULL AUTO_INCREMENT COMMENT 'auto increment',
   `car_id` mediumint(9) unsigned NOT NULL COMMENT 'car id',
   `service_id` tinyint(4) unsigned NOT NULL COMMENT 'work id',
+  `in_ms` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Is provided service in maintenance schedule',
   `master_id` smallint(6) unsigned NOT NULL COMMENT 'master id',
   `start_date` date NOT NULL COMMENT 'date of work started',
   `finish_date` date NOT NULL COMMENT 'date of work finished',
   `milage` mediumint(9) NOT NULL COMMENT 'car milage on a date of service in km',
   `remind_date` date NOT NULL COMMENT 'remind at x date',
   `remind_km` mediumint(9) unsigned NOT NULL COMMENT 'remind after x km',
-  `remind_status` tinyint(1) NOT NULL COMMENT '1 or 0, yes or no if already reminded service provided',
+  `remind_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1 or 0, yes or no if already reminded service provided',
   `more_info` text NOT NULL COMMENT 'more info',
   `when_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -224,28 +255,29 @@ CREATE TABLE IF NOT EXISTS `provided_services` (
   KEY `work_id` (`service_id`),
   KEY `master_id` (`master_id`),
   KEY `remind` (`remind_status`),
-  KEY `when_updated` (`when_updated`)
+  KEY `when_updated` (`when_updated`),
+  KEY `in_ms` (`in_ms`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Дамп данных таблицы `provided_services`
 --
 
-INSERT INTO `provided_services` (`id`, `car_id`, `service_id`, `master_id`, `start_date`, `finish_date`, `milage`, `remind_date`, `remind_km`, `remind_status`, `more_info`, `when_updated`) VALUES
-(1, 6, 19, 11, '2013-12-14', '2013-12-15', 50000, '2014-12-15', 10000, 1, 'Good quality korean battery installed', '0000-00-00 00:00:00'),
-(2, 6, 20, 10, '2013-12-14', '2013-12-14', 50000, '2014-06-20', 200, 1, 'Настройка', '0000-00-00 00:00:00'),
-(3, 6, 27, 11, '2013-12-15', '2013-12-15', 50000, '2014-06-15', 5000, 1, 'Синтетика', '0000-00-00 00:00:00'),
-(4, 5, 21, 10, '2013-10-24', '2013-10-24', 20000, '2030-00-00', 3000, 1, 'Доп. информация', '0000-00-00 00:00:00'),
-(5, 5, 22, 10, '2013-10-24', '2013-10-24', 20000, '2014-06-15', 5000, 1, 'Доп. информация', '0000-00-00 00:00:00'),
-(6, 5, 25, 10, '2013-10-24', '2013-10-24', 20000, '2014-06-15', 3000, 1, 'Доп. информация', '0000-00-00 00:00:00'),
-(7, 5, 27, 10, '2013-10-24', '2013-10-24', 20000, '2014-06-15', 3000, 1, 'Доп. информация', '0000-00-00 00:00:00'),
-(8, 7, 24, 10, '2013-12-12', '2013-12-12', 10000, '2014-12-12', 5000, 1, 'Доп. информация', '0000-00-00 00:00:00'),
-(9, 8, 27, 10, '2013-12-12', '2013-12-14', 2100, '2014-06-12', 3000, 1, '', '0000-00-00 00:00:00'),
-(10, 8, 26, 11, '2013-12-20', '2013-12-20', 2500, '2014-01-07', 200, 1, 'Нужен осмотр', '0000-00-00 00:00:00'),
-(11, 8, 22, 11, '2013-12-12', '2013-12-12', 2100, '2013-12-22', 150, 0, 'Давление нормальное', '0000-00-00 00:00:00'),
-(12, 6, 22, 10, '2013-12-16', '2013-12-17', 50100, '2014-01-14', 50, 0, 'Filter from Ztech korea', '0000-00-00 00:00:00'),
-(13, 6, 24, 10, '2013-12-16', '2013-12-17', 50100, '2014-02-20', 3000, 1, 'Syntetics', '0000-00-00 00:00:00'),
-(14, 6, 23, 10, '2014-01-01', '2014-01-01', 50110, '2014-01-10', 2000, 1, 'Проверка электроники', '0000-00-00 00:00:00');
+INSERT INTO `provided_services` (`id`, `car_id`, `service_id`, `in_ms`, `master_id`, `start_date`, `finish_date`, `milage`, `remind_date`, `remind_km`, `remind_status`, `more_info`, `when_updated`) VALUES
+(1, 6, 19, 0, 11, '2013-12-14', '2013-12-15', 50000, '2014-12-15', 10000, 1, 'Good quality korean battery installed', '0000-00-00 00:00:00'),
+(2, 6, 20, 0, 10, '2013-12-14', '2013-12-14', 50000, '2014-06-20', 200, 1, 'Настройка', '0000-00-00 00:00:00'),
+(3, 6, 27, 0, 11, '2013-12-15', '2013-12-15', 50000, '2014-06-15', 5000, 1, 'Синтетика', '0000-00-00 00:00:00'),
+(4, 5, 21, 0, 10, '2013-10-24', '2013-10-24', 20000, '2014-02-24', 3000, 1, 'Доп. информация', '2014-02-06 06:25:12'),
+(5, 5, 22, 0, 10, '2013-10-24', '2013-10-24', 20000, '2014-06-15', 5000, 1, 'Доп. информация', '0000-00-00 00:00:00'),
+(6, 5, 25, 0, 10, '2013-10-24', '2013-10-24', 20000, '2014-06-15', 3000, 1, 'Доп. информация', '0000-00-00 00:00:00'),
+(7, 5, 27, 0, 10, '2013-10-24', '2013-10-24', 20000, '2014-06-15', 3000, 1, 'Доп. информация', '0000-00-00 00:00:00'),
+(8, 7, 24, 0, 10, '2013-12-12', '2013-12-12', 10000, '2014-12-12', 5000, 1, 'Доп. информация', '0000-00-00 00:00:00'),
+(9, 8, 27, 0, 10, '2013-12-12', '2013-12-14', 2100, '2014-06-12', 3000, 1, '', '0000-00-00 00:00:00'),
+(10, 8, 26, 0, 11, '2013-12-20', '2013-12-20', 2500, '2014-01-07', 200, 1, 'Нужен осмотр', '0000-00-00 00:00:00'),
+(11, 8, 22, 0, 11, '2013-12-12', '2013-12-12', 2100, '2013-12-22', 150, 0, 'Давление нормальное', '0000-00-00 00:00:00'),
+(12, 6, 22, 0, 10, '2013-12-16', '2013-12-17', 50100, '2014-01-14', 50, 0, 'Filter from Ztech korea', '0000-00-00 00:00:00'),
+(13, 6, 24, 0, 10, '2013-12-16', '2013-12-17', 50100, '2014-02-20', 3000, 1, 'Syntetics', '0000-00-00 00:00:00'),
+(14, 6, 23, 0, 10, '2014-01-01', '2014-01-01', 50110, '2014-01-10', 2000, 1, 'Проверка электроники', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -280,8 +312,8 @@ INSERT INTO `roles` (`id`, `role`, `more_info`) VALUES
 -- Ограничения внешнего ключа таблицы `cars`
 --
 ALTER TABLE `cars`
-  ADD CONSTRAINT `cars_ibfk_3` FOREIGN KEY (`model_id`) REFERENCES `car_models` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `cars_ibfk_2` FOREIGN KEY (`owner_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `cars_ibfk_2` FOREIGN KEY (`owner_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `cars_ibfk_3` FOREIGN KEY (`model_id`) REFERENCES `car_models` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `car_models`
@@ -294,6 +326,12 @@ ALTER TABLE `car_models`
 --
 ALTER TABLE `employees`
   ADD CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `maintenance_schedule`
+--
+ALTER TABLE `maintenance_schedule`
+  ADD CONSTRAINT `maintenance_schedule_ibfk_1` FOREIGN KEY (`model_id`) REFERENCES `car_models` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `provided_services`

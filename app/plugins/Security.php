@@ -7,7 +7,7 @@ use Phalcon\Acl;
 
 class Security extends Plugin
 {
-    private function _getAcl()
+    static  function getAcl()
     {
         // For performance store serialized acl object somewhere
         //Check whether acl data already exist
@@ -35,13 +35,17 @@ class Security extends Plugin
             //Private area resources (backend)
             $privateResources = array(
                 'roles' => array('index','search','create','new','edit','save','delete'),
-                'providedservices' => array('index','search','create','new','edit','save','delete'),
+                'providedservices' => array('index','search','create','new','edit','save','delete','confirm'),
                 'employees' => array('index','search','create','new','edit','save','delete'),
                 'clients' => array('index','search','create','new','edit','save','delete','updateOwn'),
                 'cars' => array('index','search','create','new','edit','save','delete','updateOwn','vin'),
+                'carbrands' => array('index','search','create','new','edit','save','delete'),
+                'carmodels' => array('index','search','create','new','edit','save','delete'),
                 'carservices' => array('index','search','create','new','edit','save','delete'),
-                'account' => array('index','view','search','create','new','edit','save','delete'),
+                'account' => array('index','client','employee','master','boss','admin','search','create','new','edit','save','delete'),
+                'maintenanceschedule' => array('index','search','create','new','edit','save','delete'),
                 'profiler' => array('index')
+
             );
             foreach ($privateResources as $resource=>$action) {
                 $acl->addResource(new Phalcon\Acl\Resource($resource), $action);
@@ -59,12 +63,14 @@ class Security extends Plugin
 
             //Define array of resources and action accessible by Boss
             $bossResources = array(
-                'providedservices' => array('index','search','create','new','edit','save','delete'),
+                'providedservices' => array('index','search','create','new','edit','save','delete','confirm'),
                 'employees' => array('index','search','create','new','edit','save','delete'),
                 'clients' => array('index','search','create','new','edit','save','delete'),
                 'cars' => array('index','search','create','new','edit','save','delete','vin'),
+                'carbrands' => array('index','search','create','new','edit','save','delete'),
+                'carmodels' => array('index','search','create','new','edit','save','delete'),
                 'carservices' => array('index','search','create','new','edit','save','delete'),
-                'account' => array('index','view'),
+                'account' => array('index','boss'),
             );
 
             //Define array of resources and action accessible by Master
@@ -72,7 +78,9 @@ class Security extends Plugin
                 'providedservices' => array('index','search','create','new','edit','save'),
                 'clients' => array('index','search','create','new','edit','save'),
                 'cars' => array('index','search','create','new','edit','save','vin'),
-                'account' => array('index','view'),
+                'carbrands' => array('index','search','create','new','edit','save'),
+                'carmodels' => array('index','search','create','new','edit','save'),
+                'account' => array('index','master'),
             );
 
             //Define array of resources and action accessible by Employee
@@ -80,11 +88,13 @@ class Security extends Plugin
                 'providedservices' => array('index','search'),
                 'clients' => array('index','search'),
                 'cars' => array('index','search','vin'),
-                'account' => array('index','view'),
+                'carbrands' => array('index','search'),
+                'carmodels' => array('index','search'),
+                'account' => array('index','employee'),
             );
             //Define array of resources and action accessible by Client
             $clientResources = array(
-                'account' => array('index','view'),
+                'account' => array('index','client'),
                 'clients' => array('updateOwn'),
                 'cars' => array('updateOwn','vin')
             );
@@ -150,20 +160,36 @@ class Security extends Plugin
         $action = $dispatcher->getActionName();
 
         //Obtain the ACL list
-        $acl = $this->_getAcl();
+        $acl = self::getAcl();
 
         //Check if the role have access to the controller (resource)
         $allowed = $acl->isAllowed($role, $controller, $action);
         if($allowed != Acl::ALLOW) {
             //If he doesn't have access forward him to the index controller
-            $this->flashSession->error("You don't have access to ".$controller." page");
+            $this->flashSession->error("You don't have access to ".$action." page");
 
             // forward user to frontpage via $this->dispatcher using $dispatcher will create infinite loop
             $this->response->redirect('/');
             //Returning "false" we tell to the dispatcher to stop the current operation
             return false;
         }
-
     }
+
+    static function isActionAllowed(array $params)
+    {
+        //Obtain the ACL list
+        $acl = self::getAcl();
+        $controller = $params['controller'];
+        $action = $params['action'];
+        $role = $params['role'];
+        //Check if the role have access to the controller (resource)
+        $allowed = $acl->isAllowed($role, $controller, $action);
+        if ( $allowed == Acl::ALLOW ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 }

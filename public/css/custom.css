@@ -94,13 +94,12 @@ body {
   max-width: 100%;
 }
 
+label {
+  font-weight: bold;
+}
+
 #message-block {
-  text-align: center;
-  position: fixed;
-  width: 100%;
-  z-index: 100;
   cursor: pointer;
-  top: 4em;
 }
 
 #message-block .alert-box {
@@ -127,6 +126,10 @@ body {
 }
 .flexslider {
   margin-bottom: 2em;
+}
+.flexslider .slides {
+  position: relative;
+  z-index: 10;
 }
 h2 {
   font-weight: bold;
@@ -172,17 +175,13 @@ img.shadow {
   color: #cfcfcf;
 }
 
-#footer h4 {
-  color: white;
-}
-
-#footer h4.copyright {
-  background: #4b4b4b;
+h4.copyright {
   color: #b4b4b4;
   text-align: center;
   font-size: 1.2em;
   padding: 2em;
   margin-top: 3em;
+  border-top: 1px dotted rgb(66, 66, 66);
 }
 
 /* Account view styling */
@@ -193,10 +192,22 @@ border-bottom: none;
 table {
   width: 100%;
 }
-.basic-form {
+.form-basic {
 width: 30em;
+margin: 0 auto;
 }
-
+form table {
+  box-shadow: 0px 5px 7px rgb(95, 95, 95);
+}
+.optional-field {
+  background: rgb(216, 216, 216) !important;
+}
+.optional-field label {
+ color: rgb(97, 97, 97);
+}
+.table-schedule th, table-schedule td {
+border: 1px solid silver;
+}
 #table-provided-services tr:hover {
   background: rgb(231, 233, 232) !important;
 }
@@ -233,6 +244,9 @@ background-color: #e7e7e7;
 display: none;
 }
 /* Dynatabled styling */
+.dynatable-per-page, dynatable-search {
+  font-weight: bold;
+}
 .dynatable-head a {
   color: #222;
 }
@@ -363,4 +377,37 @@ ul.car-info, ul.client-info {
   display: none;
   width: 19em;
   position: absolute;
+}
+/* Maintenance generator styling */
+.table-schedule .fi-trash {
+  cursor: pointer;
+  border: 1px solid white;
+  padding: 0.5em;
+}
+.table-schedule .fi-trash:hover {
+  color: #008cba;
+  border: 1px solid silver;
+  padding: 0.5em;
+  border-radius: 0.3em;
+  transition: all 0.3s;
+}
+.car-services {
+  width: 50%;
+  margin-left: 1em;
+}
+.action-type {
+  max-width: 5em;
+}
+/* Vin search block */
+.form-search-by-vin {
+  display: inline-block;
+}
+
+.form-search-by-vin #car-identity {
+  display: inherit;
+  width: 50%;
+}
+.form-search-by-vin .button {
+  padding: 0em 1em;
+  line-height: 2.7em;
 }

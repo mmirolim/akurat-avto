@@ -1,9 +1,14 @@
-<!DOCTYPE html>
 <html>
 	<head>
         <meta charset='utf-8'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-		<title>Akurat Avto Service</title>
+		<title>
+            {% if title is defined %}
+                {{ title }} - Akurat Avto Service
+            {% else %}
+                Akurat Avto Service
+            {% endif %}
+        </title>
         {{ stylesheet_link('/../css/foundation.css')}}
         {{ stylesheet_link('/../css/foundation-icons/foundation-icons.css')}}
         {{ stylesheet_link('/../libraries/flexslider/flexslider.css')}}
@@ -14,11 +19,11 @@
 	<body>
          <div id="container">
             <div id="header">
-                    <?php echo $this->elements->getTopBarMenu(); ?>
+                    {{ this.elements.getTopBarMenu() }}
             </div>
             <div id="main">
-                <div id="message-block" onclick="$(this).toggle();">
-                    <?php  echo $this->flashSession->output(); ?>
+                <div id="message-block" class="large-4 small-12 large-centered columns" onclick="$(this).toggle();">
+                    {{ this.flashSession.output() }}
                 </div>
 		        {{ content() }}
             </div>
@@ -62,7 +67,7 @@
                <div class="row"><h4 class="large-12 columns copyright">AKURAT AVTO all rights registered @ 2014</h4></div>
              </div>
          </div>
-        {{ javascript_include("/../js/jquery-2.0.3.min.js") }}
+        {{ javascript_include("/../js/jquery-2.1.0.js") }}
         {{ javascript_include("/../js/foundation.min.js") }}
         {{ javascript_include("/../js/modernizr.js") }}
          <!-- activate foundation -->

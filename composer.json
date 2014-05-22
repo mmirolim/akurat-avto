@@ -1,7 +1,8 @@
 {
 	"require": {
 		"behat/mink": "1.4@stable",
-
-        "behat/mink-selenium2-driver": "*"
+        "behat/mink-selenium2-driver": "*",
+        "filp/whoops": "1.*"
 	}
+
 }

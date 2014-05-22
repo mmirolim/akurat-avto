@@ -1,0 +1,62 @@
+<?php
+//Prevent form submit when enter pressed
+    echo $this->tag->form(array(
+    "/maintenance-schedule/create",
+    'class' => 'form-maintenance-schedule',
+    'onsubmit' => 'javascript:return false;')
+); ?>
+
+<?php echo $this->getContent(); ?>
+
+<div align="center">
+    <h2>Create Maintenance Schedule</h2>
+</div>
+<table class="table-schedule-controls">
+    <thead>
+        <tr>
+            <th width="200">Модел машины</th>
+            <th width="400">Периодичность обслуживания определяется пробегом автомобиля или же сроком службы, в зависимости от того что наступит раньше</th>
+            <th>Пробег, км (Х 1000); Срок службы, месяцы</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <?php echo $this->tag->select(array("model_id",$carModels, "using" => array("id", "name"))); ?>
+            </td>
+            <td>
+                <span class="button small" id="add-service-button">Add Service</span>
+                <span class="button small" id="add-service-custom-button">Add Service with custom interval</span>
+            </td>
+            <td>
+                <div class="intervals-inputs large-3 columns">
+                    <label for="interval-km">Интервал  в км</label>
+                    <input type="text" name="interval-km" id="interval-km" size="2" />
+                </div>
+                <div class="intervals-inputs large-3 columns">
+                    <label for="interval-month">Интервал в мес</label>
+                    <input type="text" name="interval-month" id="interval-month" size="2" />
+                </div>
+                <div class="intervals-inputs large-3 columns">
+                    <label for="interval-number">Количество интервалов</label>
+                    <input type="text" name="interval-number" id="interval-number" size="2" />
+                </div>
+                <div class=" large-3 columns">
+                    <span class="button small" id="generate-intervals">Generate Intervals</span>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table class="table-schedule">
+    <thead class="thead-table-schedule">
+    <tr id="interval-row">
+    </tr>
+    </thead>
+</table>
+<button id="save-configuration" class="small" onclick="sendConfiguration()">Save</button>
+</form>
+<script type="application/javascript" defer="">
+        var carServices = <?php echo $carServices.';'; ?>
+</script>
+<script type="application/javascript" src="/../js/dev/schedule-generator.js" async="async" defer=""></script>

@@ -1,17 +1,18 @@
 //Namespace js functions
 //TODO Move all js messages to AK obj, to simplify management
-AK = {
+var AK = AK || {
     lang : 'ru',
     targets : [
         { modelProp : 'dailyMilage', htmlClass : 'daily_milage', text : 'Daily milage'},
         { modelProp : 'milage', htmlClass : 'milage', text : 'Milage'},
-        { modelProp : 'contactPhone', htmlClass : 'contact_phone', text : 'Contact phone'},
-        { modelProp : 'contactEmail', htmlClass : 'contact_email', text : 'Contact Email'},
-        { modelProp : 'moreInfo', htmlClass : 'more_info', text : 'Personal information'},
+        { modelProp : 'phone', htmlClass : 'contact_phone', text : 'Contact phone'},
+        { modelProp : 'email', htmlClass : 'contact_email', text : 'Contact Email'},
+        { modelProp : 'info', htmlClass : 'more_info', text : 'Personal information'},
         { modelProp : 'notify', htmlClass : 'notify', text : 'Notification status'},
         { modelProp : 'password', htmlClass : 'password', text : 'Your password'}
     ],
-}
+    carServices : ''
+};
 
 //Update client's own data like personal info and car milage and daily milage
 AK.updateOwnData = function() {
@@ -42,6 +43,7 @@ AK.updateOwnData = function() {
                     //Get data id
                     var dataId = el.parentNode.parentNode.getAttribute('data-id');
                     //Get current property's value
+                    //TODO escape and validate data
                     var data = el.textContent;
                     //Prepare form
                     var form = '<div class="form-inline-update">';
@@ -81,7 +83,7 @@ AK.updateOwnData = function() {
     }
 }
 AK.inlineFormRemove = function(event) {
-    event.target.parentNode.parentNode.previousSibling.style.display = 'initial';
+    event.target.parentNode.parentNode.previousElementSibling.style.display = 'initial';
     event.target.parentNode.parentNode.remove();
 }
 
@@ -92,9 +94,10 @@ AK.inlineFormSendData = function(event) {
     var parent = el.parentNode;
     //Get update url for model
     var url = parent.parentNode.parentNode.parentNode.getAttribute("data-update-url");
-    var siblings = parent.childNodes;
+    var siblings = parent.children;
     var data = '';
     //Prepare data to send
+    //TODO escape and validate data
     for (var i = 0; i < (siblings.length - 2); i++) {
         //Get  model property name to update and id property
         var id = siblings[i].getAttribute("id");
@@ -112,7 +115,7 @@ AK.inlineFormSendData = function(event) {
         if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
             var obj = JSON.parse(xmlhttp.response);
             //Get original element of inline update, previous sibling of current target's parent
-            var siblingParent = event.target.parentNode.parentNode.previousSibling;
+            var siblingParent = event.target.parentNode.parentNode.previousElementSibling;
             for (key in AK.targets){
                 //Find which parameter changed in obj
                 if (AK.targets[key]['htmlClass'] == siblingParent.getAttribute("class")){
@@ -158,7 +161,7 @@ AK.checkRemindStatus = function() {
     var el = document.getElementsByClassName('remind-status');
     for (var i=0; i < el.length; i++){
         if (el[i].textContent == '0') {
-            var siblings = el[i].parentNode.childNodes;
+            var siblings = el[i].parentNode.children;
             for(var j = 0; j < siblings.length; j++) {
                 siblings[j].parentNode.setAttribute("status-of-prs","0");
             }
@@ -169,14 +172,14 @@ AK.checkRemindStatus = function() {
 //TODO make it work with any table and attributes
 AK.getProvidedServiceAttr = function(el) {
     //Prepare obj from attributes of child elements in provided service row
-    var obj = {
-        statusOfPrs : el.getAttribute('status-of-prs'),
-        id : el.childNodes[0].textContent,
-        remindKmStatus : el.childNodes[7].getAttribute("class"),
-        remindDateStatus : el.childNodes[8].getAttribute("class")
-    }
     //Return obj to store
-    return obj
+    return {
+        statusOfPrs : el.getAttribute('status-of-prs'),
+        id : el.children[0].textContent,
+        dateWhen : el.children[3].getAttribute("class"),
+        remindKmStatus : el.children[7].getAttribute("class"),
+        remindDateStatus : el.children[8].getAttribute("class")
+    }
 }
 //Restore provided attributes to provided services row from obj
 //TODO make it work with any table and attributes
@@ -184,8 +187,9 @@ AK.setProvidedServiceAttr = function(el,obj){
     if (obj.statusOfPrs) {
         el.setAttribute('status-of-prs', obj.statusOfPrs);
     }
-    el.childNodes[7].setAttribute("class",obj.remindKmStatus);
-    el.childNodes[8].setAttribute("class",obj.remindDateStatus);
+    el.children[3].setAttribute("class", obj.dateWhen);
+    el.children[7].setAttribute("class",obj.remindKmStatus);
+    el.children[8].setAttribute("class",obj.remindDateStatus);
 }
 
 //Store all provided services as obj in array
@@ -202,7 +206,7 @@ AK.backUpServiceAttr = function () {
     for(var i = 0; i < rowsLength; i++) {
         //Get obj from row children attributes
         var providedService = AK.getProvidedServiceAttr(rows[i]);
-        AK.providedServices[rows[i].childNodes[0].textContent] = providedService;
+        AK.providedServices[rows[i].children[0].textContent] = providedService;
     }
 }
 //Callback function to restore attributes in provided services row
@@ -215,7 +219,7 @@ AK.restoreServicesAttr = function(){
     for(var i = 0; i < rowsLength; i++) {
         var el = rows[i];
         //Get appropriate stored service attributes as obj according to key
-        var obj = AK.providedServices[el.childNodes[0].textContent];
+        var obj = AK.providedServices[el.children[0].textContent];
         //Restore service attributes
         AK.setProvidedServiceAttr(el,obj);
     }
@@ -235,8 +239,11 @@ AK.makeTableSortable = function(tableId) {
     AK.styleDynatableControls();
     //Automatically restore attributes after each dynatable update
     table.bind("dynatable:afterUpdate",AK.restoreServicesAttr);
+    //Format dates from ISO to local after dynatable sort
+    table.bind("dynatable:afterUpdate",AK.formatDates);
     //Restore after initial normalization of dynatable
     AK.restoreServicesAttr();
+    AK.formatDates();
 }
 //Style dynatable controls
 AK.styleDynatableControls = function() {
@@ -255,7 +262,7 @@ AK.styleDynatableControls = function() {
 //Add datepicker to appropriate input tags
 //TODO use component in datepicker elements
 AK.addDatepicker = function () {
-    var els = ['#startdate','#finishdate','#reminddate'];
+    var els = ['#start_date','#finish_date','#remind_date','#year'];
     for (key in els) {
         $(els[key]).datepicker({
             format : 'yyyy-mm-dd'
@@ -266,14 +273,39 @@ AK.addDatepicker = function () {
 AK.formatDates = function(){
     moment.lang(AK.lang);
     //Select in once all date elements
-    var els = document.querySelectorAll('[class^=date-],[id=table-provided-services] td:nth-child(3)');
+    var els = document.querySelectorAll('[class^=date-]');
     var elsTotal = els.length;
     for (var i = 0; i < elsTotal; i++) {
         var date = els[i].textContent;
         //Set required date format
-        var localDate = moment(date).format("MMM DD YYYY");
-        els[i].textContent = localDate;
+        if (date !== '-') {
+            var localDate = moment(date).format("MMM DD YYYY");
+            els[i].textContent = localDate;
+        }
     }
+}
+//Set searchable field in client search
+AK.setClientSearchField = function() {
+    var form = document.getElementsByClassName('form-search-client');
+    //Check if required form exists
+    if (form.length == 0) { return }
+    //Select selector of field names
+    var select = document.getElementById('search-fields');
+    //Show selector
+    select.style.display = 'block';
+    //Select label for search input
+    var label = document.getElementById('search-field-label');
+    //Select search input
+    var searchInput = document.getElementsByClassName('search-input-field')[0];
+    select.addEventListener('change',function(){
+    //Get field name for search
+        var searchByField = event.target.value;
+    //Set appropriate label for attr
+        label.setAttribute('for', searchByField);
+    //Set appropriate id and name for search input
+        searchInput.setAttribute('id', searchByField);
+        searchInput.setAttribute('name', searchByField);
+    });
 }
 $(window).load(function(){
 
@@ -285,13 +317,13 @@ $(window).load(function(){
     AK.updateOwnData();
     AK.checkRemindStatus();
 
-    //Format dates from ISO to local before dynatable normalization
-    AK.formatDates();
-
     //TODO create charts from table data
     AK.makeTableSortable("table-provided-services");
 
     //Call function to add datepicker
     AK.addDatepicker();
+
+    //Enable different searchable fields for client search
+    AK.setClientSearchField();
 
 });
